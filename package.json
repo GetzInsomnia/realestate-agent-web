@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "xray": "node scripts/xray-lite.mjs --out reports",
     "xray:single": "node scripts/xray-lite.mjs --out reports/PROJECT-REPORT.md",
-    "prepare": "husky"
+    "prepare": "husky",
+    "i18n:fill": "node scripts/fill-missing-messages.mjs"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^0.5.0",
