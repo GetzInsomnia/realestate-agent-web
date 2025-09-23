@@ -13,6 +13,13 @@ const nextConfig = {
     dirs: ["src", "scripts"],
   },
   poweredByHeader: false,
+  productionBrowserSourceMaps: false,
+  swcMinify: true,
+  compiler: {
+    removeConsole: {
+      exclude: ["error"],
+    },
+  },
 };
 
 export default withNextIntl(nextConfig);
