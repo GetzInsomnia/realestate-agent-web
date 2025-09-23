@@ -78,7 +78,8 @@ export default function ListingsGrid({
     });
   }, [listings, normalizedQuery, normalizedTag, resolvedLocale, t]);
 
-  const showViewAll = Boolean(viewAllHref && viewAllLabel);
+  const viewAllLink =
+    viewAllHref && viewAllLabel ? { href: viewAllHref, label: viewAllLabel } : null;
 
   return (
     <section id="listings" className="section-gradient scroll-mt-24 py-16">
@@ -90,12 +91,12 @@ export default function ListingsGrid({
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-slate-600">{sectionSubtitle}</p>
           </div>
-          {showViewAll ? (
+          {viewAllLink ? (
             <Link
-              href={viewAllHref}
+              href={viewAllLink.href}
               className="inline-flex items-center rounded-full border border-brand-200 px-4 py-2 text-sm font-semibold text-brand-600 transition hover:border-brand-300 hover:text-brand-700"
             >
-              {viewAllLabel}
+              {viewAllLink.label}
             </Link>
           ) : null}
         </div>

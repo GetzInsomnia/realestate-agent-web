@@ -17,29 +17,35 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
+  params: { locale?: string };
 }): Promise<Metadata> {
-  const { locale } = params;
-  const resolvedLocale = isValidLocale(locale) ? locale : fallbackLocale;
-  const t = await getTranslations({ locale: resolvedLocale, namespace: 'listings' });
+  const requestedLocale = params?.locale ?? '';
+  const resolvedLocale = isValidLocale(requestedLocale)
+    ? requestedLocale
+    : fallbackLocale;
+  const locale = resolvedLocale as AppLocale;
+  const t = await getTranslations({ locale, namespace: 'listings' });
   return createPageMetadata({
-    locale: resolvedLocale as AppLocale,
+    locale,
     title: t('seo.title'),
     description: t('seo.description'),
     pathname: '/listings',
   });
 }
 
-export default async function ListingsPage({ params }: { params: { locale: string } }) {
-  const requestedLocale = params.locale;
-  const locale = isValidLocale(requestedLocale) ? requestedLocale : fallbackLocale;
+export default async function ListingsPage({ params }: { params: { locale?: string } }) {
+  const requestedLocale = params?.locale ?? '';
+  const resolvedLocale = isValidLocale(requestedLocale)
+    ? requestedLocale
+    : fallbackLocale;
+  const locale = resolvedLocale as AppLocale;
   const [tListings, listings] = await Promise.all([
     getTranslations({ locale, namespace: 'listings' }),
     loadListings(),
   ]);
 
   const listingJsonLd = listings.items.map((listing) =>
-    buildListingJsonLd(locale as AppLocale, listing),
+    buildListingJsonLd(locale, listing),
   );
 
   const tagLabels = {
