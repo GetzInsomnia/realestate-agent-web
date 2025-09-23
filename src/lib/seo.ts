@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { createElement, type ReactElement } from "react";
 import { getHreflangLocales, routing, type AppLocale } from "@/lib/i18n";
 import type { Listing } from "@/lib/data/schemas";
 
@@ -96,6 +98,22 @@ export function createPageMetadata({
 
 export const generatePageMetadata = createPageMetadata;
 
+export type JsonLdProps = {
+  id: string;
+  data: unknown;
+};
+
+export function JsonLd({ id, data }: JsonLdProps): ReactElement {
+  return createElement(
+    Script,
+    {
+      id,
+      type: "application/ld+json",
+    },
+    JSON.stringify(data),
+  );
+}
+
 export function buildOrganizationJsonLd(locale: AppLocale) {
   return {
     "@context": "https://schema.org",
@@ -109,6 +127,32 @@ export function buildOrganizationJsonLd(locale: AppLocale) {
       "https://www.facebook.com/zomzomproperty",
       "https://www.instagram.com/zomzomproperty",
     ],
+  };
+}
+
+export function ldOrganization(locale: AppLocale): JsonLdProps {
+  return {
+    id: `ld-organization-${locale}`,
+    data: buildOrganizationJsonLd(locale),
+  };
+}
+
+export function buildWebsiteJsonLd(locale: AppLocale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    url: getAbsoluteUrl(`/${locale}`),
+    inLanguage: locale,
+    alternateName: `${SITE_NAME} Southeast Asia Real Estate`,
+  };
+}
+
+export function ldWebsite(locale: AppLocale): JsonLdProps {
+  return {
+    id: `ld-website-${locale}`,
+    data: buildWebsiteJsonLd(locale),
   };
 }
 
