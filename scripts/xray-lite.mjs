@@ -2,13 +2,39 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import url from "node:url";
 
 const projectRoot = process.cwd();
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const toPosix = (p) => p.split(path.sep).join("/");
+const rel = (p) => toPosix(path.relative(projectRoot, p));
 
-/* ------------------------- Args & helpers ------------------------- */
+const TEXT_EXT = new Set([
+  ".js",
+  ".mjs",
+  ".cjs",
+  ".ts",
+  ".tsx",
+  ".jsx",
+  ".json",
+  ".md",
+  ".css",
+  ".scss",
+  ".sass",
+  ".html",
+  ".yml",
+  ".yaml"
+]);
+
+const IGNORE_DIRS = new Set([
+  "node_modules",
+  ".next",
+  ".git",
+  "reports",
+  "dist",
+  "build",
+  ".turbo",
+  ".vercel"
+]);
+
 function parseArgs() {
   const args = process.argv.slice(2);
   const outIdx = args.indexOf("--out");
@@ -17,430 +43,466 @@ function parseArgs() {
   return { out, single };
 }
 
-const TEXT_EXT = new Set([".js", ".mjs", ".cjs", ".ts", ".tsx", ".jsx", ".json", ".md", ".css", ".scss", ".sass", ".html", ".yml", ".yaml"]);
-const BINARY_EXT = new Set([".ico", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp", ".pdf", ".ttf", ".woff", ".woff2", ".eot", ".zip", ".gz", ".mp4", ".mov"]);
-const IGNORE_DIRS = new Set(["node_modules", ".next", ".git", "reports", "dist", "build", ".turbo", ".vercel"]);
-
-async function walk(dir, results = []) {
+async function walk(dir, bag = []) {
   let entries;
   try {
     entries = await fs.readdir(dir, { withFileTypes: true });
   } catch {
-    return results;
+    return bag;
   }
-  for (const e of entries) {
-    if (e.name.startsWith(".")) continue;
-    if (IGNORE_DIRS.has(e.name)) continue;
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) {
-      await walk(p, results);
-    } else {
-      results.push(p);
+
+  for (const entry of entries) {
+    if (entry.name.startsWith(".")) continue;
+    if (IGNORE_DIRS.has(entry.name)) continue;
+    const abs = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      await walk(abs, bag);
+      continue;
     }
+    bag.push(abs);
   }
-  return results;
+  return bag;
 }
 
-function rel(p) { return path.relative(projectRoot, p).replaceAll("\\", "/"); }
-function isBinary(file) { return BINARY_EXT.has(path.extname(file).toLowerCase()); }
-function isText(file) { return TEXT_EXT.has(path.extname(file).toLowerCase()); }
+function byFileAsc(a, b) {
+  return a.file.localeCompare(b.file);
+}
 
-/* ------------------------- Collectors ------------------------- */
 async function collectInventory() {
   const files = await walk(projectRoot, []);
-  const rows = [];
-  for (const f of files) {
+  const entries = [];
+  let totalSize = 0;
+  for (const file of files) {
+    let stat;
     try {
-      const st = await fs.stat(f);
-      rows.push({ file: rel(f), size: st.size, binary: isBinary(f) });
-    } catch {}
+      stat = await fs.stat(file);
+    } catch {
+      continue;
+    }
+    totalSize += stat.size;
+    const ext = path.extname(file) || "<none>";
+    entries.push({
+      file: rel(file),
+      size: stat.size,
+      ext,
+      text: TEXT_EXT.has(ext.toLowerCase())
+    });
   }
-  const summary = {
-    totalFiles: rows.length,
-    textFiles: rows.filter(r => !r.binary).length,
-    binaryFiles: rows.filter(r => r.binary).length,
-    totalSizeKB: +(rows.reduce((a,b)=>a+b.size,0) / 1024).toFixed(1)
+
+  entries.sort(byFileAsc);
+  const textFiles = entries.filter((e) => e.text).length;
+  const binaryFiles = entries.length - textFiles;
+
+  return {
+    summary: {
+      totalFiles: entries.length,
+      textFiles,
+      binaryFiles,
+      totalSizeKB: +(totalSize / 1024).toFixed(2)
+    },
+    entries
   };
-  return { rows, summary };
 }
 
-async function collectRoutes() {
-  const roots = ["app", "src/app"].map(r => path.join(projectRoot, r));
-  const pages = [];
-  const locales = new Set();
-  for (const root of roots) {
-    let exists = false;
-    try { await fs.access(root); exists = true; } catch {}
-    if (!exists) continue;
+async function collectPackageInfo() {
+  const pkgPath = path.join(projectRoot, "package.json");
+  try {
+    const raw = await fs.readFile(pkgPath, "utf8");
+    const pkg = JSON.parse(raw);
+    return {
+      path: rel(pkgPath),
+      name: pkg.name ?? null,
+      version: pkg.version ?? null,
+      scripts: pkg.scripts ?? {},
+      dependencies: pkg.dependencies ?? {},
+      devDependencies: pkg.devDependencies ?? {}
+    };
+  } catch {
+    return {
+      path: null,
+      name: null,
+      version: null,
+      scripts: {},
+      dependencies: {},
+      devDependencies: {}
+    };
+  }
+}
 
-    const files = await walk(root, []);
-    const pageFiles = files.filter(f => /(?:^|\/)page\.tsx?$/.test(f));
-    for (const f of pageFiles) {
-      const seg = rel(f).replace(/^src\//, "");
-      let route = seg.replace(/^app\//, "").replace(/\/page\.tsx?$/, "");
-      if (!route) route = "/";
-      pages.push({ file: rel(f), route });
+function detectFramework(pkg) {
+  const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+  const frameworks = [];
+  if (deps.next) frameworks.push("Next.js");
+  if (deps.react) frameworks.push("React");
+  if (deps["next-intl"]) frameworks.push("next-intl");
+  if (deps["@tanstack/react-query"]) frameworks.push("TanStack Query");
+  if (deps["@testing-library/react"]) frameworks.push("Testing Library");
+  if (deps.tailwindcss) frameworks.push("Tailwind CSS");
+  return frameworks;
+}
 
-      // locale guessing: first segment if bracket [locale] or known codes
-      const first = route.split("/")[0];
-      if (["th","en","zh-CN","zh-TW","my","ru"].includes(first)) locales.add(first);
+async function collectStructure(pkg) {
+  const files = await walk(projectRoot, []);
+  const appFiles = [];
+  const apiRoutes = [];
+  const layouts = [];
+  const metadataGenerators = [];
+  const serverComponents = [];
+  const clientComponents = [];
+
+  for (const file of files) {
+    const relFile = rel(file);
+    if (!TEXT_EXT.has(path.extname(file).toLowerCase())) continue;
+
+    if (/\bapp\//.test(relFile) || /\bsrc\/app\//.test(relFile)) {
+      if (/\/page\.tsx?$/.test(relFile)) appFiles.push(relFile);
+      if (/\/layout\.tsx?$/.test(relFile)) layouts.push(relFile);
+      if (/\/route\.ts$/.test(relFile)) apiRoutes.push(relFile);
+    }
+
+    let source;
+    const getSource = async () => {
+      if (source === undefined) {
+        try {
+          source = await fs.readFile(file, "utf8");
+        } catch {
+          source = null;
+        }
+      }
+      return source;
+    };
+
+    const src = await getSource();
+    if (src && /generateMetadata\s*\(/.test(src)) {
+      metadataGenerators.push(relFile);
+    }
+
+    if (src && /['"]use client['"]/.test(src)) {
+      clientComponents.push(relFile);
+    } else if (src && /['"]use server['"]/.test(src)) {
+      serverComponents.push(relFile);
     }
   }
-  return { pages, locales: Array.from(locales).sort() };
+
+  return {
+    frameworks: detectFramework(pkg),
+    pages: appFiles.sort(),
+    layouts: layouts.sort(),
+    apiRoutes: apiRoutes.sort(),
+    metadataGenerators: metadataGenerators.sort(),
+    serverComponents: serverComponents.sort(),
+    clientComponents: clientComponents.sort()
+  };
 }
 
-function flattenJson(obj, prefix="") {
-  let count = 0;
-  for (const k of Object.keys(obj ?? {})) {
-    const v = obj[k];
-    const key = prefix ? `${prefix}.${k}` : k;
-    if (v && typeof v === "object" && !Array.isArray(v)) count += flattenJson(v, key);
-    else count += 1;
+function flattenMessages(obj, prefix = "") {
+  let total = 0;
+  for (const key of Object.keys(obj ?? {})) {
+    const next = obj[key];
+    const nextKey = prefix ? `${prefix}.${key}` : key;
+    if (next && typeof next === "object" && !Array.isArray(next)) {
+      total += flattenMessages(next, nextKey);
+    } else {
+      total += 1;
+    }
   }
-  return count;
+  return total;
 }
 
 async function collectI18n() {
   const candidates = [
-    path.join(projectRoot, "i18n/messages"),
-    path.join(projectRoot, "src/i18n/messages"),
-    path.join(projectRoot, "src/messages")
+    "src/messages",
+    "messages",
+    "i18n/messages"
   ];
-  let dir = null;
-  for (const c of candidates) { try { const st = await fs.stat(c); if (st.isDirectory()) { dir = c; break; } } catch {} }
-  if (!dir) return { baseDir: null, perLocale: {}, missing: {} };
 
-  const locales = ["th","en","zh-CN","zh-TW","my","ru"];
-  const perLocale = {};
-  const jsonByLocale = {};
-  for (const lc of locales) {
+  let base = null;
+  for (const candidate of candidates) {
+    const abs = path.join(projectRoot, candidate);
     try {
-      const p = path.join(dir, `${lc}.json`);
-      const raw = await fs.readFile(p, "utf8");
-      const json = JSON.parse(raw);
-      perLocale[lc] = { keys: flattenJson(json), file: rel(p) };
-      jsonByLocale[lc] = json;
-    } catch {
-      perLocale[lc] = { keys: 0, file: null };
-      jsonByLocale[lc] = {};
-    }
-  }
-  // diff vs en
-  const missing = {};
-  const en = jsonByLocale["en"] ?? {};
-  function collectKeys(o, prefix="", bag=new Set()) {
-    for (const k of Object.keys(o)) {
-      const v = o[k];
-      const key = prefix ? `${prefix}.${k}` : k;
-      if (v && typeof v === "object" && !Array.isArray(v)) collectKeys(v, key, bag);
-      else bag.add(key);
-    }
-    return bag;
-  }
-  const baseKeys = Array.from(collectKeys(en));
-  for (const lc of locales) {
-    if (lc === "en") continue;
-    const set = collectKeys(jsonByLocale[lc]);
-    const miss = baseKeys.filter(k => !set.has(k));
-    missing[lc] = miss;
-  }
-  return { baseDir: rel(dir), perLocale, missing };
-}
-
-async function collectSEO() {
-  const files = await walk(projectRoot, []);
-  const pages = files.filter(f => /(?:^|\/)page\.tsx?$/.test(f));
-  const generateMetadata = [];
-  const jsonLdUsage = [];
-  const alternatesLang = [];
-  for (const f of pages) {
-    try {
-      const src = await fs.readFile(f, "utf8");
-      if (/export\s+async?\s*function\s+generateMetadata\s*\(/.test(src)) {
-        generateMetadata.push(rel(f));
-      }
-      if (/(JsonLd|ld[A-Z][A-Za-z]+)/.test(src)) {
-        jsonLdUsage.push(rel(f));
-      }
-      if (/alternates\s*:\s*{[^}]*languages\s*:/.test(src)) {
-        alternatesLang.push(rel(f));
+      const stat = await fs.stat(abs);
+      if (stat.isDirectory()) {
+        base = abs;
+        break;
       }
     } catch {}
   }
-  return { generateMetadata, jsonLdUsage, alternatesLang };
+
+  if (!base) {
+    return {
+      base: null,
+      locales: {}
+    };
+  }
+
+  const files = await fs.readdir(base);
+  const locales = {};
+  for (const file of files) {
+    if (!file.endsWith(".json")) continue;
+    const abs = path.join(base, file);
+    try {
+      const raw = await fs.readFile(abs, "utf8");
+      const json = JSON.parse(raw);
+      const code = file.replace(/\.json$/, "");
+      locales[code] = {
+        file: rel(abs),
+        keys: flattenMessages(json)
+      };
+    } catch {}
+  }
+
+  return {
+    base: rel(base),
+    locales
+  };
 }
 
-async function collectPerformance() {
+async function collectContentSignals() {
   const files = await walk(projectRoot, []);
   const dynamicImports = [];
   const suspenseUsage = [];
-  const nextImage = [];
-  for (const f of files) {
-    if (!isText(f)) continue;
-    const src = await fs.readFile(f, "utf8");
-    if (src.includes("next/dynamic")) dynamicImports.push(rel(f));
-    if (/\bSuspense\b/.test(src)) suspenseUsage.push(rel(f));
-    if (/\bfrom\s+['"]next\/image['"]/.test(src)) nextImage.push(rel(f));
+  const jsonLd = [];
+  const metadataFiles = [];
+  const nextImageUsage = [];
+
+  for (const file of files) {
+    if (!TEXT_EXT.has(path.extname(file).toLowerCase())) continue;
+    let source;
+    try {
+      source = await fs.readFile(file, "utf8");
+    } catch {
+      continue;
+    }
+    const relFile = rel(file);
+    if (source.includes("next/dynamic")) dynamicImports.push(relFile);
+    if (/\bSuspense\b/.test(source)) suspenseUsage.push(relFile);
+    if (/JsonLd/.test(source) || /ld\w+\s*=\s*{/.test(source)) jsonLd.push(relFile);
+    if (/generateMetadata\s*\(/.test(source)) metadataFiles.push(relFile);
+    if (/from\s+['"]next\/image['"]/.test(source)) nextImageUsage.push(relFile);
   }
-  return { dynamicImports, suspenseUsage, nextImage };
+
+  return {
+    dynamicImports: [...new Set(dynamicImports)].sort(),
+    suspenseUsage: [...new Set(suspenseUsage)].sort(),
+    jsonLd: [...new Set(jsonLd)].sort(),
+    metadataFiles: [...new Set(metadataFiles)].sort(),
+    nextImageUsage: [...new Set(nextImageUsage)].sort()
+  };
 }
 
-async function collectSecurity() {
+async function collectTests() {
   const files = await walk(projectRoot, []);
-  const envUsage = [];
-  const headersConfig = [];
-  const middleware = [];
-  for (const f of files) {
-    if (!isText(f)) continue;
-    const src = await fs.readFile(f, "utf8");
-    if (/process\.env\./.test(src)) envUsage.push(rel(f));
-    if (/headers\s*\(\)\s*{/.test(src) && /next\.config\.(js|mjs|ts)$/.test(f)) headersConfig.push(rel(f));
-    if (/middleware\.(js|ts|mjs)$/.test(f)) middleware.push(rel(f));
+  const vitest = [];
+  const playwright = [];
+  const jest = [];
+
+  for (const file of files) {
+    const relFile = rel(file);
+    if (/\.(test|spec)\.[cm]?[tj]sx?$/.test(relFile)) {
+      vitest.push(relFile);
+    }
+    if (/\.e2e\.[cm]?[tj]sx?$/.test(relFile)) {
+      playwright.push(relFile);
+    }
+    if (/jest\.config\./.test(relFile)) {
+      jest.push(relFile);
+    }
   }
-  return { envUsage, headersConfig, middleware };
+
+  return {
+    vitest: vitest.sort(),
+    playwright: playwright.sort(),
+    jest: jest.sort()
+  };
 }
 
-async function collectEnvKeys() {
-  const files = await walk(projectRoot, []);
-  const keys = new Set();
-  for (const f of files) {
-    if (!isText(f)) continue;
-    const src = await fs.readFile(f, "utf8");
-    for (const m of src.matchAll(/process\.env\.([A-Z0-9_]+)/g)) keys.add(m[1]);
+const CHECKS = [
+  {
+    id: "error-boundary",
+    label: "Has app-level error boundary",
+    patterns: ["app/error.tsx", "src/app/error.tsx"],
+    type: "file"
+  },
+  {
+    id: "global-error",
+    label: "Has global-error.tsx",
+    patterns: ["app/global-error.tsx", "src/app/global-error.tsx"],
+    type: "file"
+  },
+  {
+    id: "loading-ui",
+    label: "Has loading.tsx fallback",
+    patterns: ["app/loading.tsx", "src/app/loading.tsx"],
+    type: "file"
+  },
+  {
+    id: "contact-route",
+    label: "Contact API route implements Turnstile verification",
+    patterns: ["app/api/contact/route.ts", "src/app/api/contact/route.ts"],
+    type: "turnstile"
+  },
+  {
+    id: "locale-switcher",
+    label: "Locale switcher preserves hash and scroll state",
+    patterns: ["LocaleSwitcher.tsx"],
+    type: "locale"
+  },
+  {
+    id: "sitemap",
+    label: "Has sitemap configuration",
+    patterns: ["next-sitemap.config.js", "next-sitemap.config.mjs"],
+    type: "file"
   }
-  return { keys: Array.from(keys).sort() };
-}
+];
 
 async function collectChecks() {
-  const mustExist = [
-    "error.tsx",
-    "global-error.tsx",
-    "loading.tsx",
-    "(components)/LocaleSwitcher.tsx",
-    "(components)/SectionObserver.tsx",
-    "(components)/BackToTop.tsx",
-    "app/api/contact/route.ts",
-    "src/app/api/contact/route.ts"
-  ];
   const files = await walk(projectRoot, []);
-  const rels = files.map(rel);
-  const exists = {};
-  for (const m of mustExist) {
-    exists[m] = rels.some(r => r.endsWith(m));
+  const relFiles = files.map((file) => ({ abs: file, rel: rel(file) }));
+
+  const results = [];
+  for (const check of CHECKS) {
+    if (check.type === "file") {
+      const found = check.patterns.some((pattern) => {
+        return relFiles.some(({ rel }) => rel.endsWith(pattern));
+      });
+      results.push({ id: check.id, label: check.label, status: found });
+      continue;
+    }
+
+    if (check.type === "turnstile") {
+      const match = relFiles.find(({ rel }) => check.patterns.some((pattern) => rel.endsWith(pattern)));
+      if (!match) {
+        results.push({ id: check.id, label: check.label, status: false });
+        continue;
+      }
+      try {
+        const source = await fs.readFile(match.abs, "utf8");
+        const hasTurnstile = /turnstile/i.test(source) && /siteverify/.test(source);
+        results.push({ id: check.id, label: check.label, status: hasTurnstile, file: match.rel });
+      } catch {
+        results.push({ id: check.id, label: check.label, status: false });
+      }
+      continue;
+    }
+
+    if (check.type === "locale") {
+      const match = relFiles.find(({ rel }) => rel.endsWith(check.patterns[0]));
+      if (!match) {
+        results.push({ id: check.id, label: check.label, status: false });
+        continue;
+      }
+      try {
+        const source = await fs.readFile(match.abs, "utf8");
+        const preservesHash = /location\.hash/.test(source);
+        const preservesScroll = /scroll\s*:\s*false/.test(source);
+        results.push({
+          id: check.id,
+          label: check.label,
+          status: preservesHash && preservesScroll,
+          file: match.rel
+        });
+      } catch {
+        results.push({ id: check.id, label: check.label, status: false });
+      }
+    }
   }
 
-  // Check LocaleSwitcher preserves hash & scroll:false
-  const loc = files.find(f => /LocaleSwitcher\.tsx$/.test(f));
-  let localePreserve = false;
-  if (loc) {
-    const src = await fs.readFile(loc, "utf8");
-    localePreserve = /router\.replace\([^)]*scroll\s*:\s*false/m.test(src) && /location\.hash/.test(src);
-  }
-
-  // Check contact route Turnstile verify
-  const contact = files.find(f => /app\/api\/contact\/route\.ts$/.test(f) || /src\/app\/api\/contact\/route\.ts$/.test(f));
-  let hasTurnstile = false;
-  if (contact) {
-    const src = await fs.readFile(contact, "utf8");
-    hasTurnstile = /turnstile/i.test(src) && /siteverify/.test(src);
-  }
-
-  return { exists, localePreserve, hasTurnstile };
+  return results;
 }
 
-/* ------------------------- Writers ------------------------- */
-function table(rows, headers) {
-  if (!rows?.length) return "_No data_\n";
-  const widths = headers.map((h, i) => Math.max(h.length, ...rows.map(r => String(r[i]).length)));
-  const line = (arr) => arr.map((v, i) => String(v).padEnd(widths[i])).join("  ");
-  const sep = widths.map(w => "-".repeat(w)).join("  ");
-  return `${line(headers)}\n${sep}\n${rows.map(r => line(r)).join("\n")}\n`;
+function mdTable(rows, headers) {
+  if (!rows.length) return "_No data_\n";
+  const widths = headers.map((header, index) => Math.max(header.length, ...rows.map((row) => String(row[index]).length)));
+  const render = (row) => row.map((value, index) => String(value).padEnd(widths[index])).join("  ");
+  const separator = widths.map((width) => "-".repeat(width)).join("  ");
+  return `${render(headers)}\n${separator}\n${rows.map(render).join("\n")}\n`;
 }
 
-async function writeMulti(outDir, data) {
+async function writeDirectory(outDir, payload) {
   await fs.mkdir(outDir, { recursive: true });
-  await fs.writeFile(path.join(outDir, "INVENTORY.md"),
-`# INVENTORY
-Total files: ${data.inventory.summary.totalFiles}
-Text files: ${data.inventory.summary.textFiles}
-Binary files: ${data.inventory.summary.binaryFiles}
-Total size: ${data.inventory.summary.totalSizeKB} KB
 
-${table(data.inventory.rows.map(r => [r.file, r.size, r.binary ? "binary" : "text"]), ["File","Size","Type"])}
-`);
-  await fs.writeFile(path.join(outDir, "ROUTES.md"),
-`# ROUTES
-Locales detected: ${data.routes.locales.join(", ") || "(none)"}
+  const inventoryRows = payload.inventory.entries.map((entry) => [entry.file, entry.ext, entry.size, entry.text ? "text" : "binary"]);
+  const inventoryMd = `# INVENTORY\nTotal files: ${payload.inventory.summary.totalFiles}\nText files: ${payload.inventory.summary.textFiles}\nBinary files: ${payload.inventory.summary.binaryFiles}\nTotal size: ${payload.inventory.summary.totalSizeKB} KB\n\n${mdTable(inventoryRows, ["File", "Ext", "Size", "Type"])}\n`;
+  await fs.writeFile(path.join(outDir, "INVENTORY.md"), inventoryMd, "utf8");
 
-\`\`\`json
-${JSON.stringify(data.routes.pages, null, 2)}
-\`\`\`
-`);
-  await fs.writeFile(path.join(outDir, "I18N.md"),
-`# I18N
-Base dir: ${data.i18n.baseDir ?? "(not found)"}
+  const pkg = payload.package;
+  const pkgMd = `# PACKAGE\nPath: ${pkg.path ?? "(missing)"}\nName: ${pkg.name ?? "(unknown)"}\nVersion: ${pkg.version ?? "(unknown)"}\n\n## Scripts\n\n\`\`\`json\n${JSON.stringify(pkg.scripts, null, 2)}\n\`\`\`\n\n## Dependencies\n\n\`\`\`json\n${JSON.stringify(pkg.dependencies, null, 2)}\n\`\`\`\n\n## Dev Dependencies\n\n\`\`\`json\n${JSON.stringify(pkg.devDependencies, null, 2)}\n\`\`\`\n`;
+  await fs.writeFile(path.join(outDir, "PACKAGE.md"), pkgMd, "utf8");
 
-\`\`\`json
-${JSON.stringify(data.i18n.perLocale, null, 2)}
-\`\`\`
+  const structureRows = [
+    ["Frameworks", payload.structure.frameworks.join(", ") || "(none)"],
+    ["Pages", payload.structure.pages.length],
+    ["Layouts", payload.structure.layouts.length],
+    ["API Routes", payload.structure.apiRoutes.length],
+    ["Metadata functions", payload.structure.metadataGenerators.length],
+    ["Client components", payload.structure.clientComponents.length],
+    ["Server components", payload.structure.serverComponents.length]
+  ];
+  const structureMd = `# STRUCTURE\n${mdTable(structureRows, ["Item", "Value"])}\n\n## Pages\n- ${payload.structure.pages.join("\n- ") || "(none)"}\n\n## Layouts\n- ${payload.structure.layouts.join("\n- ") || "(none)"}\n\n## API Routes\n- ${payload.structure.apiRoutes.join("\n- ") || "(none)"}\n`;
+  await fs.writeFile(path.join(outDir, "STRUCTURE.md"), structureMd, "utf8");
 
-## Missing vs en
-\`\`\`json
-${JSON.stringify(data.i18n.missing, null, 2)}
-\`\`\`
-`);
-  await fs.writeFile(path.join(outDir, "SEO.md"),
-`# SEO
-Pages with generateMetadata:
-- ${data.seo.generateMetadata.join("\n- ") || "(none)"}
+  const intlMd = `# I18N\nBase directory: ${payload.i18n.base ?? "(not found)"}\n\n\`\`\`json\n${JSON.stringify(payload.i18n.locales, null, 2)}\n\`\`\`\n`;
+  await fs.writeFile(path.join(outDir, "I18N.md"), intlMd, "utf8");
 
-Pages using JSON-LD:
-- ${data.seo.jsonLdUsage.join("\n- ") || "(none)"}
+  const contentMd = `# CONTENT\nDynamic imports:\n- ${payload.content.dynamicImports.join("\n- ") || "(none)"}\n\nSuspense usage:\n- ${payload.content.suspenseUsage.join("\n- ") || "(none)"}\n\nJSON-LD usage:\n- ${payload.content.jsonLd.join("\n- ") || "(none)"}\n\nMetadata generators:\n- ${payload.content.metadataFiles.join("\n- ") || "(none)"}\n\nnext/image usage:\n- ${payload.content.nextImageUsage.join("\n- ") || "(none)"}\n`;
+  await fs.writeFile(path.join(outDir, "CONTENT.md"), contentMd, "utf8");
 
-Pages defining alternates.languages:
-- ${data.seo.alternatesLang.join("\n- ") || "(none)"}
-`);
-  await fs.writeFile(path.join(outDir, "PERFORMANCE.md"),
-`# PERFORMANCE
-Dynamic imports:
-- ${data.perf.dynamicImports.join("\n- ") || "(none)"}
+  const testsMd = `# TESTS\nVitest files:\n- ${payload.tests.vitest.join("\n- ") || "(none)"}\n\nPlaywright files:\n- ${payload.tests.playwright.join("\n- ") || "(none)"}\n\nJest configs:\n- ${payload.tests.jest.join("\n- ") || "(none)"}\n`;
+  await fs.writeFile(path.join(outDir, "TESTS.md"), testsMd, "utf8");
 
-Suspense usage:
-- ${data.perf.suspenseUsage.join("\n- ") || "(none)"}
-
-next/image imports:
-- ${data.perf.nextImage.join("\n- ") || "(none)"}
-`);
-  await fs.writeFile(path.join(outDir, "SECURITY.md"),
-`# SECURITY
-process.env usage:
-- ${data.sec.envUsage.join("\n- ") || "(none)"}
-
-Headers in next.config:
-- ${data.sec.headersConfig.join("\n- ") || "(none)"}
-
-Middleware files:
-- ${data.sec.middleware.join("\n- ") || "(none)"}
-`);
-  await fs.writeFile(path.join(outDir, "ENV.md"),
-`# ENV
-\`\`\`
-${data.env.keys.join("\n") || "(none)"}
-\`\`\`
-`);
-  await fs.writeFile(path.join(outDir, "CHECKS.md"),
-`# CHECKS
-\`\`\`json
-${JSON.stringify(data.checks, null, 2)}
-\`\`\`
-`);
+  const checksMd = `# CHECKS\n\`\`\`json\n${JSON.stringify(payload.checks, null, 2)}\n\`\`\`\n`;
+  await fs.writeFile(path.join(outDir, "CHECKS.md"), checksMd, "utf8");
 }
 
-async function writeSingle(outFile, data) {
+function renderSingleReport(payload) {
   const now = new Date().toISOString();
-  const md =
-`# XRAY REPORT
-_Generated: ${now}_
+  const inventoryRows = payload.inventory.entries.map((entry) => [entry.file, entry.ext, entry.size, entry.text ? "text" : "binary"]);
 
-## Table of Contents
-1. [Inventory](#inventory)
-2. [Routes](#routes)
-3. [I18N](#i18n)
-4. [SEO](#seo)
-5. [Performance](#performance)
-6. [Security](#security)
-7. [ENV](#env)
-8. [Checks](#checks)
-
----
-
-## Inventory
-Total files: ${data.inventory.summary.totalFiles}
-Text files: ${data.inventory.summary.textFiles}
-Binary files: ${data.inventory.summary.binaryFiles}
-Total size: ${data.inventory.summary.totalSizeKB} KB
-
-${table(data.inventory.rows.map(r => [r.file, r.size, r.binary ? "binary" : "text"]), ["File","Size","Type"])}
-
-## Routes
-Locales detected: ${data.routes.locales.join(", ") || "(none)"}
-
-\`\`\`json
-${JSON.stringify(data.routes.pages, null, 2)}
-\`\`\`
-
-## I18N
-Base dir: ${data.i18n.baseDir ?? "(not found)"}
-
-\`\`\`json
-${JSON.stringify(data.i18n.perLocale, null, 2)}
-\`\`\`
-
-### Missing vs en
-\`\`\`json
-${JSON.stringify(data.i18n.missing, null, 2)}
-\`\`\`
-
-## SEO
-Pages with generateMetadata:
-- ${data.seo.generateMetadata.join("\n- ") || "(none)"}
-
-Pages using JSON-LD:
-- ${data.seo.jsonLdUsage.join("\n- ") || "(none)"}
-
-Pages defining alternates.languages:
-- ${data.seo.alternatesLang.join("\n- ") || "(none)"}
-
-## Performance
-Dynamic imports:
-- ${data.perf.dynamicImports.join("\n- ") || "(none)"}
-
-Suspense usage:
-- ${data.perf.suspenseUsage.join("\n- ") || "(none)"}
-
-next/image imports:
-- ${data.perf.nextImage.join("\n- ") || "(none)"}
-
-## Security
-process.env usage:
-- ${data.sec.envUsage.join("\n- ") || "(none)"}
-
-Headers in next.config:
-- ${data.sec.headersConfig.join("\n- ") || "(none)"}
-
-Middleware files:
-- ${data.sec.middleware.join("\n- ") || "(none)"}
-
-## ENV
-\`\`\`
-${data.env.keys.join("\n") || "(none)"}
-\`\`\`
-
-## Checks
-\`\`\`json
-${JSON.stringify(data.checks, null, 2)}
-\`\`\`
-`;
-  await fs.mkdir(path.dirname(outFile), { recursive: true });
-  await fs.writeFile(outFile, md, "utf8");
+  return `# XRAY REPORT\n_Generated: ${now}_\n\n## Table of Contents\n1. [Inventory](#inventory)\n2. [Package](#package)\n3. [Structure](#structure)\n4. [I18N](#i18n)\n5. [Content](#content)\n6. [Tests](#tests)\n7. [Checks](#checks)\n\n---\n\n## Inventory\nTotal files: ${payload.inventory.summary.totalFiles}\nText files: ${payload.inventory.summary.textFiles}\nBinary files: ${payload.inventory.summary.binaryFiles}\nTotal size: ${payload.inventory.summary.totalSizeKB} KB\n\n${mdTable(inventoryRows, ["File", "Ext", "Size", "Type"])}\n\n## Package\nPath: ${payload.package.path ?? "(missing)"}\nName: ${payload.package.name ?? "(unknown)"}\nVersion: ${payload.package.version ?? "(unknown)"}\n\n### Scripts\n\n\`\`\`json\n${JSON.stringify(payload.package.scripts, null, 2)}\n\`\`\`\n\n### Dependencies\n\n\`\`\`json\n${JSON.stringify(payload.package.dependencies, null, 2)}\n\`\`\`\n\n### Dev Dependencies\n\n\`\`\`json\n${JSON.stringify(payload.package.devDependencies, null, 2)}\n\`\`\`\n\n## Structure\nFrameworks: ${payload.structure.frameworks.join(", ") || "(none)"}\n\nPages:\n- ${payload.structure.pages.join("\n- ") || "(none)"}\n\nLayouts:\n- ${payload.structure.layouts.join("\n- ") || "(none)"}\n\nAPI Routes:\n- ${payload.structure.apiRoutes.join("\n- ") || "(none)"}\n\nMetadata generators:\n- ${payload.structure.metadataGenerators.join("\n- ") || "(none)"}\n\nClient components:\n- ${payload.structure.clientComponents.join("\n- ") || "(none)"}\n\nServer components:\n- ${payload.structure.serverComponents.join("\n- ") || "(none)"}\n\n## I18N\nBase directory: ${payload.i18n.base ?? "(not found)"}\n\n\`\`\`json\n${JSON.stringify(payload.i18n.locales, null, 2)}\n\`\`\`\n\n## Content\nDynamic imports:\n- ${payload.content.dynamicImports.join("\n- ") || "(none)"}\n\nSuspense usage:\n- ${payload.content.suspenseUsage.join("\n- ") || "(none)"}\n\nJSON-LD usage:\n- ${payload.content.jsonLd.join("\n- ") || "(none)"}\n\nMetadata generators:\n- ${payload.content.metadataFiles.join("\n- ") || "(none)"}\n\nnext/image usage:\n- ${payload.content.nextImageUsage.join("\n- ") || "(none)"}\n\n## Tests\nVitest files:\n- ${payload.tests.vitest.join("\n- ") || "(none)"}\n\nPlaywright files:\n- ${payload.tests.playwright.join("\n- ") || "(none)"}\n\nJest configs:\n- ${payload.tests.jest.join("\n- ") || "(none)"}\n\n## Checks\n\`\`\`json\n${JSON.stringify(payload.checks, null, 2)}\n\`\`\`\n`;
 }
 
-/* ------------------------- Main ------------------------- */
-(async function main() {
+async function writeSingle(outFile, payload) {
+  await fs.mkdir(path.dirname(outFile), { recursive: true });
+  const report = renderSingleReport(payload);
+  await fs.writeFile(outFile, report, "utf8");
+}
+
+async function main() {
   const { out, single } = parseArgs();
-  const [inventory, routes, i18n, seo, perf, sec, env, checks] = await Promise.all([
-    collectInventory(), collectRoutes(), collectI18n(), collectSEO(),
-    collectPerformance(), collectSecurity(), collectEnvKeys(), collectChecks()
+
+  const packageInfo = await collectPackageInfo();
+  const [inventory, structure, i18n, content, tests, checks] = await Promise.all([
+    collectInventory(),
+    collectStructure(packageInfo),
+    collectI18n(),
+    collectContentSignals(),
+    collectTests(),
+    collectChecks()
   ]);
-  const data = { inventory, routes, i18n, seo, perf, sec, env, checks };
+
+  const payload = {
+    inventory,
+    package: packageInfo,
+    structure,
+    i18n,
+    content,
+    tests,
+    checks
+  };
 
   if (single) {
-    const file = out.endsWith(".md") ? out : path.join(out, "REPORT.md");
-    await writeSingle(file, data);
-    console.log(`✔ XRAY single report -> ${rel(file)}`);
-  } else {
-    const dir = path.isAbsolute(out) ? out : path.join(projectRoot, out);
-    await writeMulti(dir, data);
-    console.log(`✔ XRAY reports directory -> ${rel(dir)}`);
+    const outFile = out.endsWith(".md") ? out : path.join(out, "REPORT.md");
+    await writeSingle(path.isAbsolute(outFile) ? outFile : path.join(projectRoot, outFile), payload);
+    console.log(`✔ XRAY single report -> ${rel(path.isAbsolute(outFile) ? outFile : path.join(projectRoot, outFile))}`);
+    return;
   }
-})().catch((e) => { console.error(e); process.exit(1); });
+
+  const outDir = path.isAbsolute(out) ? out : path.join(projectRoot, out);
+  await writeDirectory(outDir, payload);
+  console.log(`✔ XRAY reports directory -> ${rel(outDir)}`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
