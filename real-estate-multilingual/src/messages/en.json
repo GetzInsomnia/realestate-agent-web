@@ -1,0 +1,217 @@
+{
+  "seo": {
+    "title": "ZomZom Property",
+    "description": "Boutique multilingual real estate experts guiding global buyers across Southeast Asia."
+  },
+  "common": {
+    "home": "Home"
+  },
+  "nav": {
+    "home": "Home",
+    "listings": "Residences",
+    "articles": "Insights",
+    "contact": "Contact"
+  },
+  "footer": {
+    "tagline": "We help investors and relocating families discover homes with confidence across Thailand, Malaysia, Myanmar, and beyond.",
+    "legal": "© 2024 ZomZom Property · All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Trusted Property Advisors",
+      "title": "Luxury homes in Asia with multilingual experts",
+      "subtitle": "From Bangkok penthouses to Yangon riverfront estates, our bilingual agents curate properties that balance lifestyle, investment performance, and visa strategy for you.",
+      "ctaPrimary": "Plan a consultation",
+      "ctaSecondary": "Browse residences"
+    },
+    "highlights": {
+      "buyers": "International buyers supported",
+      "inventory": "Curated listings across the region",
+      "satisfaction": "Client satisfaction rating",
+      "fallback": "Curated homes"
+    },
+    "alerts": {
+      "listingsFallback": "We’re showing a short curated list while fresh listings reload.",
+      "articlesFallback": "Insights are briefly unavailable. Enjoy our latest featured stories instead."
+    },
+    "testimonials": {
+      "title": "Families who moved confidently",
+      "subtitle": "Personal guidance, multi-jurisdiction expertise, and a people-first approach.",
+      "elena": {
+        "name": "Elena S.",
+        "role": "Investor from Moscow",
+        "quote": "ZomZom handled everything from legal reviews to furnishing. Their Russian- and Thai-speaking team made purchasing seamless."
+      },
+      "ahmad": {
+        "name": "Ahmad R.",
+        "role": "Entrepreneur from Kuala Lumpur",
+        "quote": "They tailored a property portfolio that fits my Golden Visa timeline. Communication in Malay, English, and Mandarin kept my family aligned."
+      },
+      "fallback": {
+        "name": "Happy client",
+        "role": "Global buyer",
+        "quote": "ZomZom Property delivered thoughtful service across languages."
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Straight answers from agents who work daily with international buyers.",
+      "foreignOwnership": {
+        "q": "Can foreigners own freehold property in Thailand?",
+        "a": "Yes, condos allow freehold foreign ownership up to 49% of the building area. Our legal partners structure shareholding to keep you compliant."
+      },
+      "services": {
+        "q": "Which services do you provide beyond brokerage?",
+        "a": "We coordinate legal due diligence, visa strategy, rental management, school onboarding, and relocation logistics in your language."
+      },
+      "financing": {
+        "q": "Is cross-border financing available?",
+        "a": "Select banks and private lenders extend mortgages to foreign buyers. We prepare documentation and introduce financing partners."
+      },
+      "fallback": {
+        "q": "How does the advisory work?",
+        "a": "Book a consultation and our multilingual team will outline the entire purchase journey."
+      }
+    },
+    "contactCTA": {
+      "title": "Let’s design your property roadmap",
+      "subtitle": "Share your goals and we’ll prepare a shortlist, visa pathway, and financial analysis in your preferred language.",
+      "cta": "Talk to an advisor"
+    }
+  },
+  "listings": {
+    "sectionTitle": "Featured residences",
+    "sectionSubtitle": "Every listing is vetted for long-term value, ownership clarity, and rental readiness.",
+    "directorySubtitle": "Explore our curated inventory spanning luxury condos, resort villas, and investment-ready apartments.",
+    "viewAll": "See all listings",
+    "metrics": {
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "area": "Floor area"
+    },
+    "tags": {
+      "panoramic": "Panoramic view",
+      "cityCore": "Central district",
+      "resortLiving": "Resort living",
+      "turnkey": "Turnkey",
+      "investmentReady": "Investment ready",
+      "transit": "Transit access",
+      "exclusive": "Exclusive",
+      "privateDock": "Private dock"
+    },
+    "items": {
+      "skylineResidence": {
+        "title": "Skyline Residence",
+        "description": "Glass-wrapped duplex above Sukhumvit with dedicated concierge and wellness deck.",
+        "location": "Bangkok, Thailand"
+      },
+      "lagoonVillas": {
+        "title": "Lagoon Villas",
+        "description": "Pool villas in a managed Phuket enclave with rental management in five languages.",
+        "location": "Phuket, Thailand"
+      },
+      "urbanLofts": {
+        "title": "Urban Lofts",
+        "description": "Dual-key lofts near the Yangon central business district ideal for rental yield.",
+        "location": "Yangon, Myanmar"
+      },
+      "emeraldHaven": {
+        "title": "Emerald Haven",
+        "description": "Lakefront estate with private marina and smart home automation across three levels.",
+        "location": "Putrajaya, Malaysia"
+      }
+    },
+    "fallback": {
+      "title": "Harbor View Residence",
+      "description": "Waterfront apartment with on-site management and rental program.",
+      "location": "Da Nang, Vietnam"
+    },
+    "seo": {
+      "title": "Residences for international buyers",
+      "description": "Discover curated Southeast Asian homes vetted for foreign ownership and lifestyle goals."
+    }
+  },
+  "articles": {
+    "sectionTitle": "Insights & market intelligence",
+    "sectionSubtitle": "Brief, actionable guidance for cross-border investors and relocating families.",
+    "viewAll": "See all articles",
+    "readMore": "Continue reading",
+    "readTime": "{minutes} min read",
+    "items": {
+      "buyingThailand": {
+        "title": "How foreign buyers secure Thai property",
+        "excerpt": "Understand structures, fees, and timelines before you sign a booking form.",
+        "body": {
+          "0": "Foreign buyers typically enter the market through condominiums, which allow freehold ownership. Landed property requires company or leasehold structures. Our legal partners map the right route for your objectives.",
+          "1": "Transfer taxes, specific business tax, and withholding tax vary between new builds and resales. We model the full cost of ownership to avoid surprise expenses.",
+          "2": "Funds must enter Thailand in foreign currency. We coordinate remittances and provide bank templates to ensure the Land Office accepts your transaction."
+        }
+      },
+      "visaGuide": {
+        "title": "Residence visa pathways for property investors",
+        "excerpt": "Pair your purchase with the right visa to secure long-term stay benefits.",
+        "body": {
+          "0": "Thailand Elite, Malaysia MM2H, and Cambodia My Second Home all recognise property investment. We analyse minimum spend and processing speeds for each program.",
+          "1": "Families often layer education, healthcare, and tax considerations into their decision. Our advisors compare benefits in plain language.",
+          "2": "We work with certified immigration lawyers to prepare applications while your property transaction progresses."
+        }
+      },
+      "marketPulse": {
+        "title": "Southeast Asia market pulse Q4",
+        "excerpt": "Where yields are rising and how currency moves affect returns.",
+        "body": {
+          "0": "Rental yields in Bangkok’s riverside district climbed 7% year-on-year as new infrastructure opened.",
+          "1": "Yangon and Phnom Penh remain value plays with dollar-linked leases shielding investors from volatility.",
+          "2": "Ringgit weakness creates entry opportunities in Malaysia’s administrative capital. We outline hedging options."
+        }
+      }
+    },
+    "fallback": {
+      "title": "Getting started with regional property",
+      "excerpt": "Key checkpoints to review before your first inspection tour.",
+      "body": "Align financing, legal, and visa objectives before committing to a project."
+    },
+    "seo": {
+      "title": "Market intelligence for property buyers",
+      "description": "Expert commentary on ownership pathways, visas, and cross-border property strategy."
+    }
+  },
+  "contact": {
+    "title": "Connect with an advisor",
+    "subtitle": "Tell us about your relocation or investment goals and we’ll respond with tailored next steps.",
+    "intro": "We reply within one business day with a curated plan in your chosen language.",
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "budget": "Budget (optional)",
+      "message": "How can we help?"
+    },
+    "submit": "Send message",
+    "sending": "Sending...",
+    "success": "Thank you! Our advisors will be in touch very soon.",
+    "error": "We couldn’t send your message. Please try again.",
+    "cooldown": "Thanks for reaching out! Please allow a moment before sending another message.",
+    "honeypot": "Leave this field empty",
+    "seo": {
+      "title": "Contact ZomZom Property",
+      "description": "Reach multilingual experts for bespoke property guidance across Southeast Asia."
+    },
+    "api": {
+      "invalid": "Please review the form and try again.",
+      "turnstileMissing": "Please verify that you are human before submitting.",
+      "turnstileFailed": "The verification failed. Please refresh and try again.",
+      "emailFailed": "We couldn’t send your message right now. Please email us directly at hello@zomzomproperty.com.",
+      "cooldown": "Thanks! You just contacted us. Give us a moment before submitting another message.",
+      "success": "We received your message! Our team will reply shortly."
+    }
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "description": "Please try again or return home.",
+    "tryAgain": "Try again",
+    "notFoundTitle": "Page not found",
+    "notFoundDescription": "The page you requested has moved or no longer exists.",
+    "backHome": "Return home"
+  }
+}

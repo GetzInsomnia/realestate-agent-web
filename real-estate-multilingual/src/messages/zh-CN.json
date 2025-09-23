@@ -1,0 +1,217 @@
+{
+  "seo": {
+    "title": "ZomZom Property",
+    "description": "多语言房地产顾问，服务全球买家布局东南亚"
+  },
+  "common": {
+    "home": "首页"
+  },
+  "nav": {
+    "home": "首页",
+    "listings": "精选房源",
+    "articles": "市场洞察",
+    "contact": "联系我们"
+  },
+  "footer": {
+    "tagline": "我们帮助投资者与迁居家庭在泰国、马来西亚、缅甸等地自信置业",
+    "legal": "© 2024 ZomZom Property 保留所有权利"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "值得信赖的置业顾问",
+      "title": "多语言团队带您寻找亚洲优质物业",
+      "subtitle": "从曼谷顶层公寓到仰光河畔别墅，我们的顾问兼顾生活方式、投资回报与签证规划，为您定制方案。",
+      "ctaPrimary": "预约咨询",
+      "ctaSecondary": "浏览房源"
+    },
+    "highlights": {
+      "buyers": "服务全球买家",
+      "inventory": "精选房源数量",
+      "satisfaction": "客户满意度",
+      "fallback": "精选房源"
+    },
+    "alerts": {
+      "listingsFallback": "正在更新房源列表，暂时显示精简版。",
+      "articlesFallback": "资讯暂不可用，请稍后查看重点文章。"
+    },
+    "testimonials": {
+      "title": "客户放心落户",
+      "subtitle": "专业、多语言、以人为本的全流程服务",
+      "elena": {
+        "name": "Elena S.",
+        "role": "莫斯科投资者",
+        "quote": "ZomZom 负责法律审查与软装，俄语与泰语团队让整个过程毫无障碍。"
+      },
+      "ahmad": {
+        "name": "Ahmad R.",
+        "role": "吉隆坡企业家",
+        "quote": "团队按照黄金签证时间表配置资产，并以马来语、英语和中文与家人沟通。"
+      },
+      "fallback": {
+        "name": "满意客户",
+        "role": "海外买家",
+        "quote": "ZomZom 提供细致且理解多语言的服务。"
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "解答我们每日处理的海外买家疑问",
+      "foreignOwnership": {
+        "q": "外国人可以在泰国持有产权吗？",
+        "a": "可以。公寓外国人配额为 49%。我们的法律伙伴可设计合规架构。"
+      },
+      "services": {
+        "q": "除买卖外还能提供哪些服务？",
+        "a": "我们负责尽调、签证方案、租赁管理、学校衔接与搬迁支持，并以您的语言沟通。"
+      },
+      "financing": {
+        "q": "能否申请跨境贷款？",
+        "a": "部分银行及私人机构接受海外买家。我们协助准备资料并对接贷款方。"
+      },
+      "fallback": {
+        "q": "如何开启顾问服务？",
+        "a": "预约咨询即可。多语言团队会说明每一步流程。"
+      }
+    },
+    "contactCTA": {
+      "title": "规划您的置业路线",
+      "subtitle": "告诉我们您的目标，我们将提供房源清单、签证路径与财务分析。",
+      "cta": "联系顾问"
+    }
+  },
+  "listings": {
+    "sectionTitle": "精选房源",
+    "sectionSubtitle": "每个项目均通过产权、收益与运营审核。",
+    "directorySubtitle": "探索我们精选的豪华公寓、度假别墅与收益型公寓。",
+    "viewAll": "全部房源",
+    "metrics": {
+      "bedrooms": "卧室",
+      "bathrooms": "卫浴",
+      "area": "面积"
+    },
+    "tags": {
+      "panoramic": "全景视野",
+      "cityCore": "城市核心",
+      "resortLiving": "度假生活",
+      "turnkey": "拎包入住",
+      "investmentReady": "投资首选",
+      "transit": "临近轨交",
+      "exclusive": "尊享",
+      "privateDock": "私人码头"
+    },
+    "items": {
+      "skylineResidence": {
+        "title": "Skyline Residence",
+        "description": "素坤逸高区玻璃双层住宅，专属礼宾与康体平台。",
+        "location": "泰国 曼谷"
+      },
+      "lagoonVillas": {
+        "title": "Lagoon Villas",
+        "description": "普吉托管式泳池别墅，提供五语租赁管理。",
+        "location": "泰国 普吉"
+      },
+      "urbanLofts": {
+        "title": "Urban Lofts",
+        "description": "仰光 CBD 双钥匙公寓，租金收益优异。",
+        "location": "缅甸 仰光"
+      },
+      "emeraldHaven": {
+        "title": "Emerald Haven",
+        "description": "布城湖畔豪宅，配备私人游艇码头与智能家居。",
+        "location": "马来西亚 布城"
+      }
+    },
+    "fallback": {
+      "title": "Harbor View Residence",
+      "description": "海滨公寓，附带托管与租赁计划。",
+      "location": "越南 岘港"
+    },
+    "seo": {
+      "title": "海外买家专属房源",
+      "description": "精选东南亚物业，确保产权合规与生活品质。"
+    }
+  },
+  "articles": {
+    "sectionTitle": "市场洞察",
+    "sectionSubtitle": "为跨境投资者与迁居家庭提供实用信息。",
+    "viewAll": "全部文章",
+    "readMore": "阅读全文",
+    "readTime": "约 {minutes} 分钟",
+    "items": {
+      "buyingThailand": {
+        "title": "外国人购买泰国房产指南",
+        "excerpt": "签约前需了解的结构、费用与时间表。",
+        "body": {
+          "0": "外国买家多选择公寓，自由持有。独栋需公司或长期租赁结构，我们会评估最适合方案。",
+          "1": "不同项目的过户税、特别营业税与预提税不同，我们提前测算所有成本。",
+          "2": "购房款须以外币汇入泰国，我们提供银行及土地厅所需文件范本。"
+        }
+      },
+      "visaGuide": {
+        "title": "投资房产可选的居留签证",
+        "excerpt": "选择与购房匹配的签证，保障长期居留。",
+        "body": {
+          "0": "泰国 Elite、马来西亚 MM2H、柬埔寨第二家园皆认可房产投资。我们比较门槛与审批速度。",
+          "1": "家庭还需考虑教育、医疗、税务，我们以通俗语言说明优劣。",
+          "2": "与持牌移民律师合作，确保签证申请与购房同步推进。"
+        }
+      },
+      "marketPulse": {
+        "title": "东南亚市场脉动 Q4",
+        "excerpt": "租金收益与汇率影响。",
+        "body": {
+          "0": "曼谷河畔租金同比增长 7%，得益于新基建。",
+          "1": "仰光与金边仍具价值，美元租约降低波动风险。",
+          "2": "林吉特走弱带来马来西亚入市窗口，我们提供对冲建议。"
+        }
+      }
+    },
+    "fallback": {
+      "title": "开启区域置业的要点",
+      "excerpt": "看房前的必备清单。",
+      "body": "在付款前先明确融资、法律与签证安排。"
+    },
+    "seo": {
+      "title": "买家市场情报",
+      "description": "解析产权、签证与跨境投资策略。"
+    }
+  },
+  "contact": {
+    "title": "联系顾问",
+    "subtitle": "告诉我们您的目标，我们会给出下一步建议。",
+    "intro": "我们在一个工作日内，用您偏好的语言回复。",
+    "fields": {
+      "name": "姓名",
+      "email": "邮箱",
+      "phone": "电话（选填）",
+      "budget": "预算（选填）",
+      "message": "需求描述"
+    },
+    "submit": "提交",
+    "sending": "正在发送…",
+    "success": "感谢您的留言，我们将尽快联系您。",
+    "error": "发送失败，请稍后再试。",
+    "cooldown": "感谢联系，请稍候再发送新的消息。",
+    "honeypot": "请勿填写",
+    "seo": {
+      "title": "联系 ZomZom Property",
+      "description": "与熟悉东南亚市场的多语言顾问对接。"
+    },
+    "api": {
+      "invalid": "请检查表单后再提交。",
+      "turnstileMissing": "请完成身份验证后提交。",
+      "turnstileFailed": "验证失败，请刷新后重试。",
+      "emailFailed": "暂时无法发送邮件，请直接写信至 hello@zomzomproperty.com。",
+      "cooldown": "您刚刚提交过信息，请稍候再试。",
+      "success": "我们已收到信息，顾问将尽快回复。"
+    }
+  },
+  "errors": {
+    "title": "发生错误",
+    "description": "请重试或返回首页。",
+    "tryAgain": "重试",
+    "notFoundTitle": "未找到页面",
+    "notFoundDescription": "您访问的内容已移动或不存在。",
+    "backHome": "返回首页"
+  }
+}

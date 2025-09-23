@@ -1,0 +1,66 @@
+{
+  "name": "real-estate-multilingual",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "xray": "node scripts/xray-lite.mjs",
+    "xray:single": "node scripts/xray-lite.mjs --single",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@marsidev/react-turnstile": "^0.5.0",
+    "@vercel/analytics": "^1.5.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.18.2",
+    "next": "14.2.15",
+    "next-intl": "^3.26.4",
+    "next-sitemap": "^4.2.3",
+    "nodemailer": "^6.9.16",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "swr": "^2.3.0",
+    "zod": "^3.23.8",
+    "tailwind-merge": "^2.5.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.17.10",
+    "@types/nodemailer": "^6.4.15",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitest/coverage-v8": "^1.6.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.15",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-tailwindcss": "^3.15.3",
+    "husky": "^9.1.7",
+    "jsdom": "^26.0.0",
+    "lint-staged": "^15.2.10",
+    "postcss": "^8.4.49",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.3",
+    "vitest": "^1.6.0",
+    "@tailwindcss/forms": "^0.5.9"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,md,mdx,css}": [
+      "prettier --write"
+    ],
+    "**/*.{ts,tsx}": [
+      "eslint"
+    ]
+  }
+}

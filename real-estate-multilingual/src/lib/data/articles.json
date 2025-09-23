@@ -1,0 +1,44 @@
+[
+  {
+    "id": "buying-thailand",
+    "slug": "buying-property-in-thailand",
+    "titleKey": "articles.items.buyingThailand.title",
+    "excerptKey": "articles.items.buyingThailand.excerpt",
+    "bodyKeys": [
+      "articles.items.buyingThailand.body.0",
+      "articles.items.buyingThailand.body.1",
+      "articles.items.buyingThailand.body.2"
+    ],
+    "published": "2024-12-05",
+    "readingMinutes": 6,
+    "image": "/images/article-growth.svg"
+  },
+  {
+    "id": "visa-guide",
+    "slug": "residence-visa-pathways",
+    "titleKey": "articles.items.visaGuide.title",
+    "excerptKey": "articles.items.visaGuide.excerpt",
+    "bodyKeys": [
+      "articles.items.visaGuide.body.0",
+      "articles.items.visaGuide.body.1",
+      "articles.items.visaGuide.body.2"
+    ],
+    "published": "2024-11-22",
+    "readingMinutes": 5,
+    "image": "/images/article-visa.svg"
+  },
+  {
+    "id": "market-pulse",
+    "slug": "southeast-asia-market-pulse",
+    "titleKey": "articles.items.marketPulse.title",
+    "excerptKey": "articles.items.marketPulse.excerpt",
+    "bodyKeys": [
+      "articles.items.marketPulse.body.0",
+      "articles.items.marketPulse.body.1",
+      "articles.items.marketPulse.body.2"
+    ],
+    "published": "2024-10-18",
+    "readingMinutes": 7,
+    "image": "/images/article-market.svg"
+  }
+]
