@@ -1,14 +1,13 @@
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
-import { z } from "zod";
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
+import { z } from 'zod';
 
-const TURNSTILE_ENDPOINT = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
-const CONTACT_COOLDOWN_COOKIE = "contact-cooldown";
+const TURNSTILE_ENDPOINT = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const TURNSTILE_SECRET_KEY =
+  process.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET;
+const CONTACT_COOLDOWN_COOKIE = 'contact-cooldown';
 const CONTACT_COOLDOWN_MINUTES = 2;
-const CONTACT_RECIPIENT = process.env.CONTACT_RECIPIENT_EMAIL ?? "zomzomproperty@gmail.com";
-const CONTACT_FROM = process.env.SMTP_FROM ?? "ZomZom Property <noreply@zomzomproperty.com>";
 
 const BodySchema = z.object({
   name: z.string().min(2),
@@ -25,7 +24,7 @@ type Body = z.infer<typeof BodySchema>;
 
 async function verifyTurnstile(token: string, ip?: string | null) {
   if (!TURNSTILE_SECRET_KEY) {
-    console.error("TURNSTILE_SECRET_KEY is not configured");
+    console.error('TURNSTILE_SECRET_KEY is not configured');
     return false;
   }
 
@@ -35,13 +34,13 @@ async function verifyTurnstile(token: string, ip?: string | null) {
   });
 
   if (ip) {
-    payload.append("remoteip", ip);
+    payload.append('remoteip', ip);
   }
 
   try {
     const response = await fetch(TURNSTILE_ENDPOINT, {
-      method: "POST",
-      headers: { "content-type": "application/x-www-form-urlencoded" },
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
       body: payload,
     });
 
@@ -52,7 +51,7 @@ async function verifyTurnstile(token: string, ip?: string | null) {
     const result = await response.json();
     return Boolean(result.success);
   } catch (error) {
-    console.error("Failed to verify Turnstile", error);
+    console.error('Failed to verify Turnstile', error);
     return false;
   }
 }
@@ -79,13 +78,21 @@ function cooldownOk(now = Date.now()) {
 }
 
 async function sendEmail({ name, email, phone, message, budget }: Body) {
-  const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT ?? 587);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const host = process.env.SMTP_HOST || process.env.EMAIL_HOST;
+  const port = Number(process.env.SMTP_PORT || process.env.EMAIL_PORT || 465);
+  const user = process.env.SMTP_USER || process.env.EMAIL_USER;
+  const pass = process.env.SMTP_PASS || process.env.EMAIL_PASSWORD;
+  const fromAddress =
+    process.env.SMTP_FROM ||
+    `ZomZom Property <${user || '<noreply@zomzomproperty.com>'}>`;
+  const recipient =
+    process.env.CONTACT_RECIPIENT_EMAIL ||
+    process.env.SMTP_TO ||
+    'zomzomproperty@gmail.com';
+  const sanitizedMessage = message.replace(/<[^>]*>/g, '').slice(0, 2000);
 
   if (!host || !user || !pass) {
-    console.error("SMTP configuration is incomplete");
+    console.error('SMTP configuration is incomplete');
     return false;
   }
 
@@ -101,16 +108,16 @@ async function sendEmail({ name, email, phone, message, budget }: Body) {
 
   try {
     await transporter.sendMail({
-      from: CONTACT_FROM,
-      to: CONTACT_RECIPIENT,
+      from: fromAddress,
+      to: recipient,
       subject: `New inquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone ?? "-"}\nBudget: ${budget ?? "-"}\nMessage: ${message}`,
+      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone ?? '-'}\nBudget: ${budget ?? '-'}\nMessage: ${sanitizedMessage}`,
       replyTo: email,
     });
 
     return true;
   } catch (error) {
-    console.error("Failed to send contact email", error);
+    console.error('Failed to send contact email', error);
     return false;
   }
 }
@@ -121,7 +128,7 @@ export async function POST(request: Request) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { message: "Please review the form and try again." },
+      { message: 'Please review the form and try again.' },
       { status: 400 },
     );
   }
@@ -129,22 +136,27 @@ export async function POST(request: Request) {
   const body = parsed.data;
 
   if (body.honeypot) {
-    return NextResponse.json({ message: "We received your message! Our team will reply shortly." });
+    return NextResponse.json({
+      message: 'We received your message! Our team will reply shortly.',
+    });
   }
 
   const { ok, cookieStore } = cooldownOk();
   if (!ok) {
     return NextResponse.json(
-      { message: "Thanks! You just contacted us. Give us a moment before submitting another message." },
+      {
+        message:
+          'Thanks! You just contacted us. Give us a moment before submitting another message.',
+      },
       { status: 429 },
     );
   }
 
-  const forwardedFor = request.headers.get("x-forwarded-for");
+  const forwardedFor = request.headers.get('x-forwarded-for');
   const turnstileOk = await verifyTurnstile(body.turnstileToken, forwardedFor);
   if (!turnstileOk) {
     return NextResponse.json(
-      { message: "The verification failed. Please refresh and try again." },
+      { message: 'The verification failed. Please refresh and try again.' },
       { status: 400 },
     );
   }
@@ -152,7 +164,10 @@ export async function POST(request: Request) {
   const delivered = await sendEmail(body);
   if (!delivered) {
     return NextResponse.json(
-      { message: "We couldn’t send your message right now. Please email us directly at hello@zomzomproperty.com." },
+      {
+        message:
+          'We couldn’t send your message right now. Please email us directly at hello@zomzomproperty.com.',
+      },
       { status: 500 },
     );
   }
@@ -160,10 +175,12 @@ export async function POST(request: Request) {
   cookieStore.set(CONTACT_COOLDOWN_COOKIE, Date.now().toString(), {
     expires: new Date(Date.now() + CONTACT_COOLDOWN_MINUTES * 60 * 1000),
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: 'lax',
     secure: true,
-    path: "/",
+    path: '/',
   });
 
-  return NextResponse.json({ message: "We received your message! Our team will reply shortly." });
+  return NextResponse.json({
+    message: 'We received your message! Our team will reply shortly.',
+  });
 }
