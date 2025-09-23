@@ -1,0 +1,41 @@
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
+import tailwindPlugin from "eslint-plugin-tailwindcss";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const config = [
+  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
+  {
+    plugins: {
+      tailwindcss: tailwindPlugin,
+    },
+    rules: {
+      "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/classnames-order": "warn",
+    },
+    settings: {
+      tailwindcss: {
+        groupByResponsive: true,
+      },
+    },
+  },
+  {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
+      "coverage/**",
+    ],
+  },
+];
+
+export default config;

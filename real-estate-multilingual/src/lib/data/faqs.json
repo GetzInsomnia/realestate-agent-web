@@ -1,0 +1,17 @@
+[
+  {
+    "id": "foreign-ownership",
+    "questionKey": "home.faq.foreignOwnership.q",
+    "answerKey": "home.faq.foreignOwnership.a"
+  },
+  {
+    "id": "services",
+    "questionKey": "home.faq.services.q",
+    "answerKey": "home.faq.services.a"
+  },
+  {
+    "id": "financing",
+    "questionKey": "home.faq.financing.q",
+    "answerKey": "home.faq.financing.a"
+  }
+]

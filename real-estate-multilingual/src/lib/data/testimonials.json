@@ -1,0 +1,14 @@
+[
+  {
+    "id": "elena",
+    "nameKey": "home.testimonials.elena.name",
+    "roleKey": "home.testimonials.elena.role",
+    "quoteKey": "home.testimonials.elena.quote"
+  },
+  {
+    "id": "ahmad",
+    "nameKey": "home.testimonials.ahmad.name",
+    "roleKey": "home.testimonials.ahmad.role",
+    "quoteKey": "home.testimonials.ahmad.quote"
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "skyline-residence",
+    "titleKey": "listings.items.skylineResidence.title",
+    "descriptionKey": "listings.items.skylineResidence.description",
+    "locationKey": "listings.items.skylineResidence.location",
+    "price": 1850000,
+    "currency": "USD",
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "area": 240,
+    "tags": ["panoramic", "cityCore"],
+    "image": "/images/skyline-residence.svg"
+  },
+  {
+    "id": "lagoon-villas",
+    "titleKey": "listings.items.lagoonVillas.title",
+    "descriptionKey": "listings.items.lagoonVillas.description",
+    "locationKey": "listings.items.lagoonVillas.location",
+    "price": 920000,
+    "currency": "USD",
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "area": 198,
+    "tags": ["resortLiving", "turnkey"],
+    "image": "/images/lagoon-villas.svg"
+  },
+  {
+    "id": "urban-lofts",
+    "titleKey": "listings.items.urbanLofts.title",
+    "descriptionKey": "listings.items.urbanLofts.description",
+    "locationKey": "listings.items.urbanLofts.location",
+    "price": 640000,
+    "currency": "USD",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 128,
+    "tags": ["investmentReady", "transit"],
+    "image": "/images/urban-lofts.svg"
+  },
+  {
+    "id": "emerald-haven",
+    "titleKey": "listings.items.emeraldHaven.title",
+    "descriptionKey": "listings.items.emeraldHaven.description",
+    "locationKey": "listings.items.emeraldHaven.location",
+    "price": 2750000,
+    "currency": "USD",
+    "bedrooms": 5,
+    "bathrooms": 6,
+    "area": 412,
+    "tags": ["exclusive", "privateDock"],
+    "image": "/images/emerald-haven.svg"
+  }
+]

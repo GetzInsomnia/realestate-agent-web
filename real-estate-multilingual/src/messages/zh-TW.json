@@ -1,0 +1,217 @@
+{
+  "seo": {
+    "title": "ZomZom Property",
+    "description": "多語房地產顧問，協助全球買家布局東南亞"
+  },
+  "common": {
+    "home": "首頁"
+  },
+  "nav": {
+    "home": "首頁",
+    "listings": "精選物件",
+    "articles": "市場洞察",
+    "contact": "聯絡我們"
+  },
+  "footer": {
+    "tagline": "我們協助投資者與移居家庭在泰國、馬來西亞、緬甸等地安心置產",
+    "legal": "© 2024 ZomZom Property 版權所有"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "值得信賴的顧問",
+      "title": "多語團隊尋找亞洲優質物件",
+      "subtitle": "從曼谷頂級公寓到仰光河岸別墅，我們兼顧生活、投資報酬與簽證規劃，為您量身打造方案。",
+      "ctaPrimary": "預約諮詢",
+      "ctaSecondary": "瀏覽物件"
+    },
+    "highlights": {
+      "buyers": "服務國際買家",
+      "inventory": "精選物件數",
+      "satisfaction": "客戶滿意度",
+      "fallback": "精選物件"
+    },
+    "alerts": {
+      "listingsFallback": "房源更新中，目前顯示精簡列表。",
+      "articlesFallback": "市場文章暫時無法載入，請稍後再試。"
+    },
+    "testimonials": {
+      "title": "客戶安心落腳",
+      "subtitle": "專業、多語、以人為本的完整服務",
+      "elena": {
+        "name": "Elena S.",
+        "role": "莫斯科投資人",
+        "quote": "ZomZom 協助完成法務審查與軟裝配置，俄語與泰語團隊讓購屋流程十分順暢。"
+      },
+      "ahmad": {
+        "name": "Ahmad R.",
+        "role": "吉隆坡企業家",
+        "quote": "團隊依照黃金簽證時程規劃資產，並以馬來語、英語、中文與家人溝通。"
+      },
+      "fallback": {
+        "name": "滿意客戶",
+        "role": "海外買家",
+        "quote": "ZomZom 提供貼心、懂多語的專業服務。"
+      }
+    },
+    "faq": {
+      "title": "常見問題",
+      "subtitle": "回答海外買家最在意的重點",
+      "foreignOwnership": {
+        "q": "外國人可以在泰國持有產權嗎？",
+        "a": "可以。公寓外國人持有比例上限為 49%，我們的法律夥伴可安排合法結構。"
+      },
+      "services": {
+        "q": "除了仲介還提供哪些服務？",
+        "a": "我們負責盡調、簽證策略、租賃管理、學校銜接與搬遷支援，並以您的語言溝通。"
+      },
+      "financing": {
+        "q": "能申請跨境貸款嗎？",
+        "a": "部分銀行與私人金融機構接受海外買家，我們協助準備文件並媒合貸方。"
+      },
+      "fallback": {
+        "q": "顧問流程如何開始？",
+        "a": "預約諮詢，我們的多語團隊會逐步說明。"
+      }
+    },
+    "contactCTA": {
+      "title": "一起規劃您的置產旅程",
+      "subtitle": "告訴我們目標，我們提供房源清單、簽證方案與財務分析。",
+      "cta": "聯絡顧問"
+    }
+  },
+  "listings": {
+    "sectionTitle": "精選物件",
+    "sectionSubtitle": "每一項目都經過產權、收益與營運審核。",
+    "directorySubtitle": "探索我們嚴選的豪華公寓、度假別墅與收益型物件。",
+    "viewAll": "全部物件",
+    "metrics": {
+      "bedrooms": "臥室",
+      "bathrooms": "衛浴",
+      "area": "坪數"
+    },
+    "tags": {
+      "panoramic": "全景視野",
+      "cityCore": "市中心",
+      "resortLiving": "度假生活",
+      "turnkey": "拎包入住",
+      "investmentReady": "投資首選",
+      "transit": "近捷運",
+      "exclusive": "尊榮",
+      "privateDock": "私人碼頭"
+    },
+    "items": {
+      "skylineResidence": {
+        "title": "Skyline Residence",
+        "description": "素坤逸高區玻璃雙層宅，設有專屬禮賓與健康平台。",
+        "location": "泰國 曼谷"
+      },
+      "lagoonVillas": {
+        "title": "Lagoon Villas",
+        "description": "普吉托管式泳池別墅，提供五語租賃管理。",
+        "location": "泰國 普吉"
+      },
+      "urbanLofts": {
+        "title": "Urban Lofts",
+        "description": "仰光 CBD 雙鑰匙公寓，租金報酬亮眼。",
+        "location": "緬甸 仰光"
+      },
+      "emeraldHaven": {
+        "title": "Emerald Haven",
+        "description": "布城湖畔豪宅，配備私人碼頭與智慧家庭系統。",
+        "location": "馬來西亞 布城"
+      }
+    },
+    "fallback": {
+      "title": "Harbor View Residence",
+      "description": "海景公寓附管理與租賃方案。",
+      "location": "越南 峴港"
+    },
+    "seo": {
+      "title": "國際買家專屬物件",
+      "description": "嚴選東南亞物件，兼顧產權合規與生活品質。"
+    }
+  },
+  "articles": {
+    "sectionTitle": "市場洞察",
+    "sectionSubtitle": "為跨境投資與移居家庭提供可行建議。",
+    "viewAll": "全部文章",
+    "readMore": "閱讀全文",
+    "readTime": "約 {minutes} 分鐘",
+    "items": {
+      "buyingThailand": {
+        "title": "外國人購買泰國房產指南",
+        "excerpt": "簽約前必知的結構、費用與時程。",
+        "body": {
+          "0": "外國買家多從可自由持有的公寓著手，獨棟需透過公司或長租結構，我們會評估最合適方案。",
+          "1": "不同案場的過戶稅、特別營業稅與預扣稅不同，我們提前評估所有成本。",
+          "2": "購屋款須以外幣匯入泰國，我們提供銀行與地政所需文件範本。"
+        }
+      },
+      "visaGuide": {
+        "title": "房產投資對應的居留簽證",
+        "excerpt": "挑選與購屋相輔的簽證，確保長期居留。",
+        "body": {
+          "0": "泰國 Elite、馬來西亞 MM2H、柬埔寨第二家園皆承認房產投資。我們比較門檻與審核時間。",
+          "1": "家庭還需考量教育、醫療、稅務，我們以易懂方式說明差異。",
+          "2": "與持照移民律師合作，讓簽證申請與交易同步推進。"
+        }
+      },
+      "marketPulse": {
+        "title": "東南亞市場脈動 Q4",
+        "excerpt": "租金收益與匯率變動影響。",
+        "body": {
+          "0": "曼谷河畔租金年增 7%，受惠於新基礎建設。",
+          "1": "仰光與金邊仍具價值，美元租約降低波動。",
+          "2": "令吉走弱創造馬來西亞進場時機，我們提出避險方案。"
+        }
+      }
+    },
+    "fallback": {
+      "title": "區域置產起步重點",
+      "excerpt": "看屋前的必備清單。",
+      "body": "付款前先確認財務、法規與簽證安排。"
+    },
+    "seo": {
+      "title": "買家市場情報",
+      "description": "解析產權、簽證與跨境投資策略。"
+    }
+  },
+  "contact": {
+    "title": "聯絡顧問",
+    "subtitle": "告訴我們您的目標，我們將提供下一步建議。",
+    "intro": "我們會在一個工作日內，以您偏好的語言回覆。",
+    "fields": {
+      "name": "姓名",
+      "email": "電子郵件",
+      "phone": "電話（選填）",
+      "budget": "預算（選填）",
+      "message": "您的需求"
+    },
+    "submit": "送出",
+    "sending": "傳送中…",
+    "success": "感謝聯繫，我們將盡快回覆。",
+    "error": "傳送失敗，請稍後再試。",
+    "cooldown": "您剛完成送出，請稍候再傳。",
+    "honeypot": "請勿填寫",
+    "seo": {
+      "title": "聯絡 ZomZom Property",
+      "description": "與熟悉東南亞市場的多語顧問合作。"
+    },
+    "api": {
+      "invalid": "請確認表單資訊後再送出。",
+      "turnstileMissing": "請完成驗證後再提交。",
+      "turnstileFailed": "驗證失敗，請重新整理後再試。",
+      "emailFailed": "暫時無法寄出郵件，請直接寫信至 hello@zomzomproperty.com。",
+      "cooldown": "您剛剛送出訊息，請稍候再試。",
+      "success": "我們已收到訊息，顧問將儘快回覆。"
+    }
+  },
+  "errors": {
+    "title": "發生錯誤",
+    "description": "請重試或返回首頁。",
+    "tryAgain": "再試一次",
+    "notFoundTitle": "找不到頁面",
+    "notFoundDescription": "您造訪的內容已移動或不存在。",
+    "backHome": "回到首頁"
+  }
+}

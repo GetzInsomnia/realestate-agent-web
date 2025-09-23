@@ -1,0 +1,17 @@
+[
+  {
+    "id": "buyers-supported",
+    "labelKey": "home.highlights.buyers",
+    "value": "1.2K+"
+  },
+  {
+    "id": "inventory",
+    "labelKey": "home.highlights.inventory",
+    "value": "480"
+  },
+  {
+    "id": "satisfaction",
+    "labelKey": "home.highlights.satisfaction",
+    "value": "98%"
+  }
+]
