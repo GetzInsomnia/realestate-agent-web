@@ -894,6 +894,88 @@ async function writeDirectory(outDir, payload) {
 
   const checksMd = `# CHECKS\n\`\`\`json\n${JSON.stringify(payload.checks, null, 2)}\n\`\`\`\n`;
   await fs.writeFile(path.join(outDir, "CHECKS.md"), checksMd, "utf8");
+
+  const localeDirList = payload.localePages.localeDirectories.length
+    ? payload.localePages.localeDirectories.map((dir) => `- ${dir}`).join("\n")
+    : "- (none)";
+  const localePageRows = payload.localePages.pages.map((entry) => [entry.file, entry.route]);
+  const localeMd = `# LOCALE ROUTES\n## Locale Directories\n${localeDirList}\n\n## Pages\n${mdTable(localePageRows, ["File", "Route"])}`;
+  await fs.writeFile(path.join(outDir, "LOCALE-ROUTES.md"), localeMd, "utf8");
+
+  const guardRows = payload.clientHookMisuse.map((entry) => [entry.file, entry.hooks.join(", ")]);
+  const guardsMd = `# MISSING GUARDS\nFiles using client-only hooks without a \\\"use client\\\" directive.\n\n${mdTable(guardRows, ["File", "Hooks"])}\n`;
+  await fs.writeFile(path.join(outDir, "MISSING-GUARDS.md"), guardsMd, "utf8");
+
+  const nextFlagRows = payload.nextConfigFlags.map((entry) => [entry.file, entry.flags.length ? entry.flags.join(", ") : "(none)"]);
+  const securityUsageRows = [
+    ["Environment variable usage", payload.security.envUsage.length],
+    ["Secure cookie options", payload.security.secureCookies.length],
+    ["Security header definitions", payload.security.securityHeaders.length],
+    ["Protection signals", payload.security.protection.length]
+  ];
+  const securitySections = [
+    { title: "Environment variable usage", values: payload.security.envUsage },
+    { title: "Secure cookie options", values: payload.security.secureCookies },
+    { title: "Security header definitions", values: payload.security.securityHeaders },
+    { title: "Protection signals", values: payload.security.protection }
+  ]
+    .map(({ title, values }) => {
+      const list = values.length ? values.map((value) => `- ${value}`).join("\n") : "- (none)";
+      return `### ${title}\n${list}`;
+    })
+    .join("\n\n");
+  const securityMd = `# SECURITY\n## Next Config Flags\n${mdTable(nextFlagRows, ["File", "Flags"])}\n## Usage Signals\n${mdTable(securityUsageRows, ["Signal", "Count"])}\n\n${securitySections}\n`;
+  await fs.writeFile(path.join(outDir, "SECURITY.md"), securityMd, "utf8");
+
+  const middlewareRows = payload.middleware.map((entry) => [entry.file, entry.hasMatcher ? "yes" : "no", entry.matchers.join(", ") || "(none)"]);
+  const middlewareMd = `# MIDDLEWARE\n${mdTable(middlewareRows, ["File", "Has matcher", "Matchers"])}\n`;
+  await fs.writeFile(path.join(outDir, "MIDDLEWARE.md"), middlewareMd, "utf8");
+
+  const seoCountRows = [
+    ["generateMetadata functions", payload.seo.metadataFunctions.length],
+    ["metadata exports", payload.seo.metadataExports.length],
+    ["alternate languages", payload.seo.alternatesLanguages.length],
+    ["structured data snippets", payload.seo.structuredData.length]
+  ];
+  const seoDetails = [
+    { title: "generateMetadata functions", values: payload.seo.metadataFunctions },
+    { title: "metadata exports", values: payload.seo.metadataExports },
+    { title: "alternate languages", values: payload.seo.alternatesLanguages },
+    { title: "structured data snippets", values: payload.seo.structuredData }
+  ]
+    .map(({ title, values }) => {
+      const list = values.length ? values.map((value) => `- ${value}`).join("\n") : "- (none)";
+      return `### ${title}\n${list}`;
+    })
+    .join("\n\n");
+  const seoMd = `# SEO\n${mdTable(seoCountRows, ["Signal", "Count"])}\n\n${seoDetails}\n`;
+  await fs.writeFile(path.join(outDir, "SEO.md"), seoMd, "utf8");
+
+  const robotsSections = [
+    { title: "robots handlers", values: payload.robots.robots },
+    { title: "sitemap handlers", values: payload.robots.sitemap },
+    { title: "next-sitemap configs", values: payload.robots.nextSitemapConfig }
+  ]
+    .map(({ title, values }) => {
+      const list = values.length ? values.map((value) => `- ${value}`).join("\n") : "- (none)";
+      return `## ${title.charAt(0).toUpperCase()}${title.slice(1)}\n${list}`;
+    })
+    .join("\n\n");
+  const robotsMd = `# ROBOTS & SITEMAP\n${robotsSections}\n`;
+  await fs.writeFile(path.join(outDir, "ROBOTS.md"), robotsMd, "utf8");
+
+  const i18nUsageRows = payload.i18nUsage.files.map((entry) => [entry.file, entry.keys.length]);
+  const keysList = payload.i18nUsage.keys.length
+    ? payload.i18nUsage.keys.map((key) => `- ${key}`).join("\n")
+    : "- (none)";
+  const perFileDetails = payload.i18nUsage.files
+    .map((entry) => {
+      const list = entry.keys.length ? entry.keys.map((key) => `- ${key}`).join("\n") : "- (none)";
+      return `### ${entry.file}\n${list}`;
+    })
+    .join("\n\n");
+  const i18nUsageMd = `# I18N KEY SUMMARY\nTotal unique keys: ${payload.i18nUsage.totalKeys}\nFiles with usage: ${payload.i18nUsage.files.length}\n\n## Usage by File\n${mdTable(i18nUsageRows, ["File", "Keys used"])}\n\n## All Keys\n${keysList}\n\n${perFileDetails}\n`;
+  await fs.writeFile(path.join(outDir, "I18N-USAGE.md"), i18nUsageMd, "utf8");
 }
 
 function renderSingleReport(payload) {
