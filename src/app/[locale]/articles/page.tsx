@@ -6,25 +6,34 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import { loadArticles } from '@/lib/data/loaders';
 import { formatDate } from '@/lib/utils';
 import { createPageMetadata, getAbsoluteUrl } from '@/lib/seo';
-import type { AppLocale } from '@/lib/i18n';
+import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
+  params: { locale?: string };
 }): Promise<Metadata> {
-  const { locale } = params;
+  const requestedLocale = params?.locale ?? '';
+  const locale = isValidLocale(requestedLocale) ? requestedLocale : fallbackLocale;
+  const appLocale = locale as AppLocale;
   const t = await getTranslations({ locale, namespace: 'articles' });
   return createPageMetadata({
-    locale: locale as AppLocale,
+    locale: appLocale,
     title: t('seo.title'),
     description: t('seo.description'),
     pathname: '/articles',
   });
 }
 
-export default async function ArticlesPage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function ArticlesPage({ params }: { params: { locale?: string } }) {
+  const requestedLocale = params?.locale ?? '';
+  const locale = isValidLocale(requestedLocale) ? requestedLocale : fallbackLocale;
   const [tArticles, articles] = await Promise.all([
     getTranslations({ locale, namespace: 'articles' }),
     loadArticles(),
