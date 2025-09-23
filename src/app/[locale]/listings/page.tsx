@@ -1,11 +1,18 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
 import Breadcrumbs from '../components/Breadcrumbs';
+import ListingsSearchClient from './ListingsSearchClient';
 import { loadListings } from '@/lib/data/loaders';
-import { formatCurrency } from '@/lib/utils';
-import type { AppLocale } from '@/lib/i18n';
 import { buildListingJsonLd, createPageMetadata } from '@/lib/seo';
+import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
   params,
@@ -13,9 +20,10 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const { locale } = params;
-  const t = await getTranslations({ locale, namespace: 'listings' });
+  const resolvedLocale = isValidLocale(locale) ? locale : fallbackLocale;
+  const t = await getTranslations({ locale: resolvedLocale, namespace: 'listings' });
   return createPageMetadata({
-    locale: locale as AppLocale,
+    locale: resolvedLocale as AppLocale,
     title: t('seo.title'),
     description: t('seo.description'),
     pathname: '/listings',
@@ -23,7 +31,8 @@ export async function generateMetadata({
 }
 
 export default async function ListingsPage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+  const requestedLocale = params.locale;
+  const locale = isValidLocale(requestedLocale) ? requestedLocale : fallbackLocale;
   const [tListings, listings] = await Promise.all([
     getTranslations({ locale, namespace: 'listings' }),
     loadListings(),
@@ -32,6 +41,17 @@ export default async function ListingsPage({ params }: { params: { locale: strin
   const listingJsonLd = listings.items.map((listing) =>
     buildListingJsonLd(locale as AppLocale, listing),
   );
+
+  const tagLabels = {
+    panoramic: tListings('tags.panoramic'),
+    cityCore: tListings('tags.cityCore'),
+    resortLiving: tListings('tags.resortLiving'),
+    turnkey: tListings('tags.turnkey'),
+    investmentReady: tListings('tags.investmentReady'),
+    transit: tListings('tags.transit'),
+    exclusive: tListings('tags.exclusive'),
+    privateDock: tListings('tags.privateDock'),
+  } satisfies Record<string, string>;
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
@@ -42,43 +62,32 @@ export default async function ListingsPage({ params }: { params: { locale: strin
         </h1>
         <p className="text-sm text-slate-600">{tListings('directorySubtitle')}</p>
       </div>
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {listings.items.map((listing) => (
-          <article key={listing.id} className="fade-surface h-full">
-            <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wide text-brand-500">
-              {listing.tags.map((tag) => (
-                <span key={tag}>{tListings(`tags.${tag}`)}</span>
-              ))}
-            </div>
-            <h2 className="mt-4 text-xl font-semibold text-slate-900">
-              {tListings(`items.${listing.id}.title`)}
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
-              {tListings(`items.${listing.id}.description`)}
-            </p>
-            <dl className="mt-6 grid grid-cols-3 gap-3 text-center text-xs text-slate-500">
-              <div className="rounded-lg border border-slate-200/60 bg-white/70 p-2">
-                <dt className="font-semibold text-slate-700">{listing.bedrooms}</dt>
-                <dd>{tListings('metrics.bedrooms')}</dd>
-              </div>
-              <div className="rounded-lg border border-slate-200/60 bg-white/70 p-2">
-                <dt className="font-semibold text-slate-700">{listing.bathrooms}</dt>
-                <dd>{tListings('metrics.bathrooms')}</dd>
-              </div>
-              <div className="rounded-lg border border-slate-200/60 bg-white/70 p-2">
-                <dt className="font-semibold text-slate-700">{listing.area} m²</dt>
-                <dd>{tListings('metrics.area')}</dd>
-              </div>
-            </dl>
-            <div className="mt-6 flex items-center justify-between text-sm text-slate-500">
-              <span>{tListings(`items.${listing.id}.location`)}</span>
-              <span className="font-semibold text-brand-600">
-                {formatCurrency(listing.price, locale, listing.currency)}
-              </span>
-            </div>
-          </article>
-        ))}
-      </div>
+      <Suspense
+        fallback={
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static placeholder list
+                key={index}
+                className="h-60 animate-pulse rounded-3xl bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100"
+              />
+            ))}
+          </div>
+        }
+      >
+        <ListingsSearchClient
+          locale={locale as AppLocale}
+          initial={listings.items}
+          sectionTitle={tListings('sectionTitle')}
+          sectionSubtitle={tListings('directorySubtitle')}
+          tagLabels={tagLabels}
+          metrics={{
+            bedrooms: tListings('metrics.bedrooms'),
+            bathrooms: tListings('metrics.bathrooms'),
+            area: tListings('metrics.area'),
+          }}
+        />
+      </Suspense>
       <Script id="listings-directory-jsonld" type="application/ld+json">
         {JSON.stringify(listingJsonLd)}
       </Script>
