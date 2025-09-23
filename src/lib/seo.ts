@@ -94,6 +94,8 @@ export function createPageMetadata({
   } satisfies Metadata;
 }
 
+export const generatePageMetadata = createPageMetadata;
+
 export function buildOrganizationJsonLd(locale: AppLocale) {
   return {
     "@context": "https://schema.org",

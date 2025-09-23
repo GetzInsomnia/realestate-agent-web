@@ -5,7 +5,7 @@ import Script from "next/script";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Providers from "./providers";
 import LayoutShell from "./components/LayoutShell";
-import { createPageMetadata, buildOrganizationJsonLd } from "@/lib/seo";
+import { buildOrganizationJsonLd, generatePageMetadata } from "@/lib/seo";
 import { getLocaleDirection, isValidLocale, loadMessages, type AppLocale } from "@/lib/i18n";
 import { loadArticles, loadListings } from "@/lib/data/loaders";
 import { createStaticKey } from "@/lib/swr-config";
@@ -24,12 +24,11 @@ export async function generateMetadata({
     notFound();
   }
 
-  const t = await getTranslations({ locale, namespace: "seo" });
-  return createPageMetadata({
+  return generatePageMetadata({
     locale: locale as AppLocale,
-    title: t("title"),
-    description: t("description"),
-    pathname: "",
+    pathname: "/",
+    title: "ZomZom Property",
+    description: "Boutique multilingual real estate experts guiding global buyers across Southeast Asia.",
   });
 }
 
