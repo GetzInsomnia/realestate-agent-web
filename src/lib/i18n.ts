@@ -81,5 +81,9 @@ export default getRequestConfig(async ({ locale }) => {
   return {
     locale,
     messages,
+    onError: () => {
+      /* noop */
+    },
+    getMessageFallback: ({ key }) => key,
   };
 });
