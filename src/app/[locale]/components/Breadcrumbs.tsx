@@ -129,7 +129,7 @@ export default function Breadcrumbs() {
                     href={breadcrumb.href}
                     className={cn(
                       'font-medium text-slate-600 transition hover:text-brand-600',
-                      { 'text-slate-800': isLast },
+                      isLast ? 'text-slate-800' : undefined,
                     )}
                   >
                     {breadcrumb.label}
