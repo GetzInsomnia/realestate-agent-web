@@ -1,26 +1,31 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import useSWR from "swr";
-import { useLocale, useTranslations } from "next-intl";
-import type { Listing } from "@/lib/data/schemas";
-import { createStaticKey } from "@/lib/swr-config";
-import { formatCurrency } from "@/lib/utils";
+import Link from 'next/link';
+import { useMemo } from 'react';
+import useSWR from 'swr';
+import { useLocale, useTranslations } from 'next-intl';
+import type { Listing } from '@/lib/data/schemas';
+import type { AppLocale } from '@/lib/i18n';
+import { createStaticKey } from '@/lib/swr-config';
+import { formatCurrency } from '@/lib/utils';
 
-const LISTINGS_KEY = createStaticKey("listings");
+const LISTINGS_KEY = createStaticKey('listings');
 
 type Props = {
   initial: Listing[];
   sectionTitle: string;
   sectionSubtitle: string;
-  viewAllLabel: string;
-  viewAllHref: string;
+  viewAllLabel?: string;
+  viewAllHref?: string;
   tagLabels: Record<string, string>;
   metrics: {
     bedrooms: string;
     bathrooms: string;
     area: string;
   };
+  locale?: AppLocale;
+  query?: string | null;
+  tag?: string | null;
 };
 
 export default function ListingsGrid({
@@ -31,29 +36,71 @@ export default function ListingsGrid({
   viewAllLabel,
   tagLabels,
   metrics,
+  locale,
+  query,
+  tag,
 }: Props) {
-  const locale = useLocale();
+  const localeFromContext = useLocale();
+  const resolvedLocale = locale ?? (localeFromContext as AppLocale);
   const t = useTranslations();
   const { data } = useSWR<Listing[]>(LISTINGS_KEY, { fallbackData: initial });
   const listings = data ?? initial;
+  const normalizedQuery = query?.trim().toLocaleLowerCase(resolvedLocale) ?? '';
+  const normalizedTag = tag?.trim().toLowerCase() ?? '';
+
+  const filteredListings = useMemo(() => {
+    if (!normalizedQuery && !normalizedTag) {
+      return listings;
+    }
+
+    return listings.filter((listing) => {
+      const matchesTag =
+        !normalizedTag ||
+        listing.tags.some((listingTag) => listingTag.toLowerCase() === normalizedTag);
+
+      if (!matchesTag) {
+        return false;
+      }
+
+      if (!normalizedQuery) {
+        return true;
+      }
+
+      const searchableText = [
+        listing.titleKey,
+        listing.descriptionKey,
+        listing.locationKey,
+      ]
+        .map((key) => t(key).toLocaleLowerCase(resolvedLocale))
+        .join(' ');
+
+      return searchableText.includes(normalizedQuery);
+    });
+  }, [listings, normalizedQuery, normalizedTag, resolvedLocale, t]);
+
+  const showViewAll = Boolean(viewAllHref && viewAllLabel);
 
   return (
     <section id="listings" className="section-gradient scroll-mt-24 py-16">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">{sectionTitle}</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+              {sectionTitle}
+            </h2>
             <p className="mt-2 max-w-2xl text-sm text-slate-600">{sectionSubtitle}</p>
           </div>
-          <Link
-            href={viewAllHref}
-            className="inline-flex items-center rounded-full border border-brand-200 px-4 py-2 text-sm font-semibold text-brand-600 transition hover:border-brand-300 hover:text-brand-700"
-          >
-            {viewAllLabel}
-          </Link>
+          {showViewAll ? (
+            <Link
+              href={viewAllHref}
+              className="inline-flex items-center rounded-full border border-brand-200 px-4 py-2 text-sm font-semibold text-brand-600 transition hover:border-brand-300 hover:text-brand-700"
+            >
+              {viewAllLabel}
+            </Link>
+          ) : null}
         </div>
         <div className="grid gap-6 md:grid-cols-2">
-          {listings.map((listing) => (
+          {filteredListings.map((listing) => (
             <article
               key={listing.id}
               id={listing.id}
@@ -71,12 +118,14 @@ export default function ListingsGrid({
                     </span>
                   ))}
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900">{t(listing.titleKey)}</h3>
+                <h3 className="text-xl font-semibold text-slate-900">
+                  {t(listing.titleKey)}
+                </h3>
                 <p className="text-sm text-slate-600">{t(listing.descriptionKey)}</p>
                 <div className="flex items-center justify-between text-sm text-slate-500">
                   <span>{t(listing.locationKey)}</span>
                   <span className="font-semibold text-brand-600">
-                    {formatCurrency(listing.price, locale, listing.currency)}
+                    {formatCurrency(listing.price, resolvedLocale, listing.currency)}
                   </span>
                 </div>
                 <dl className="grid grid-cols-3 gap-3 text-center text-xs text-slate-500">
