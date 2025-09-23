@@ -1027,6 +1027,68 @@ async function main() {
     collectI18nUsedKeys()
   ]);
 
+  const localeGuards = {
+    totalIssues: clientHookMisuse.length,
+    hasIssues: clientHookMisuse.length > 0,
+    files: clientHookMisuse
+  };
+
+  const nextConfig = {
+    totalFiles: nextConfigFlags.length,
+    filesWithFlags: nextConfigFlags.filter((entry) => entry.flags.length > 0).length,
+    totalFlagCount: nextConfigFlags.reduce((total, entry) => total + entry.flags.length, 0),
+    uniqueFlags: [...new Set(nextConfigFlags.flatMap((entry) => entry.flags))].sort(),
+    files: nextConfigFlags
+  };
+
+  const middlewareSummary = {
+    total: middleware.length,
+    withMatcher: middleware.filter((entry) => entry.hasMatcher).length,
+    withoutMatcher: middleware.filter((entry) => !entry.hasMatcher).length,
+    entries: middleware
+  };
+
+  const seoSummary = {
+    metadataFunctions: seo.metadataFunctions.length,
+    metadataExports: seo.metadataExports.length,
+    alternatesLanguages: seo.alternatesLanguages.length,
+    structuredData: seo.structuredData.length,
+    files: seo
+  };
+
+  const securitySummary = {
+    envUsage: security.envUsage.length,
+    secureCookies: security.secureCookies.length,
+    securityHeaders: security.securityHeaders.length,
+    protection: security.protection.length,
+    files: security
+  };
+
+  const robotsSummary = {
+    robotsHandlers: robots.robots.length,
+    sitemapHandlers: robots.sitemap.length,
+    nextSitemapConfigs: robots.nextSitemapConfig.length,
+    files: robots
+  };
+
+  const i18nUsageSummary = {
+    totalFiles: i18nUsage.files.length,
+    totalKeys: i18nUsage.totalKeys,
+    files: i18nUsage.files,
+    keys: i18nUsage.keys
+  };
+
+  const checkSummaries = {
+    core: checks,
+    localeGuards,
+    nextConfig,
+    middleware: middlewareSummary,
+    seo: seoSummary,
+    security: securitySummary,
+    robots: robotsSummary,
+    i18nUsage: i18nUsageSummary
+  };
+
   const payload = {
     inventory,
     package: packageInfo,
@@ -1034,7 +1096,7 @@ async function main() {
     i18n,
     content,
     tests,
-    checks,
+    checks: checkSummaries,
     localePages,
     clientHookMisuse,
     nextConfigFlags,
