@@ -10,8 +10,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "xray": "node scripts/xray-lite.mjs",
-    "xray:single": "node scripts/xray-lite.mjs --single",
+    "xray": "node scripts/xray-lite.mjs --out reports",
+    "xray:single": "node scripts/xray-lite.mjs --out reports/PROJECT-REPORT.md",
     "prepare": "husky"
   },
   "dependencies": {
