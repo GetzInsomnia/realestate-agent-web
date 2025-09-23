@@ -6,24 +6,31 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import { loadArticles } from '@/lib/data/loaders';
 import { formatDate } from '@/lib/utils';
 import { createPageMetadata, getAbsoluteUrl } from '@/lib/seo';
-import type { AppLocale } from '@/lib/i18n';
+import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
 
-export async function generateStaticParams() {
+export const dynamicParams = false;
+
+export function generateStaticParams() {
   const articles = loadArticles();
-  return articles.items.map((article) => ({ slug: article.slug }));
+  return locales.flatMap((locale) =>
+    articles.items.map((article) => ({ locale, slug: article.slug })),
+  );
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string; slug: string };
+  params: { locale?: string; slug: string };
 }): Promise<Metadata> {
-  const { locale, slug } = params;
+  const requestedLocale = params?.locale ?? '';
+  const locale = isValidLocale(requestedLocale) ? requestedLocale : fallbackLocale;
+  const appLocale = locale as AppLocale;
+  const { slug } = params;
   const articles = loadArticles();
   const article = articles.items.find((item) => item.slug === slug);
   if (!article) {
     return createPageMetadata({
-      locale: locale as AppLocale,
+      locale: appLocale,
       title: 'Article',
       description: '',
       pathname: `/articles/${slug}`,
@@ -31,7 +38,7 @@ export async function generateMetadata({
   }
   const t = await getTranslations({ locale, namespace: 'articles' });
   return createPageMetadata({
-    locale: locale as AppLocale,
+    locale: appLocale,
     title: t(`items.${article.id}.title`),
     description: t(`items.${article.id}.excerpt`),
     pathname: `/articles/${article.slug}`,
@@ -41,9 +48,11 @@ export async function generateMetadata({
 export default async function ArticleDetail({
   params,
 }: {
-  params: { locale: string; slug: string };
+  params: { locale?: string; slug: string };
 }) {
-  const { locale, slug } = params;
+  const requestedLocale = params?.locale ?? '';
+  const locale = isValidLocale(requestedLocale) ? requestedLocale : fallbackLocale;
+  const { slug } = params;
   const articles = loadArticles();
   const article = articles.items.find((item) => item.slug === slug);
   if (!article) {
