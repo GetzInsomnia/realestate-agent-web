@@ -316,6 +316,448 @@ async function collectTests() {
   };
 }
 
+async function collectLocalePages() {
+  const files = await walk(projectRoot, []);
+  const locales = new Set();
+  const pages = [];
+
+  const prefixes = ["app/", "src/app/"];
+
+  for (const file of files) {
+    const ext = path.extname(file).toLowerCase();
+    if (!TEXT_EXT.has(ext)) continue;
+
+    const relFile = rel(file);
+    const posix = toPosix(relFile);
+
+    const prefix = prefixes.find((candidate) => posix.startsWith(candidate));
+    if (!prefix) continue;
+
+    if (!posix.startsWith(`${prefix}[`)) continue;
+
+    const localeMatch = posix.slice(prefix.length).split("/")[0];
+    if (!localeMatch || !/^\[[^/]+\]$/.test(localeMatch)) continue;
+
+    locales.add(`${prefix}${localeMatch}`);
+
+    if (!/\/page\.[cm]?[tj]sx?$/.test(posix)) continue;
+
+    const routePath = `/${posix
+      .slice(prefix.length)
+      .replace(/\/page\.[^/]+$/, "")}`.replace(/\/+/g, "/");
+
+    pages.push({
+      file: relFile,
+      route: routePath === "/" ? "/" : routePath
+    });
+  }
+
+  pages.sort(byFileAsc);
+
+  return {
+    localeDirectories: [...locales].sort(),
+    pages
+  };
+}
+
+const CLIENT_ONLY_HOOKS = [
+  "useRouter",
+  "usePathname",
+  "useSearchParams",
+  "useParams",
+  "useSelectedLayoutSegment",
+  "useSelectedLayoutSegments"
+];
+
+async function collectClientHookMisuse() {
+  const files = await walk(projectRoot, []);
+  const issues = [];
+
+  for (const file of files) {
+    const ext = path.extname(file).toLowerCase();
+    if (!TEXT_EXT.has(ext)) continue;
+    if (!/\.[cm]?[tj]sx?$/.test(ext)) continue;
+
+    let source;
+    try {
+      source = await fs.readFile(file, "utf8");
+    } catch {
+      continue;
+    }
+
+    if (!/from\s+['"]next\/navigation['"]/.test(source)) {
+      continue;
+    }
+
+    const trimmed = source.trimStart();
+    const hasUseClient = /^(["'])use client\1;?/.test(trimmed);
+    if (hasUseClient) continue;
+
+    const hooks = CLIENT_ONLY_HOOKS.filter((hook) => new RegExp(`\\b${hook}\\b`).test(source));
+    if (!hooks.length) continue;
+
+    issues.push({
+      file: rel(file),
+      hooks: [...new Set(hooks)].sort()
+    });
+  }
+
+  issues.sort(byFileAsc);
+  return issues;
+}
+
+const NEXT_CONFIG_FILES = [
+  "next.config.js",
+  "next.config.mjs",
+  "next.config.cjs",
+  "next.config.ts"
+];
+
+const NEXT_FLAG_PATTERNS = [
+  { key: "reactStrictMode", label: "reactStrictMode: true", regex: /reactStrictMode\s*:\s*true/ },
+  { key: "poweredByHeader", label: "poweredByHeader: false", regex: /poweredByHeader\s*:\s*false/ },
+  { key: "productionBrowserSourceMaps", label: "productionBrowserSourceMaps: false", regex: /productionBrowserSourceMaps\s*:\s*false/ },
+  { key: "swcMinify", label: "swcMinify: true", regex: /swcMinify\s*:\s*true/ },
+  { key: "removeConsole", label: "compiler.removeConsole", regex: /removeConsole\s*:/ },
+  { key: "serverActions", label: "experimental.serverActions", regex: /experimental[\s\S]*serverActions/ },
+  { key: "typedRoutes", label: "experimental.typedRoutes", regex: /experimental[\s\S]*typedRoutes/ },
+  { key: "optimizePackageImports", label: "experimental.optimizePackageImports", regex: /experimental[\s\S]*optimizePackageImports/ },
+  { key: "strictNextHead", label: "experimental.strictNextHead", regex: /experimental[\s\S]*strictNextHead/ },
+  { key: "headers", label: "headers() defined", regex: /headers\s*:\s*async\s*\(|export\s+async\s+function\s+headers/ }
+];
+
+async function collectNextConfigFlags() {
+  const results = [];
+
+  for (const candidate of NEXT_CONFIG_FILES) {
+    const abs = path.join(projectRoot, candidate);
+    let source;
+    try {
+      source = await fs.readFile(abs, "utf8");
+    } catch {
+      continue;
+    }
+
+    const flags = [];
+    for (const { label, regex } of NEXT_FLAG_PATTERNS) {
+      if (regex.test(source)) {
+        flags.push(label);
+      }
+    }
+
+    results.push({
+      file: rel(abs),
+      flags: flags.sort()
+    });
+  }
+
+  return results;
+}
+
+async function collectMiddlewareChecks() {
+  const files = await walk(projectRoot, []);
+  const matches = [];
+
+  for (const file of files) {
+    const base = path.basename(file);
+    if (!/^middleware\.[cm]?[tj]s$/.test(base)) continue;
+
+    let source;
+    try {
+      source = await fs.readFile(file, "utf8");
+    } catch {
+      continue;
+    }
+
+    const matcherRegex = /matcher\s*:\s*\[([^\]]*)\]/;
+    const matcherMatch = matcherRegex.exec(source);
+    const matchers = matcherMatch
+      ? matcherMatch[1]
+          .split(",")
+          .map((token) => token.replace(/['"`]/g, "").trim())
+          .filter(Boolean)
+      : [];
+
+    matches.push({
+      file: rel(file),
+      hasMatcher: matcherMatch !== null,
+      matchers
+    });
+  }
+
+  matches.sort(byFileAsc);
+  return matches;
+}
+
+async function collectSEO() {
+  const files = await walk(projectRoot, []);
+  const metadataFunctions = new Set();
+  const metadataExports = new Set();
+  const alternates = new Set();
+  const jsonLd = new Set();
+
+  for (const file of files) {
+    const ext = path.extname(file).toLowerCase();
+    if (!TEXT_EXT.has(ext)) continue;
+
+    let source;
+    try {
+      source = await fs.readFile(file, "utf8");
+    } catch {
+      continue;
+    }
+
+    const relFile = rel(file);
+
+    if (/generateMetadata\s*\(/.test(source)) {
+      metadataFunctions.add(relFile);
+    }
+
+    if (/export\s+const\s+metadata\s*=/.test(source)) {
+      metadataExports.add(relFile);
+    }
+
+    if (/alternates\s*:\s*{[\s\S]*languages\s*:/m.test(source)) {
+      alternates.add(relFile);
+    }
+
+    if (/JsonLd/.test(source) || /ld\w+\s*=\s*{/.test(source)) {
+      jsonLd.add(relFile);
+    }
+  }
+
+  const toSorted = (set) => [...set].sort();
+
+  return {
+    metadataFunctions: toSorted(metadataFunctions),
+    metadataExports: toSorted(metadataExports),
+    alternatesLanguages: toSorted(alternates),
+    structuredData: toSorted(jsonLd)
+  };
+}
+
+async function collectSecuritySignals() {
+  const files = await walk(projectRoot, []);
+  const envUsage = new Set();
+  const secureCookies = new Set();
+  const headerDefinitions = new Set();
+  const protectionSignals = new Set();
+
+  const headerRegex = /(content-security-policy|strict-transport-security|x-frame-options|x-content-type-options)/i;
+  const cookieRegex = /(httpOnly|secure|sameSite)\s*:\s*(true|['"`][^'"`]+['"`])/;
+
+  for (const file of files) {
+    const ext = path.extname(file).toLowerCase();
+    if (!TEXT_EXT.has(ext)) continue;
+
+    let source;
+    try {
+      source = await fs.readFile(file, "utf8");
+    } catch {
+      continue;
+    }
+
+    const relFile = rel(file);
+
+    if (/process\.env/.test(source)) {
+      envUsage.add(relFile);
+    }
+
+    if (cookieRegex.test(source)) {
+      secureCookies.add(relFile);
+    }
+
+    if (headerRegex.test(source)) {
+      headerDefinitions.add(relFile);
+    }
+
+    if (/csrf/i.test(source) || /turnstile/i.test(source) || /rateLimit/i.test(source)) {
+      protectionSignals.add(relFile);
+    }
+  }
+
+  const toSorted = (set) => [...set].sort();
+
+  return {
+    envUsage: toSorted(envUsage),
+    secureCookies: toSorted(secureCookies),
+    securityHeaders: toSorted(headerDefinitions),
+    protection: toSorted(protectionSignals)
+  };
+}
+
+async function collectRobotsSitemap() {
+  const files = await walk(projectRoot, []);
+  const robots = new Set();
+  const sitemap = new Set();
+  const configs = new Set();
+
+  for (const file of files) {
+    const base = path.basename(file);
+    const relFile = rel(file);
+
+    if (/^robots\.[cm]?[tj]sx?$/.test(base)) {
+      robots.add(relFile);
+    }
+
+    if (/^sitemap\.[cm]?[tj]sx?$/.test(base)) {
+      sitemap.add(relFile);
+    }
+
+    if (/next-sitemap\.config\.[cm]?js$/.test(base)) {
+      configs.add(relFile);
+    }
+  }
+
+  return {
+    robots: [...robots].sort(),
+    sitemap: [...sitemap].sort(),
+    nextSitemapConfig: [...configs].sort()
+  };
+}
+
+function escapeRegex(value) {
+  return value.replace(/[|\\{}()[\]^$+*?.-]/g, "\\$&");
+}
+
+function splitTopLevel(value) {
+  const parts = [];
+  let depth = 0;
+  let current = "";
+
+  for (const char of value) {
+    if (char === "(" || char === "{" || char === "[") {
+      depth += 1;
+    } else if (char === ")" || char === "}" || char === "]") {
+      depth = Math.max(0, depth - 1);
+    } else if (char === "," && depth === 0) {
+      if (current.trim()) {
+        parts.push(current.trim());
+      }
+      current = "";
+      continue;
+    }
+
+    current += char;
+  }
+
+  if (current.trim()) {
+    parts.push(current.trim());
+  }
+
+  return parts;
+}
+
+function extractTranslationKeys(content) {
+  const translatorMap = new Map();
+
+  const useTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*useTranslations\s*\(\s*(?:(['"`])([^'"`]+)\2)?\s*\)/g;
+  let match;
+
+  while ((match = useTranslationsRegex.exec(content)) !== null) {
+    const variable = match[1];
+    const namespace = match[3] ?? "";
+    translatorMap.set(variable, namespace);
+  }
+
+  const getTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:await\s*)?getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/g;
+
+  while ((match = getTranslationsRegex.exec(content)) !== null) {
+    const variable = match[1];
+    const options = match[2];
+    const namespaceMatch = /namespace\s*:\s*['"`]([^'"`]+)['"`]/.exec(options);
+    if (namespaceMatch) {
+      translatorMap.set(variable, namespaceMatch[1]);
+    }
+  }
+
+  const destructuredRegex = /const\s*\[\s*([^\]]+)\s*\]\s*=\s*await\s*Promise\.all\s*\(\s*\[([\s\S]*?)\]\s*\)/g;
+
+  while ((match = destructuredRegex.exec(content)) !== null) {
+    const variableList = splitTopLevel(match[1]);
+    const expressionList = splitTopLevel(match[2]);
+
+    expressionList.forEach((expression, index) => {
+      const namespaceMatch = /getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/.exec(expression);
+      if (!namespaceMatch) return;
+
+      const options = namespaceMatch[1];
+      const namespace = /namespace\s*:\s*['"`]([^'"`]+)['"`]/.exec(options)?.[1];
+      const variable = variableList[index]?.replace(/\s+/g, "");
+
+      if (namespace && variable) {
+        translatorMap.set(variable, namespace);
+      }
+    });
+  }
+
+  const keys = new Set();
+
+  for (const [variable, namespace] of translatorMap) {
+    const pattern = escapeRegex(variable) + "\\s*\\(\\s*(['\"`])([^'\"`]+)\\1";
+    const callRegex = new RegExp(pattern, "g");
+    let callMatch;
+
+    while ((callMatch = callRegex.exec(content)) !== null) {
+      const keyPart = callMatch[2];
+      if (keyPart.includes("${")) continue;
+      const key = namespace ? `${namespace}.${keyPart}` : keyPart;
+      keys.add(key);
+    }
+  }
+
+  const directRegex = /\bt\s*\(\s*(['"`])([^'"`]+)\1/g;
+
+  while ((match = directRegex.exec(content)) !== null) {
+    const fullKey = match[2];
+    if (!fullKey.includes("${") && fullKey.includes(".")) {
+      keys.add(fullKey);
+    }
+  }
+
+  return keys;
+}
+
+async function collectI18nUsedKeys() {
+  const files = await walk(projectRoot, []);
+  const usage = [];
+  const uniqueKeys = new Set();
+
+  for (const file of files) {
+    const ext = path.extname(file).toLowerCase();
+    if (!/\.[cm]?[tj]sx?$/.test(ext)) continue;
+
+    const relFile = rel(file);
+    const posix = toPosix(relFile);
+    if (!posix.startsWith("src/")) continue;
+
+    let source;
+    try {
+      source = await fs.readFile(file, "utf8");
+    } catch {
+      continue;
+    }
+
+    const keys = extractTranslationKeys(source);
+    if (keys.size === 0) continue;
+
+    const sortedKeys = [...keys].sort();
+    sortedKeys.forEach((key) => uniqueKeys.add(key));
+    usage.push({
+      file: relFile,
+      keys: sortedKeys
+    });
+  }
+
+  usage.sort(byFileAsc);
+
+  return {
+    files: usage,
+    totalKeys: uniqueKeys.size,
+    keys: [...uniqueKeys].sort()
+  };
+}
+
 const CHECKS = [
   {
     id: "error-boundary",
@@ -471,13 +913,36 @@ async function main() {
   const { out, single } = parseArgs();
 
   const packageInfo = await collectPackageInfo();
-  const [inventory, structure, i18n, content, tests, checks] = await Promise.all([
+  const [
+    inventory,
+    structure,
+    i18n,
+    content,
+    tests,
+    checks,
+    localePages,
+    clientHookMisuse,
+    nextConfigFlags,
+    middleware,
+    seo,
+    security,
+    robots,
+    i18nUsage
+  ] = await Promise.all([
     collectInventory(),
     collectStructure(packageInfo),
     collectI18n(),
     collectContentSignals(),
     collectTests(),
-    collectChecks()
+    collectChecks(),
+    collectLocalePages(),
+    collectClientHookMisuse(),
+    collectNextConfigFlags(),
+    collectMiddlewareChecks(),
+    collectSEO(),
+    collectSecuritySignals(),
+    collectRobotsSitemap(),
+    collectI18nUsedKeys()
   ]);
 
   const payload = {
@@ -487,7 +952,15 @@ async function main() {
     i18n,
     content,
     tests,
-    checks
+    checks,
+    localePages,
+    clientHookMisuse,
+    nextConfigFlags,
+    middleware,
+    seo,
+    security,
+    robots,
+    i18nUsage
   };
 
   if (single) {
