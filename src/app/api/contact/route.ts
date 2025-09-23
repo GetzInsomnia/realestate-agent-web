@@ -1,121 +1,169 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { contactFormSchema } from "@/lib/data/schemas";
-import { createAppTranslator, fallbackLocale } from "@/lib/i18n";
-import { getCookieExpiry } from "@/lib/utils";
+import { z } from "zod";
 
 const TURNSTILE_ENDPOINT = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY ?? "";
-const COOLDOWN_MINUTES = 2;
+const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
+const CONTACT_COOLDOWN_COOKIE = "contact-cooldown";
+const CONTACT_COOLDOWN_MINUTES = 2;
+const CONTACT_RECIPIENT = process.env.CONTACT_RECIPIENT_EMAIL ?? "zomzomproperty@gmail.com";
+const CONTACT_FROM = process.env.SMTP_FROM ?? "ZomZom Property <noreply@zomzomproperty.com>";
+
+const BodySchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  message: z.string().min(10),
+  budget: z.string().optional(),
+  locale: z.string().min(2).optional(),
+  turnstileToken: z.string().min(1),
+  honeypot: z.string().optional(),
+});
+
+type Body = z.infer<typeof BodySchema>;
 
 async function verifyTurnstile(token: string, ip?: string | null) {
   if (!TURNSTILE_SECRET_KEY) {
+    console.error("TURNSTILE_SECRET_KEY is not configured");
     return false;
   }
+
   const payload = new URLSearchParams({
     secret: TURNSTILE_SECRET_KEY,
     response: token,
   });
+
   if (ip) {
     payload.append("remoteip", ip);
   }
-  const response = await fetch(TURNSTILE_ENDPOINT, {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: payload,
-  });
-  const result = await response.json();
-  return Boolean(result.success);
+
+  try {
+    const response = await fetch(TURNSTILE_ENDPOINT, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: payload,
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const result = await response.json();
+    return Boolean(result.success);
+  } catch (error) {
+    console.error("Failed to verify Turnstile", error);
+    return false;
+  }
 }
 
-function createTransport() {
+function cooldownOk(now = Date.now()) {
+  const cookieStore = cookies();
+  const cookieValue = cookieStore.get(CONTACT_COOLDOWN_COOKIE)?.value;
+
+  if (!cookieValue) {
+    return { ok: true, cookieStore };
+  }
+
+  const lastAttempt = Number(cookieValue);
+  if (Number.isNaN(lastAttempt)) {
+    return { ok: true, cookieStore };
+  }
+
+  const elapsed = now - lastAttempt;
+  if (elapsed < CONTACT_COOLDOWN_MINUTES * 60 * 1000) {
+    return { ok: false, cookieStore };
+  }
+
+  return { ok: true, cookieStore };
+}
+
+async function sendEmail({ name, email, phone, message, budget }: Body) {
   const host = process.env.SMTP_HOST;
-  const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
+  const port = Number(process.env.SMTP_PORT ?? 587);
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
+
   if (!host || !user || !pass) {
-    throw new Error("SMTP credentials are not configured");
+    console.error("SMTP configuration is incomplete");
+    return false;
   }
-  return nodemailer.createTransport({
+
+  const transporter = nodemailer.createTransport({
     host,
     port,
     secure: port === 465,
-    auth: { user, pass },
+    auth: {
+      user,
+      pass,
+    },
   });
-}
-
-export async function POST(request: Request) {
-  const raw = await request.json().catch(() => null);
-  const parsed = contactFormSchema.safeParse(raw);
-  const locale = parsed.success ? parsed.data.locale : fallbackLocale;
-  const translator = await createAppTranslator(locale);
-
-  if (!parsed.success) {
-    return NextResponse.json(
-      { message: translator("contact.api.invalid") },
-      { status: 400 },
-    );
-  }
-
-  const { name, email, phone, message, budget, honeypot, turnstileToken } = parsed.data;
-
-  if (honeypot) {
-    return NextResponse.json({ message: translator("contact.api.success") });
-  }
-
-  const cookieStore = cookies();
-  const existing = cookieStore.get("contact-cooldown");
-  if (existing) {
-    const last = Number(existing.value);
-    if (!Number.isNaN(last) && Date.now() - last < COOLDOWN_MINUTES * 60 * 1000) {
-      return NextResponse.json(
-        { message: translator("contact.api.cooldown") },
-        { status: 429 },
-      );
-    }
-  }
-
-  if (!turnstileToken) {
-    return NextResponse.json(
-      { message: translator("contact.api.turnstileMissing") },
-      { status: 400 },
-    );
-  }
-
-  const forwarded = request.headers.get("x-forwarded-for");
-  const isValid = await verifyTurnstile(turnstileToken, forwarded);
-  if (!isValid) {
-    return NextResponse.json(
-      { message: translator("contact.api.turnstileFailed") },
-      { status: 400 },
-    );
-  }
 
   try {
-    const transporter = createTransport();
     await transporter.sendMail({
-      from: process.env.SMTP_FROM ?? "ZomZom Property <noreply@zomzomproperty.com>",
-      to: "zomzomproperty@gmail.com",
+      from: CONTACT_FROM,
+      to: CONTACT_RECIPIENT,
       subject: `New inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone ?? "-"}\nBudget: ${budget ?? "-"}\nMessage: ${message}`,
       replyTo: email,
     });
+
+    return true;
   } catch (error) {
     console.error("Failed to send contact email", error);
+    return false;
+  }
+}
+
+export async function POST(request: Request) {
+  const json = await request.json().catch(() => null);
+  const parsed = BodySchema.safeParse(json);
+
+  if (!parsed.success) {
     return NextResponse.json(
-      { message: translator("contact.api.emailFailed") },
+      { message: "Please review the form and try again." },
+      { status: 400 },
+    );
+  }
+
+  const body = parsed.data;
+
+  if (body.honeypot) {
+    return NextResponse.json({ message: "We received your message! Our team will reply shortly." });
+  }
+
+  const { ok, cookieStore } = cooldownOk();
+  if (!ok) {
+    return NextResponse.json(
+      { message: "Thanks! You just contacted us. Give us a moment before submitting another message." },
+      { status: 429 },
+    );
+  }
+
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const turnstileOk = await verifyTurnstile(body.turnstileToken, forwardedFor);
+  if (!turnstileOk) {
+    return NextResponse.json(
+      { message: "The verification failed. Please refresh and try again." },
+      { status: 400 },
+    );
+  }
+
+  const delivered = await sendEmail(body);
+  if (!delivered) {
+    return NextResponse.json(
+      { message: "We couldn’t send your message right now. Please email us directly at hello@zomzomproperty.com." },
       { status: 500 },
     );
   }
 
-  cookieStore.set("contact-cooldown", Date.now().toString(), {
-    expires: getCookieExpiry(COOLDOWN_MINUTES),
+  cookieStore.set(CONTACT_COOLDOWN_COOKIE, Date.now().toString(), {
+    expires: new Date(Date.now() + CONTACT_COOLDOWN_MINUTES * 60 * 1000),
     httpOnly: true,
     sameSite: "lax",
     secure: true,
     path: "/",
   });
 
-  return NextResponse.json({ message: translator("contact.api.success") });
+  return NextResponse.json({ message: "We received your message! Our team will reply shortly." });
 }
