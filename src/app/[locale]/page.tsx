@@ -5,7 +5,7 @@ import ListingsGrid from "./components/ListingsGrid";
 import ArticlesCarousel from "./components/ArticlesCarousel";
 import Testimonials from "./components/Testimonials";
 import FaqAccordion from "./components/FaqAccordion";
-import { buildListingJsonLd } from "@/lib/seo";
+import { JsonLd, buildListingJsonLd, ldOrganization, ldWebsite } from "@/lib/seo";
 import {
   loadArticles,
   loadFaqs,
@@ -49,6 +49,9 @@ export default async function LocaleHome({ params }: { params: { locale: string 
 
   return (
     <>
+      <JsonLd {...ldOrganization(locale as AppLocale)} />
+      <JsonLd {...ldWebsite(locale as AppLocale)} />
+
       <Hero
         eyebrow={tHome("hero.eyebrow")}
         title={tHome("hero.title")}
