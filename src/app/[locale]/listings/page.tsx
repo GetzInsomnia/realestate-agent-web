@@ -70,19 +70,7 @@ export default async function ListingsPage({ params }: { params: { locale?: stri
         </h1>
         <p className="text-sm text-slate-600">{tListings('directorySubtitle')}</p>
       </div>
-      <Suspense
-        fallback={
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <div
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static placeholder list
-                key={index}
-                className="h-60 animate-pulse rounded-3xl bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100"
-              />
-            ))}
-          </div>
-        }
-      >
+      <Suspense fallback={null}>
         <ListingsSearchClient
           locale={locale as AppLocale}
           initial={listings.items}
