@@ -23,6 +23,10 @@ const BodySchema = z.object({
 type Body = z.infer<typeof BodySchema>;
 
 async function verifyTurnstile(token: string, ip?: string | null) {
+  if (process.env.NODE_ENV !== 'production' && TURNSTILE_SECRET_KEY?.startsWith('1x')) {
+    return true;
+  }
+
   if (!TURNSTILE_SECRET_KEY) {
     console.error('TURNSTILE_SECRET_KEY is not configured');
     return false;

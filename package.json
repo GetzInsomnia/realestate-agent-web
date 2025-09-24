@@ -11,7 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "xray": "node scripts/xray-lite.mjs --out reports",
-    "xray:single": "node scripts/xray-lite.mjs --out reports/PROJECT-REPORT.md",
+    "xray:single": "node scripts/xray-lite.mjs --single --out reports/PROJECT-XRAY.md",
     "prepare": "husky",
     "i18n:audit": "node scripts/i18n-audit.mjs",
     "i18n:fill": "node scripts/i18n-fill.mjs",
