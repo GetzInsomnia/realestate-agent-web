@@ -1,88 +1,67 @@
-import { getRequestConfig, requestLocale } from 'next-intl/server';
+// src/lib/i18n.ts
+import { getRequestConfig } from 'next-intl/server';
 import { createTranslator, type AbstractIntlMessages } from 'next-intl';
 import { notFound } from 'next/navigation';
 
 export const locales = ['th', 'en', 'zh-CN', 'zh-TW', 'my', 'ru'] as const;
 export type AppLocale = (typeof locales)[number];
-export const fallbackLocale: AppLocale = 'en';
+export const defaultLocale: AppLocale = 'en';
 
-export const localeNames: Record<AppLocale, string> = {
-  th: 'ไทย',
-  en: 'English',
-  'zh-CN': '简体中文',
-  'zh-TW': '繁體中文',
-  my: 'မြန်မာ',
-  ru: 'Русский',
-};
+export function isValidLocale(input: string | null | undefined): input is AppLocale {
+  return !!input && (locales as readonly string[]).includes(input);
+}
 
-const rtlLocales = new Set<AppLocale>();
+function stripLeadingLocale(pathname: string) {
+  const m = pathname.match(/^\/([A-Za-z-]+)(\/|$)/);
+  if (m && (locales as readonly string[]).includes(m[1])) {
+    return pathname.slice(m[0].length - 1) || '/';
+  }
+  return pathname || '/';
+}
 
-export const routing = {
-  locales,
-  defaultLocale: fallbackLocale,
-  localePrefix: 'always' as const,
-};
+/**
+ * คืนชุดลิงก์ hreflang สำหรับทุก locale + 'x-default'
+ * key = hreflang code, value = absolute path
+ */
+export function getHreflangLocales(
+  current: AppLocale,
+  pathname = '/',
+): Record<string, string> {
+  const clean = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const basePath = stripLeadingLocale(clean);
+  const pathPart = basePath === '/' ? '' : basePath;
 
-export function isValidLocale(locale: string): locale is AppLocale {
-  return locales.includes(locale as AppLocale);
+  const map: Record<string, string> = {};
+  for (const l of locales) {
+    map[l] = `/${l}${pathPart}`;
+  }
+  // x-default ชี้ไปที่ defaultLocale
+  map['x-default'] = `/${defaultLocale}${pathPart}`;
+  return map;
 }
 
 export async function loadMessages(
-  locale: string,
-): Promise<{ locale: AppLocale; messages: AbstractIntlMessages }> {
-  const resolved = isValidLocale(locale) ? locale : fallbackLocale;
-  try {
-    const messages = (await import(`../messages/${resolved}.json`)).default;
-    return { locale: resolved, messages } as const;
-  } catch (error) {
-    if (resolved !== fallbackLocale) {
-      const fallback = await loadMessages(fallbackLocale);
-      return fallback;
-    }
-    throw error;
-  }
+  locale: AppLocale,
+): Promise<{ messages: AbstractIntlMessages; timeZone?: string }> {
+  // จาก src/lib -> src/messages = ../messages
+  const messages: AbstractIntlMessages = (await import(`../messages/${locale}.json`))
+    .default;
+  const timeZone = process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok';
+  return { messages, timeZone };
 }
 
-export async function createAppTranslator(locale: string) {
-  const { messages, locale: resolved } = await loadMessages(locale);
-  return createTranslator({ locale: resolved, messages });
+export async function getTranslator(locale: AppLocale) {
+  const { messages, timeZone } = await loadMessages(locale);
+  return createTranslator({ locale, messages, timeZone });
 }
 
-export function getLocaleDirection(locale: string): 'ltr' | 'rtl' {
-  if (isValidLocale(locale) && rtlLocales.has(locale)) {
-    return 'rtl';
-  }
-  return 'ltr';
-}
-
-export function getLocaleLabel(locale: string) {
-  if (isValidLocale(locale)) {
-    return localeNames[locale];
-  }
-  return localeNames[fallbackLocale];
-}
-
-export function getHreflangLocales(current: AppLocale, pathname = '') {
-  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  const normalizedPath = cleanPath.replace(/^\/[a-zA-Z-]+/, '');
-  const basePath = normalizedPath.startsWith('/') ? normalizedPath : `/${normalizedPath}`;
-  return Object.fromEntries(
-    locales.map((locale) => [locale, `/${locale}${basePath === '/' ? '' : basePath}`]),
-  );
-}
-
-export default getRequestConfig(async () => {
-  const locale = await requestLocale();
-
-  if (!locale || !isValidLocale(locale)) {
+// รูปแบบใหม่: รับ {requestLocale} จากพารามิเตอร์ แล้ว await
+export default getRequestConfig(async ({ requestLocale }) => {
+  const requested = await requestLocale;
+  if (!isValidLocale(requested)) {
     notFound();
   }
-
-  const { messages, locale: resolvedLocale } = await loadMessages(locale);
-
-  return {
-    locale: resolvedLocale,
-    messages,
-    timeZone: process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok',
-  };
+  const locale = requested as AppLocale;
+  const { messages, timeZone } = await loadMessages(locale);
+  return { locale, messages, timeZone };
 });
