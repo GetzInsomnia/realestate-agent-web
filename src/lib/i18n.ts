@@ -1,3 +1,4 @@
+// src/lib/i18n.ts
 import { getRequestConfig } from 'next-intl/server';
 import { createTranslator, type AbstractIntlMessages } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -10,6 +11,10 @@ export function isValidLocale(input: string | null | undefined): input is AppLoc
   return !!input && (locales as readonly string[]).includes(input);
 }
 
+function stripLeadingLocale(pathname: string) {
+  const m = pathname.match(/^\/([A-Za-z-]+)(\/|$)/);
+  if (m && (locales as readonly string[]).includes(m[1])) {
+    return pathname.slice(m[0].length - 1) || '/';
   }
   return pathname || '/';
 }
@@ -49,4 +54,14 @@ export async function getTranslator(locale: AppLocale) {
   const { messages, timeZone } = await loadMessages(locale);
   return createTranslator({ locale, messages, timeZone });
 }
+
+// รูปแบบใหม่: รับ {requestLocale} จากพารามิเตอร์ แล้ว await
+export default getRequestConfig(async ({ requestLocale }) => {
+  const requested = await requestLocale;
+  if (!isValidLocale(requested)) {
+    notFound();
+  }
+  const locale = requested as AppLocale;
+  const { messages, timeZone } = await loadMessages(locale);
+  return { locale, messages, timeZone };
 });
