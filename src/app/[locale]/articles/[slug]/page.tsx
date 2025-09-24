@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import { loadArticles } from '@/lib/data/loaders';
 import { formatDate } from '@/lib/utils';
@@ -72,7 +73,9 @@ export default async function ArticleDetail({
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Suspense fallback={null}>
+        <Breadcrumbs />
+      </Suspense>
       <article className="mt-8 space-y-6">
         <header className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-brand-500">

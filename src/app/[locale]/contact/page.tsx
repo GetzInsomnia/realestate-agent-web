@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ContactForm, { type ContactCopy } from './ContactForm';
 import { createPageMetadata } from '@/lib/seo';
@@ -55,7 +56,9 @@ export default async function ContactPage({ params }: { params: { locale?: strin
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Suspense fallback={null}>
+        <Breadcrumbs />
+      </Suspense>
       <div className="mt-8 space-y-4">
         <h1 className="text-3xl font-semibold text-slate-900">{tContact('title')}</h1>
         <p className="text-sm text-slate-600">{tContact('subtitle')}</p>
