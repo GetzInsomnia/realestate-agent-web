@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Script from 'next/script';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { loadArticles } from '@/lib/data/loaders';
 import { formatDate } from '@/lib/utils';
@@ -53,7 +54,9 @@ export default async function ArticlesPage({ params }: { params: { locale?: stri
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Suspense fallback={null}>
+        <Breadcrumbs />
+      </Suspense>
       <header className="mt-8 space-y-3">
         <h1 className="text-3xl font-semibold text-slate-900">
           {tArticles('sectionTitle')}

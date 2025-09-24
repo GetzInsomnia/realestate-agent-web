@@ -1,17 +1,23 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { Analytics } from "@vercel/analytics/react";
-import Script from "next/script";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import Providers from "./providers";
-import LayoutShell from "./components/LayoutShell";
-import { buildOrganizationJsonLd, generatePageMetadata } from "@/lib/seo";
-import { getLocaleDirection, isValidLocale, loadMessages, type AppLocale } from "@/lib/i18n";
-import { loadArticles, loadListings } from "@/lib/data/loaders";
-import { createStaticKey } from "@/lib/swr-config";
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
+import { Analytics } from '@vercel/analytics/react';
+import Script from 'next/script';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import Providers from './providers';
+import LayoutShell from './components/LayoutShell';
+import { buildOrganizationJsonLd, generatePageMetadata } from '@/lib/seo';
+import {
+  getLocaleDirection,
+  isValidLocale,
+  loadMessages,
+  type AppLocale,
+} from '@/lib/i18n';
+import { loadArticles, loadListings } from '@/lib/data/loaders';
+import { createStaticKey } from '@/lib/swr-config';
 
 export async function generateStaticParams() {
-  return ["th", "en", "zh-CN", "zh-TW", "my", "ru"].map((locale) => ({ locale }));
+  return ['th', 'en', 'zh-CN', 'zh-TW', 'my', 'ru'].map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({
@@ -26,9 +32,10 @@ export async function generateMetadata({
 
   return generatePageMetadata({
     locale: locale as AppLocale,
-    pathname: "/",
-    title: "ZomZom Property",
-    description: "Boutique multilingual real estate experts guiding global buyers across Southeast Asia.",
+    pathname: '/',
+    title: 'ZomZom Property',
+    description:
+      'Boutique multilingual real estate experts guiding global buyers across Southeast Asia.',
   });
 }
 
@@ -51,25 +58,25 @@ export default async function LocaleLayout({
     loadMessages(locale),
     loadListings(),
     loadArticles(),
-    getTranslations({ locale, namespace: "nav" }),
-    getTranslations({ locale, namespace: "footer" }),
+    getTranslations({ locale, namespace: 'nav' }),
+    getTranslations({ locale, namespace: 'footer' }),
   ]);
 
   const fallback = {
-    [createStaticKey("listings")]: listings.items,
-    [createStaticKey("articles")]: articles.items,
+    [createStaticKey('listings')]: listings.items,
+    [createStaticKey('articles')]: articles.items,
   } satisfies Record<string, unknown>;
 
   const navItems = [
-    { label: tNav("home"), href: `/${locale}` },
-    { label: tNav("listings"), href: `/${locale}/listings` },
-    { label: tNav("articles"), href: `/${locale}/articles` },
-    { label: tNav("contact"), href: `/${locale}/contact` },
+    { label: tNav('home'), href: `/${locale}` },
+    { label: tNav('listings'), href: `/${locale}/listings` },
+    { label: tNav('articles'), href: `/${locale}/articles` },
+    { label: tNav('contact'), href: `/${locale}/contact` },
   ];
 
   const footer = {
-    tagline: tFooter("tagline"),
-    legal: tFooter("legal"),
+    tagline: tFooter('tagline'),
+    legal: tFooter('legal'),
     nav: navItems,
   };
 
@@ -79,12 +86,18 @@ export default async function LocaleLayout({
     <html lang={locale} dir={getLocaleDirection(locale)}>
       <body className="bg-slate-50 text-slate-900">
         <Providers locale={locale} messages={messages} fallback={fallback}>
-          <LayoutShell navItems={navItems} footer={footer} sectionIds={["hero", "listings", "articles", "contact"]}>
-            <Script id="org-jsonld" type="application/ld+json">
-              {jsonLd}
-            </Script>
-            {children}
-          </LayoutShell>
+          <Suspense fallback={null}>
+            <LayoutShell
+              navItems={navItems}
+              footer={footer}
+              sectionIds={['hero', 'listings', 'articles', 'contact']}
+            >
+              <Script id="org-jsonld" type="application/ld+json">
+                {jsonLd}
+              </Script>
+              {children}
+            </LayoutShell>
+          </Suspense>
         </Providers>
         <Analytics />
       </body>
