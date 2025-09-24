@@ -1,4 +1,4 @@
-import { getRequestConfig, requestLocale } from 'next-intl/server';
+import { getRequestConfig } from 'next-intl/server';
 import { createTranslator, type AbstractIntlMessages } from 'next-intl';
 import { notFound } from 'next/navigation';
 
@@ -27,13 +27,16 @@ export function isValidLocale(locale: string): locale is AppLocale {
   return locales.includes(locale as AppLocale);
 }
 
-export async function loadMessages(
-  locale: string,
-): Promise<{ locale: AppLocale; messages: AbstractIntlMessages }> {
+export async function loadMessages(locale: string): Promise<{
+  locale: AppLocale;
+  messages: AbstractIntlMessages;
+  timeZone: string;
+}> {
   const resolved = isValidLocale(locale) ? locale : fallbackLocale;
   try {
     const messages = (await import(`../messages/${resolved}.json`)).default;
-    return { locale: resolved, messages } as const;
+    const timeZone = process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok';
+    return { locale: resolved, messages, timeZone } as const;
   } catch (error) {
     if (resolved !== fallbackLocale) {
       const fallback = await loadMessages(fallbackLocale);
@@ -71,18 +74,16 @@ export function getHreflangLocales(current: AppLocale, pathname = '') {
   );
 }
 
-export default getRequestConfig(async () => {
-  const locale = await requestLocale();
-
+export default getRequestConfig(async ({ locale }) => {
   if (!locale || !isValidLocale(locale)) {
     notFound();
   }
 
-  const { messages, locale: resolvedLocale } = await loadMessages(locale);
+  const { messages, locale: resolvedLocale, timeZone } = await loadMessages(locale);
 
   return {
     locale: resolvedLocale,
     messages,
-    timeZone: process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok',
+    timeZone,
   };
 });
