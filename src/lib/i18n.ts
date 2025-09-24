@@ -1,4 +1,4 @@
-import { getRequestConfig } from 'next-intl/server';
+import { getRequestConfig, requestLocale } from 'next-intl/server';
 import { createTranslator, type AbstractIntlMessages } from 'next-intl';
 import { notFound } from 'next/navigation';
 
@@ -71,19 +71,18 @@ export function getHreflangLocales(current: AppLocale, pathname = '') {
   );
 }
 
-export default getRequestConfig(async ({ locale }) => {
-  if (!isValidLocale(locale)) {
+export default getRequestConfig(async () => {
+  const locale = await requestLocale();
+
+  if (!locale || !isValidLocale(locale)) {
     notFound();
   }
 
-  const { messages } = await loadMessages(locale);
+  const { messages, locale: resolvedLocale } = await loadMessages(locale);
 
   return {
-    locale,
+    locale: resolvedLocale,
     messages,
-    onError: () => {
-      /* noop */
-    },
-    getMessageFallback: ({ key }) => key,
+    timeZone: process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok',
   };
 });
