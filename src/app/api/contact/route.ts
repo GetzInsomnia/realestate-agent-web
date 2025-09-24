@@ -1,3 +1,4 @@
+// src/app/api/contact/route.ts
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
@@ -6,9 +7,16 @@ import { z } from 'zod';
 const TURNSTILE_ENDPOINT = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const TURNSTILE_SECRET_KEY =
   process.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET;
-const CONTACT_COOLDOWN_COOKIE = 'contact-cooldown';
-const CONTACT_COOLDOWN_MINUTES = 2;
 
+const CONTACT_COOLDOWN_COOKIE = 'contact-cooldown';
+const CONTACT_COOLDOWN_MINUTES = Number(process.env.CONTACT_COOLDOWN_MINUTES ?? 2);
+
+// ---------- utils ----------
+function envTrue(name: string) {
+  return (process.env[name] ?? '').toLowerCase() === 'true';
+}
+
+// ---------- schema ----------
 const BodySchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
@@ -19,10 +27,16 @@ const BodySchema = z.object({
   turnstileToken: z.string().min(1),
   honeypot: z.string().optional(),
 });
-
 type Body = z.infer<typeof BodySchema>;
 
+// ---------- turnstile ----------
 async function verifyTurnstile(token: string, ip?: string | null) {
+  // Dev bypass: เปิดเฉพาะนอก production เมื่อ CONTACT_BYPASS_VERIFICATION=true
+  const BYPASS =
+    process.env.NODE_ENV !== 'production' && envTrue('CONTACT_BYPASS_VERIFICATION');
+  if (BYPASS) return true;
+
+  // อนุญาต test key ของ Turnstile ใน non-production (ค่าเริ่มต้น 1x... คือ test)
   if (process.env.NODE_ENV !== 'production' && TURNSTILE_SECRET_KEY?.startsWith('1x')) {
     return true;
   }
@@ -36,10 +50,7 @@ async function verifyTurnstile(token: string, ip?: string | null) {
     secret: TURNSTILE_SECRET_KEY,
     response: token,
   });
-
-  if (ip) {
-    payload.append('remoteip', ip);
-  }
+  if (ip) payload.append('remoteip', ip);
 
   try {
     const response = await fetch(TURNSTILE_ENDPOINT, {
@@ -47,12 +58,9 @@ async function verifyTurnstile(token: string, ip?: string | null) {
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       body: payload,
     });
+    if (!response.ok) return false;
 
-    if (!response.ok) {
-      return false;
-    }
-
-    const result = await response.json();
+    const result = (await response.json()) as { success?: boolean };
     return Boolean(result.success);
   } catch (error) {
     console.error('Failed to verify Turnstile', error);
@@ -60,39 +68,43 @@ async function verifyTurnstile(token: string, ip?: string | null) {
   }
 }
 
+// ---------- cooldown ----------
 function cooldownOk(now = Date.now()) {
   const cookieStore = cookies();
-  const cookieValue = cookieStore.get(CONTACT_COOLDOWN_COOKIE)?.value;
+  const raw = cookieStore.get(CONTACT_COOLDOWN_COOKIE)?.value;
 
-  if (!cookieValue) {
-    return { ok: true, cookieStore };
-  }
+  if (!raw) return { ok: true, cookieStore };
 
-  const lastAttempt = Number(cookieValue);
-  if (Number.isNaN(lastAttempt)) {
-    return { ok: true, cookieStore };
-  }
+  const last = Number(raw);
+  if (Number.isNaN(last)) return { ok: true, cookieStore };
 
-  const elapsed = now - lastAttempt;
+  const elapsed = now - last;
   if (elapsed < CONTACT_COOLDOWN_MINUTES * 60 * 1000) {
     return { ok: false, cookieStore };
   }
-
   return { ok: true, cookieStore };
 }
 
+// ---------- email ----------
 async function sendEmail({ name, email, phone, message, budget }: Body) {
   const host = process.env.SMTP_HOST || process.env.EMAIL_HOST;
   const port = Number(process.env.SMTP_PORT || process.env.EMAIL_PORT || 465);
   const user = process.env.SMTP_USER || process.env.EMAIL_USER;
   const pass = process.env.SMTP_PASS || process.env.EMAIL_PASSWORD;
+
+  // อนุญาตตั้งค่า secure ผ่าน ENV (ถ้าไม่ตั้ง จะเดาจากพอร์ต: 465=true อื่นๆ=false)
+  const secure =
+    typeof process.env.SMTP_SECURE === 'string' ? envTrue('SMTP_SECURE') : port === 465;
+
   const fromAddress =
     process.env.SMTP_FROM ||
-    `ZomZom Property <${user || '<noreply@zomzomproperty.com>'}>`;
+    (user ? `ZomZom Property <${user}>` : 'ZomZom Property <noreply@zomzomproperty.com>');
+
   const recipient =
     process.env.CONTACT_RECIPIENT_EMAIL ||
     process.env.SMTP_TO ||
     'zomzomproperty@gmail.com';
+
   const sanitizedMessage = message.replace(/<[^>]*>/g, '').slice(0, 2000);
 
   if (!host || !user || !pass) {
@@ -103,11 +115,8 @@ async function sendEmail({ name, email, phone, message, budget }: Body) {
   const transporter = nodemailer.createTransport({
     host,
     port,
-    secure: port === 465,
-    auth: {
-      user,
-      pass,
-    },
+    secure,
+    auth: { user, pass },
   });
 
   try {
@@ -115,10 +124,13 @@ async function sendEmail({ name, email, phone, message, budget }: Body) {
       from: fromAddress,
       to: recipient,
       subject: `New inquiry from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone ?? '-'}\nBudget: ${budget ?? '-'}\nMessage: ${sanitizedMessage}`,
+      text: `Name: ${name}
+Email: ${email}
+Phone: ${phone ?? '-'}
+Budget: ${budget ?? '-'}
+Message: ${sanitizedMessage}`,
       replyTo: email,
     });
-
     return true;
   } catch (error) {
     console.error('Failed to send contact email', error);
@@ -126,6 +138,7 @@ async function sendEmail({ name, email, phone, message, budget }: Body) {
   }
 }
 
+// ---------- route ----------
 export async function POST(request: Request) {
   const json = await request.json().catch(() => null);
   const parsed = BodySchema.safeParse(json);
@@ -139,12 +152,14 @@ export async function POST(request: Request) {
 
   const body = parsed.data;
 
+  // honeypot
   if (body.honeypot) {
     return NextResponse.json({
       message: 'We received your message! Our team will reply shortly.',
     });
   }
 
+  // cooldown
   const { ok, cookieStore } = cooldownOk();
   if (!ok) {
     return NextResponse.json(
@@ -156,6 +171,7 @@ export async function POST(request: Request) {
     );
   }
 
+  // turnstile
   const forwardedFor = request.headers.get('x-forwarded-for');
   const turnstileOk = await verifyTurnstile(body.turnstileToken, forwardedFor);
   if (!turnstileOk) {
@@ -165,6 +181,7 @@ export async function POST(request: Request) {
     );
   }
 
+  // email
   const delivered = await sendEmail(body);
   if (!delivered) {
     return NextResponse.json(
@@ -176,11 +193,12 @@ export async function POST(request: Request) {
     );
   }
 
+  // ตั้งคู๊กกี้ cooldown
   cookieStore.set(CONTACT_COOLDOWN_COOKIE, Date.now().toString(), {
-    expires: new Date(Date.now() + CONTACT_COOLDOWN_MINUTES * 60 * 1000),
+    maxAge: CONTACT_COOLDOWN_MINUTES * 60, // วินาที
     httpOnly: true,
     sameSite: 'lax',
-    secure: true,
+    secure: process.env.NODE_ENV === 'production', // ให้ dev ใช้ http ได้
     path: '/',
   });
 
