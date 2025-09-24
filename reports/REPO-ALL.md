@@ -1,16 +1,13 @@
 # REPOSITORY DUMP
-
-_Generated: 2025-09-24T05:17:28.597Z_
+_Generated: 2025-09-24T07:05:31.490Z_
 
 ## 1) Tree
-
 # Repository Tree
-
 _Root: C:\Users\GetzInsomnia\Desktop\realestate-agent-web_
-_Generated: 2025-09-24T05:17:28.595Z_
+_Generated: 2025-09-24T07:05:31.489Z_
 
 - .husky/
-  - \_/
+  - _/
     - .gitignore
     - applypatch-msg
     - commit-msg
@@ -44,7 +41,7 @@ _Generated: 2025-09-24T05:17:28.595Z_
   - repo-dump.mjs
   - xray-lite.mjs
 - src/
-  - **tests**/
+  - __tests__/
     - error-boundary.test.tsx
     - i18n.test.ts
     - locale-switcher.test.tsx
@@ -129,125 +126,122 @@ _Generated: 2025-09-24T05:17:28.595Z_
 - vitest.config.ts
 - vitest.setup.ts
 
+
 ## 2) Inventory
-
 # Inventory
-
-Generated: 2025-09-24T05:17:28.596Z
+Generated: 2025-09-24T07:05:31.490Z
 
 Total files: 101
-Total size : 642.31 KB
+Total size : 643.28 KB
 
-| File                                               | Ext    | Bytes  | Mode     |
-| -------------------------------------------------- | ------ | ------ | -------- |
-| .editorconfig                                      | <none> | 200    | included |
-| .env                                               | <none> | 968    | included |
-| .env.local                                         | .local | 1553   | included |
-| .gitattributes                                     | <none> | 80     | included |
-| .gitignore                                         | <none> | 521    | included |
-| .husky/\_/.gitignore                               | <none> | 1      | included |
-| .husky/\_/applypatch-msg                           | <none> | 39     | included |
-| .husky/\_/commit-msg                               | <none> | 39     | included |
-| .husky/\_/h                                        | <none> | 551    | included |
-| .husky/\_/husky.sh                                 | .sh    | 160    | included |
-| .husky/\_/post-applypatch                          | <none> | 39     | included |
-| .husky/\_/post-checkout                            | <none> | 39     | included |
-| .husky/\_/post-commit                              | <none> | 39     | included |
-| .husky/\_/post-merge                               | <none> | 39     | included |
-| .husky/\_/post-rewrite                             | <none> | 39     | included |
-| .husky/\_/pre-applypatch                           | <none> | 39     | included |
-| .husky/\_/pre-auto-gc                              | <none> | 39     | included |
-| .husky/\_/pre-commit                               | <none> | 39     | included |
-| .husky/\_/pre-merge-commit                         | <none> | 39     | included |
-| .husky/\_/pre-push                                 | <none> | 39     | included |
-| .husky/\_/pre-rebase                               | <none> | 39     | included |
-| .husky/\_/prepare-commit-msg                       | <none> | 39     | included |
-| .husky/pre-commit                                  | <none> | 29     | included |
-| .prettierignore                                    | <none> | 36     | included |
-| .prettierrc                                        | <none> | 141    | included |
-| eslint.config.mjs                                  | .mjs   | 908    | included |
-| next-env.d.ts                                      | .ts    | 233    | included |
-| next-sitemap.config.js                             | .js    | 688    | included |
-| next.config.mjs                                    | .mjs   | 517    | included |
-| package-lock.json                                  | .json  | 404008 | included |
-| package.json                                       | .json  | 2296   | included |
-| postcss.config.mjs                                 | .mjs   | 113    | included |
-| public/file.svg                                    | .svg   | 391    | included |
-| public/globe.svg                                   | .svg   | 1035   | included |
-| public/logo.svg                                    | .svg   | 261    | included |
-| public/next.svg                                    | .svg   | 1375   | included |
-| public/vercel.svg                                  | .svg   | 128    | included |
-| public/window.svg                                  | .svg   | 385    | included |
-| README.md                                          | .md    | 3035   | included |
-| scripts/COMMANDS.md                                | .md    | 8035   | included |
-| scripts/fill-missing-messages.mjs                  | .mjs   | 2549   | included |
-| scripts/i18n-audit.mjs                             | .mjs   | 8100   | included |
-| scripts/i18n-fill.mjs                              | .mjs   | 3132   | included |
-| scripts/repo-dump.mjs                              | .mjs   | 8966   | included |
-| scripts/xray-lite.mjs                              | .mjs   | 36854  | included |
-| src/**tests**/error-boundary.test.tsx              | .tsx   | 908    | included |
-| src/**tests**/i18n.test.ts                         | .ts    | 550    | included |
-| src/**tests**/locale-switcher.test.tsx             | .tsx   | 1154   | included |
-| src/app/[locale]/articles/[slug]/page.tsx          | .tsx   | 3513   | included |
-| src/app/[locale]/articles/page.tsx                 | .tsx   | 3607   | included |
-| src/app/[locale]/components/ArticlesCarousel.tsx   | .tsx   | 2887   | included |
-| src/app/[locale]/components/BackToTop.tsx          | .tsx   | 996    | included |
-| src/app/[locale]/components/Breadcrumbs.tsx        | .tsx   | 4624   | included |
-| src/app/[locale]/components/FaqAccordion.tsx       | .tsx   | 1681   | included |
-| src/app/[locale]/components/Footer.tsx             | .tsx   | 989    | included |
-| src/app/[locale]/components/Hero.tsx               | .tsx   | 3443   | included |
-| src/app/[locale]/components/LayoutShell.tsx        | .tsx   | 898    | included |
-| src/app/[locale]/components/ListingsGrid.tsx       | .tsx   | 5760   | included |
-| src/app/[locale]/components/LocaleSwitcher.tsx     | .tsx   | 1867   | included |
-| src/app/[locale]/components/Navigation.tsx         | .tsx   | 1398   | included |
-| src/app/[locale]/components/SectionObserver.tsx    | .tsx   | 1984   | included |
-| src/app/[locale]/components/Testimonials.tsx       | .tsx   | 1309   | included |
-| src/app/[locale]/contact/ContactForm.tsx           | .tsx   | 5161   | included |
-| src/app/[locale]/contact/page.tsx                  | .tsx   | 2465   | included |
-| src/app/[locale]/error.tsx                         | .tsx   | 961    | included |
-| src/app/[locale]/layout.tsx                        | .tsx   | 2943   | included |
-| src/app/[locale]/listings/ListingsSearchClient.tsx | .tsx   | 674    | included |
-| src/app/[locale]/listings/page.tsx                 | .tsx   | 3614   | included |
-| src/app/[locale]/loading.tsx                       | .tsx   | 427    | included |
-| src/app/[locale]/not-found.tsx                     | .tsx   | 1250   | included |
-| src/app/[locale]/page.tsx                          | .tsx   | 5133   | included |
-| src/app/[locale]/providers.tsx                     | .tsx   | 699    | included |
-| src/app/api/contact/route.ts                       | .ts    | 5283   | included |
-| src/app/global-error.tsx                           | .tsx   | 890    | included |
-| src/app/globals.css                                | .css   | 1072   | included |
-| src/app/icon.svg                                   | .svg   | 301    | included |
-| src/app/layout.tsx                                 | .tsx   | 657    | included |
-| src/app/not-found.tsx                              | .tsx   | 173    | included |
-| src/app/page.tsx                                   | .tsx   | 165    | included |
-| src/lib/data/articles.json                         | .json  | 1358   | included |
-| src/lib/data/faqs.json                             | .json  | 384    | included |
-| src/lib/data/highlights.json                       | .json  | 320    | included |
-| src/lib/data/listings.json                         | .json  | 1651   | included |
-| src/lib/data/loaders.ts                            | .ts    | 2896   | included |
-| src/lib/data/schemas.ts                            | .ts    | 1898   | included |
-| src/lib/data/testimonials.json                     | .json  | 357    | included |
-| src/lib/i18n.ts                                    | .ts    | 2716   | included |
-| src/lib/seo.ts                                     | .ts    | 4556   | included |
-| src/lib/swr-config.ts                              | .ts    | 560    | included |
-| src/lib/utils.ts                                   | .ts    | 758    | included |
-| src/messages/en.json                               | .json  | 10386  | included |
-| src/messages/my.json                               | .json  | 21236  | included |
-| src/messages/ru.json                               | .json  | 13565  | included |
-| src/messages/th.json                               | .json  | 17660  | included |
-| src/messages/zh-CN.json                            | .json  | 8536   | included |
-| src/messages/zh-TW.json                            | .json  | 8458   | included |
-| src/middleware.ts                                  | .ts    | 608    | included |
-| tailwind.config.ts                                 | .ts    | 1467   | included |
-| tsconfig.json                                      | .json  | 629    | included |
-| vitest.config.ts                                   | .ts    | 455    | included |
-| vitest.setup.ts                                    | .ts    | 44     | included |
+| File | Ext | Bytes | Mode |
+|------|-----|-------|------|
+| .editorconfig | <none> | 200 | included |
+| .env | <none> | 968 | included |
+| .env.local | .local | 1553 | included |
+| .gitattributes | <none> | 80 | included |
+| .gitignore | <none> | 521 | included |
+| .husky/_/.gitignore | <none> | 1 | included |
+| .husky/_/applypatch-msg | <none> | 39 | included |
+| .husky/_/commit-msg | <none> | 39 | included |
+| .husky/_/h | <none> | 551 | included |
+| .husky/_/husky.sh | .sh | 160 | included |
+| .husky/_/post-applypatch | <none> | 39 | included |
+| .husky/_/post-checkout | <none> | 39 | included |
+| .husky/_/post-commit | <none> | 39 | included |
+| .husky/_/post-merge | <none> | 39 | included |
+| .husky/_/post-rewrite | <none> | 39 | included |
+| .husky/_/pre-applypatch | <none> | 39 | included |
+| .husky/_/pre-auto-gc | <none> | 39 | included |
+| .husky/_/pre-commit | <none> | 39 | included |
+| .husky/_/pre-merge-commit | <none> | 39 | included |
+| .husky/_/pre-push | <none> | 39 | included |
+| .husky/_/pre-rebase | <none> | 39 | included |
+| .husky/_/prepare-commit-msg | <none> | 39 | included |
+| .husky/pre-commit | <none> | 29 | included |
+| .prettierignore | <none> | 36 | included |
+| .prettierrc | <none> | 141 | included |
+| eslint.config.mjs | .mjs | 908 | included |
+| next-env.d.ts | .ts | 233 | included |
+| next-sitemap.config.js | .js | 688 | included |
+| next.config.mjs | .mjs | 517 | included |
+| package-lock.json | .json | 404008 | included |
+| package.json | .json | 2296 | included |
+| postcss.config.mjs | .mjs | 113 | included |
+| public/file.svg | .svg | 391 | included |
+| public/globe.svg | .svg | 1035 | included |
+| public/logo.svg | .svg | 261 | included |
+| public/next.svg | .svg | 1375 | included |
+| public/vercel.svg | .svg | 128 | included |
+| public/window.svg | .svg | 385 | included |
+| README.md | .md | 3035 | included |
+| scripts/COMMANDS.md | .md | 8838 | included |
+| scripts/fill-missing-messages.mjs | .mjs | 2549 | included |
+| scripts/i18n-audit.mjs | .mjs | 8100 | included |
+| scripts/i18n-fill.mjs | .mjs | 3132 | included |
+| scripts/repo-dump.mjs | .mjs | 8967 | included |
+| scripts/xray-lite.mjs | .mjs | 36854 | included |
+| src/__tests__/error-boundary.test.tsx | .tsx | 908 | included |
+| src/__tests__/i18n.test.ts | .ts | 550 | included |
+| src/__tests__/locale-switcher.test.tsx | .tsx | 1154 | included |
+| src/app/[locale]/articles/[slug]/page.tsx | .tsx | 3603 | included |
+| src/app/[locale]/articles/page.tsx | .tsx | 3697 | included |
+| src/app/[locale]/components/ArticlesCarousel.tsx | .tsx | 2887 | included |
+| src/app/[locale]/components/BackToTop.tsx | .tsx | 996 | included |
+| src/app/[locale]/components/Breadcrumbs.tsx | .tsx | 4624 | included |
+| src/app/[locale]/components/FaqAccordion.tsx | .tsx | 1681 | included |
+| src/app/[locale]/components/Footer.tsx | .tsx | 989 | included |
+| src/app/[locale]/components/Hero.tsx | .tsx | 3443 | included |
+| src/app/[locale]/components/LayoutShell.tsx | .tsx | 898 | included |
+| src/app/[locale]/components/ListingsGrid.tsx | .tsx | 5760 | included |
+| src/app/[locale]/components/LocaleSwitcher.tsx | .tsx | 1867 | included |
+| src/app/[locale]/components/Navigation.tsx | .tsx | 1398 | included |
+| src/app/[locale]/components/SectionObserver.tsx | .tsx | 1984 | included |
+| src/app/[locale]/components/Testimonials.tsx | .tsx | 1309 | included |
+| src/app/[locale]/contact/ContactForm.tsx | .tsx | 5161 | included |
+| src/app/[locale]/contact/page.tsx | .tsx | 2555 | included |
+| src/app/[locale]/error.tsx | .tsx | 961 | included |
+| src/app/[locale]/layout.tsx | .tsx | 3131 | included |
+| src/app/[locale]/listings/ListingsSearchClient.tsx | .tsx | 674 | included |
+| src/app/[locale]/listings/page.tsx | .tsx | 3214 | included |
+| src/app/[locale]/loading.tsx | .tsx | 427 | included |
+| src/app/[locale]/not-found.tsx | .tsx | 1250 | included |
+| src/app/[locale]/page.tsx | .tsx | 5133 | included |
+| src/app/[locale]/providers.tsx | .tsx | 699 | included |
+| src/app/api/contact/route.ts | .ts | 5715 | included |
+| src/app/global-error.tsx | .tsx | 890 | included |
+| src/app/globals.css | .css | 1072 | included |
+| src/app/icon.svg | .svg | 301 | included |
+| src/app/layout.tsx | .tsx | 657 | included |
+| src/app/not-found.tsx | .tsx | 173 | included |
+| src/app/page.tsx | .tsx | 165 | included |
+| src/lib/data/articles.json | .json | 1358 | included |
+| src/lib/data/faqs.json | .json | 384 | included |
+| src/lib/data/highlights.json | .json | 320 | included |
+| src/lib/data/listings.json | .json | 1651 | included |
+| src/lib/data/loaders.ts | .ts | 2896 | included |
+| src/lib/data/schemas.ts | .ts | 1898 | included |
+| src/lib/data/testimonials.json | .json | 357 | included |
+| src/lib/i18n.ts | .ts | 2416 | included |
+| src/lib/seo.ts | .ts | 4556 | included |
+| src/lib/swr-config.ts | .ts | 560 | included |
+| src/lib/utils.ts | .ts | 758 | included |
+| src/messages/en.json | .json | 10386 | included |
+| src/messages/my.json | .json | 21236 | included |
+| src/messages/ru.json | .json | 13565 | included |
+| src/messages/th.json | .json | 17660 | included |
+| src/messages/zh-CN.json | .json | 8536 | included |
+| src/messages/zh-TW.json | .json | 8458 | included |
+| src/middleware.ts | .ts | 608 | included |
+| tailwind.config.ts | .ts | 1467 | included |
+| tsconfig.json | .json | 629 | included |
+| vitest.config.ts | .ts | 455 | included |
+| vitest.setup.ts | .ts | 44 | included |
+
 
 ## 3) Files (full contents)
-
 ### .editorconfig
-
 _Size:_ 200 bytes
-
 ```
 root = true
 
@@ -264,10 +258,9 @@ trim_trailing_whitespace = false
 
 ```
 
+
 ### .env
-
 _Size:_ 968 bytes
-
 ```
 # ปรับเป็นโดเมนจริงของคุณ
 NEXT_PUBLIC_SITE_URL=https://www.zomzomproperty.com
@@ -293,10 +286,9 @@ NODE_ENV=production
 
 ```
 
+
 ### .env.local
-
 _Size:_ 1553 bytes
-
 ```
 # ==== PUBLIC SITE URL (ใช้สร้างลิงก์ canonical / OG) ====
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -330,10 +322,9 @@ NODE_ENV=development
 
 ```
 
+
 ### .gitattributes
-
 _Size:_ 80 bytes
-
 ```
 * text=auto
 
@@ -343,10 +334,9 @@ scripts/** text eol=lf
 
 ```
 
+
 ### .gitignore
-
 _Size:_ 521 bytes
-
 ```
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -392,36 +382,32 @@ next-env.d.ts
 
 ```
 
-### .husky/\_/.gitignore
 
+### .husky/_/.gitignore
 _Size:_ 1 bytes
-
 ```
 *
 ```
 
-### .husky/\_/applypatch-msg
 
+### .husky/_/applypatch-msg
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/commit-msg
 
+### .husky/_/commit-msg
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/h
 
+### .husky/_/h
 _Size:_ 551 bytes
-
 ```
 #!/usr/bin/env sh
 [ "$HUSKY" = "2" ] && set -x
@@ -448,10 +434,9 @@ exit $c
 
 ```
 
-### .husky/\_/husky.sh
 
+### .husky/_/husky.sh
 _Size:_ 160 bytes
-
 ```bash
 echo "husky - DEPRECATED
 
@@ -464,127 +449,113 @@ They WILL FAIL in v10.0.0
 "
 ```
 
-### .husky/\_/post-applypatch
 
+### .husky/_/post-applypatch
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/post-checkout
 
+### .husky/_/post-checkout
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/post-commit
 
+### .husky/_/post-commit
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/post-merge
 
+### .husky/_/post-merge
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/post-rewrite
 
+### .husky/_/post-rewrite
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/pre-applypatch
 
+### .husky/_/pre-applypatch
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/pre-auto-gc
 
+### .husky/_/pre-auto-gc
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/pre-commit
 
+### .husky/_/pre-commit
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/pre-merge-commit
 
+### .husky/_/pre-merge-commit
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/pre-push
 
+### .husky/_/pre-push
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/pre-rebase
 
+### .husky/_/pre-rebase
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
 
-### .husky/\_/prepare-commit-msg
 
+### .husky/_/prepare-commit-msg
 _Size:_ 39 bytes
-
 ```
 #!/usr/bin/env sh
 . "$(dirname "$0")/h"
 ```
+
 
 ### .husky/pre-commit
-
 _Size:_ 29 bytes
-
 ```
 npx --no-install lint-staged
 
 ```
 
+
 ### .prettierignore
-
 _Size:_ 36 bytes
-
 ```
 .next
 out
@@ -593,10 +564,9 @@ coverage
 
 ```
 
+
 ### .prettierrc
-
 _Size:_ 141 bytes
-
 ```
 {
   "singleQuote": true,
@@ -608,15 +578,14 @@ _Size:_ 141 bytes
 
 ```
 
+
 ### eslint.config.mjs
-
 _Size:_ 908 bytes
-
 ```js
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-import tailwindPlugin from 'eslint-plugin-tailwindcss';
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
+import tailwindPlugin from "eslint-plugin-tailwindcss";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -626,14 +595,14 @@ const compat = new FlatCompat({
 });
 
 const config = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
+  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
   {
     plugins: {
       tailwindcss: tailwindPlugin,
     },
     rules: {
-      'tailwindcss/no-custom-classname': 'off',
-      'tailwindcss/classnames-order': 'warn',
+      "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/classnames-order": "warn",
     },
     settings: {
       tailwindcss: {
@@ -643,38 +612,38 @@ const config = [
   },
   {
     ignores: [
-      'node_modules/**',
-      '.next/**',
-      'out/**',
-      'build/**',
-      'next-env.d.ts',
-      'coverage/**',
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
+      "coverage/**",
     ],
   },
 ];
 
 export default config;
+
 ```
 
+
 ### next-env.d.ts
-
 _Size:_ 233 bytes
-
 ```ts
 /// <reference types="next" />
 /// <reference types="next/image-types/global" />
 
 // NOTE: This file should not be edited
 // see https://nextjs.org/docs/app/building-your-application/configuring/typescript for more information.
+
 ```
 
+
 ### next-sitemap.config.js
-
 _Size:_ 688 bytes
-
 ```js
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zomzomproperty.com';
-const locales = ['th', 'en', 'zh-CN', 'zh-TW', 'my', 'ru'];
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zomzomproperty.com";
+const locales = ["th", "en", "zh-CN", "zh-TW", "my", "ru"];
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
@@ -683,58 +652,58 @@ const config = {
   generateIndexSitemap: true,
   transform: async (_, loc) => {
     const alternateRefs = locales.map((locale) => ({
-      href: `${siteUrl.replace(/\/$/, '')}/${locale}${loc === '/' ? '' : loc}`,
+      href: `${siteUrl.replace(/\/$/, "")}/${locale}${loc === "/" ? "" : loc}`,
       hreflang: locale,
     }));
 
     return {
-      loc: `${siteUrl.replace(/\/$/, '')}${loc}`,
-      changefreq: 'weekly',
-      priority: loc === '/' ? 1 : 0.7,
+      loc: `${siteUrl.replace(/\/$/, "")}${loc}`,
+      changefreq: "weekly",
+      priority: loc === "/" ? 1 : 0.7,
       alternateRefs,
     };
   },
 };
 
 export default config;
+
 ```
 
+
 ### next.config.mjs
-
 _Size:_ 517 bytes
-
 ```js
-import createNextIntlPlugin from 'next-intl/plugin';
+import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin('./src/lib/i18n.ts');
+const withNextIntl = createNextIntlPlugin("./src/lib/i18n.ts");
 
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
     serverActions: {
-      bodySizeLimit: '2mb',
+      bodySizeLimit: "2mb",
     },
   },
   eslint: {
-    dirs: ['src', 'scripts'],
+    dirs: ["src", "scripts"],
   },
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   swcMinify: true,
   compiler: {
     removeConsole: {
-      exclude: ['error'],
+      exclude: ["error"],
     },
   },
 };
 
 export default withNextIntl(nextConfig);
+
 ```
 
+
 ### package-lock.json
-
 _Size:_ 404008 bytes
-
 ```json
 {
   "name": "real-estate-multilingual",
@@ -1746,11 +1715,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.21.5.tgz",
       "integrity": "sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==",
-      "cpu": ["ppc64"],
+      "cpu": [
+        "ppc64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["aix"],
+      "os": [
+        "aix"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1759,11 +1732,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/android-arm/-/android-arm-0.21.5.tgz",
       "integrity": "sha512-vCPvzSjpPHEi1siZdlvAlsPxXl7WbOVUBBAowWug4rJHb68Ox8KualB+1ocNvT5fjv6wpkX6o/iEpbDrf68zcg==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["android"],
+      "os": [
+        "android"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1772,11 +1749,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.21.5.tgz",
       "integrity": "sha512-c0uX9VAUBQ7dTDCjq+wdyGLowMdtR/GoC2U5IYk/7D1H1JYC0qseD7+11iMP2mRLN9RcCMRcjC4YMclCzGwS/A==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["android"],
+      "os": [
+        "android"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1785,11 +1766,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/android-x64/-/android-x64-0.21.5.tgz",
       "integrity": "sha512-D7aPRUUNHRBwHxzxRvp856rjUHRFW1SdQATKXH2hqA0kAZb1hKmi02OpYRacl0TxIGz/ZmXWlbZgjwWYaCakTA==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["android"],
+      "os": [
+        "android"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1798,11 +1783,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.21.5.tgz",
       "integrity": "sha512-DwqXqZyuk5AiWWf3UfLiRDJ5EDd49zg6O9wclZ7kUMv2WRFr4HKjXp/5t8JZ11QbQfUS6/cRCKGwYhtNAY88kQ==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"],
+      "os": [
+        "darwin"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1811,11 +1800,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.21.5.tgz",
       "integrity": "sha512-se/JjF8NlmKVG4kNIuyWMV/22ZaerB+qaSi5MdrXtd6R08kvs2qCN4C09miupktDitvh8jRFflwGFBQcxZRjbw==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"],
+      "os": [
+        "darwin"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1824,11 +1817,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.21.5.tgz",
       "integrity": "sha512-5JcRxxRDUJLX8JXp/wcBCy3pENnCgBR9bN6JsY4OmhfUtIHe3ZW0mawA7+RDAcMLrMIZaf03NlQiX9DGyB8h4g==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["freebsd"],
+      "os": [
+        "freebsd"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1837,11 +1834,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/freebsd-x64/-/freebsd-x64-0.21.5.tgz",
       "integrity": "sha512-J95kNBj1zkbMXtHVH29bBriQygMXqoVQOQYA+ISs0/2l3T9/kj42ow2mpqerRBxDJnmkUDCaQT/dfNXWX/ZZCQ==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["freebsd"],
+      "os": [
+        "freebsd"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1850,11 +1851,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-arm/-/linux-arm-0.21.5.tgz",
       "integrity": "sha512-bPb5AHZtbeNGjCKVZ9UGqGwo8EUu4cLq68E95A53KlxAPRmUyYv2D6F0uUI65XisGOL1hBP5mTronbgo+0bFcA==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1863,11 +1868,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-0.21.5.tgz",
       "integrity": "sha512-ibKvmyYzKsBeX8d8I7MH/TMfWDXBF3db4qM6sy+7re0YXya+K1cem3on9XgdT2EQGMu4hQyZhan7TeQ8XkGp4Q==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1876,11 +1885,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-ia32/-/linux-ia32-0.21.5.tgz",
       "integrity": "sha512-YvjXDqLRqPDl2dvRODYmmhz4rPeVKYvppfGYKSNGdyZkA01046pLWyRKKI3ax8fbJoK5QbxblURkwK/MWY18Tg==",
-      "cpu": ["ia32"],
+      "cpu": [
+        "ia32"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1889,11 +1902,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-loong64/-/linux-loong64-0.21.5.tgz",
       "integrity": "sha512-uHf1BmMG8qEvzdrzAqg2SIG/02+4/DHB6a9Kbya0XDvwDEKCoC8ZRWI5JJvNdUjtciBGFQ5PuBlpEOXQj+JQSg==",
-      "cpu": ["loong64"],
+      "cpu": [
+        "loong64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1902,11 +1919,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.21.5.tgz",
       "integrity": "sha512-IajOmO+KJK23bj52dFSNCMsz1QP1DqM6cwLUv3W1QwyxkyIWecfafnI555fvSGqEKwjMXVLokcV5ygHW5b3Jbg==",
-      "cpu": ["mips64el"],
+      "cpu": [
+        "mips64el"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1915,11 +1936,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-0.21.5.tgz",
       "integrity": "sha512-1hHV/Z4OEfMwpLO8rp7CvlhBDnjsC3CttJXIhBi+5Aj5r+MBvy4egg7wCbe//hSsT+RvDAG7s81tAvpL2XAE4w==",
-      "cpu": ["ppc64"],
+      "cpu": [
+        "ppc64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1928,11 +1953,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-riscv64/-/linux-riscv64-0.21.5.tgz",
       "integrity": "sha512-2HdXDMd9GMgTGrPWnJzP2ALSokE/0O5HhTUvWIbD3YdjME8JwvSCnNGBnTThKGEB91OZhzrJ4qIIxk/SBmyDDA==",
-      "cpu": ["riscv64"],
+      "cpu": [
+        "riscv64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1941,11 +1970,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-s390x/-/linux-s390x-0.21.5.tgz",
       "integrity": "sha512-zus5sxzqBJD3eXxwvjN1yQkRepANgxE9lgOW2qLnmr8ikMTphkjgXu1HR01K4FJg8h1kEEDAqDcZQtbrRnB41A==",
-      "cpu": ["s390x"],
+      "cpu": [
+        "s390x"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1954,11 +1987,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.21.5.tgz",
       "integrity": "sha512-1rYdTpyv03iycF1+BhzrzQJCdOuAOtaqHTWJZCWvijKD2N5Xu0TtVC8/+1faWqcP9iBCWOmjmhoH94dH82BxPQ==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1967,11 +2004,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/netbsd-x64/-/netbsd-x64-0.21.5.tgz",
       "integrity": "sha512-Woi2MXzXjMULccIwMnLciyZH4nCIMpWQAs049KEeMvOcNADVxo0UBIQPfSmxB3CWKedngg7sWZdLvLczpe0tLg==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["netbsd"],
+      "os": [
+        "netbsd"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1980,11 +2021,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/openbsd-x64/-/openbsd-x64-0.21.5.tgz",
       "integrity": "sha512-HLNNw99xsvx12lFBUwoT8EVCsSvRNDVxNpjZ7bPn947b8gJPzeHWyNVhFsaerc0n3TsbOINvRP2byTZ5LKezow==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["openbsd"],
+      "os": [
+        "openbsd"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -1993,11 +2038,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/sunos-x64/-/sunos-x64-0.21.5.tgz",
       "integrity": "sha512-6+gjmFpfy0BHU5Tpptkuh8+uw3mnrvgs+dSPQXQOv3ekbordwnzTVEb4qnIvQcYXq6gzkyTnoZ9dZG+D4garKg==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["sunos"],
+      "os": [
+        "sunos"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -2006,11 +2055,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/win32-arm64/-/win32-arm64-0.21.5.tgz",
       "integrity": "sha512-Z0gOTd75VvXqyq7nsl93zwahcTROgqvuAcYDUr+vOv8uHhNSKROyU961kgtCD1e95IqPKSQKH7tBTslnS3tA8A==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"],
+      "os": [
+        "win32"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -2019,11 +2072,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.21.5.tgz",
       "integrity": "sha512-SWXFF1CL2RVNMaVs+BBClwtfZSvDgtL//G/smwAc5oVK/UPu2Gu9tIaRgFmYFFKrmg3SyAjSrElf0TiJ1v8fYA==",
-      "cpu": ["ia32"],
+      "cpu": [
+        "ia32"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"],
+      "os": [
+        "win32"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -2032,11 +2089,15 @@ _Size:_ 404008 bytes
       "version": "0.21.5",
       "resolved": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz",
       "integrity": "sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"],
+      "os": [
+        "win32"
+      ],
       "engines": {
         "node": ">=12"
       }
@@ -2354,10 +2415,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-14.2.15.tgz",
       "integrity": "sha512-Rvh7KU9hOUBnZ9TJ28n2Oa7dD9cvDBKua9IKx7cfQQ0GoYUwg9ig31O2oMwH3wm+pE3IkAQ67ZobPfEgurPZIA==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"],
+      "os": [
+        "darwin"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2366,10 +2431,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-14.2.15.tgz",
       "integrity": "sha512-5TGyjFcf8ampZP3e+FyCax5zFVHi+Oe7sZyaKOngsqyaNEpOgkKB3sqmymkZfowy3ufGA/tUgDPPxpQx931lHg==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"],
+      "os": [
+        "darwin"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2378,10 +2447,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-14.2.15.tgz",
       "integrity": "sha512-3Bwv4oc08ONiQ3FiOLKT72Q+ndEMyLNsc/D3qnLMbtUYTQAmkx9E/JRu0DBpHxNddBmNT5hxz1mYBphJ3mfrrw==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2390,10 +2463,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-14.2.15.tgz",
       "integrity": "sha512-k5xf/tg1FBv/M4CMd8S+JL3uV9BnnRmoe7F+GWC3DxkTCD9aewFRH1s5rJ1zkzDa+Do4zyN8qD0N8c84Hu96FQ==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2402,10 +2479,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-14.2.15.tgz",
       "integrity": "sha512-kE6q38hbrRbKEkkVn62reLXhThLRh6/TvgSP56GkFNhU22TbIrQDEMrO7j0IcQHcew2wfykq8lZyHFabz0oBrA==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2414,10 +2495,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-14.2.15.tgz",
       "integrity": "sha512-PZ5YE9ouy/IdO7QVJeIcyLn/Rc4ml9M2G4y3kCM9MNf1YKvFY4heg3pVa/jQbMro+tP6yc4G2o9LjAz1zxD7tQ==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["linux"],
+      "os": [
+        "linux"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2426,10 +2511,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-14.2.15.tgz",
       "integrity": "sha512-2raR16703kBvYEQD9HNLyb0/394yfqzmIeyp2nDzcPV4yPjqNUG3ohX6jX00WryXz6s1FXpVhsCo3i+g4RUX+g==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["win32"],
+      "os": [
+        "win32"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2438,10 +2527,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-14.2.15.tgz",
       "integrity": "sha512-fyTE8cklgkyR1p03kJa5zXEaZ9El+kDNM5A+66+8evQS5e/6v0Gk28LqA0Jet8gKSOyP+OTm/tJHzMlGdQerdQ==",
-      "cpu": ["ia32"],
+      "cpu": [
+        "ia32"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["win32"],
+      "os": [
+        "win32"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2450,10 +2543,14 @@ _Size:_ 404008 bytes
       "version": "14.2.15",
       "resolved": "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-14.2.15.tgz",
       "integrity": "sha512-SzqGbsLsP9OwKNUG9nekShTwhj6JSB9ZLMWQ8g1gG6hdE5gQLncbnbymrwy2yVmH9nikSLYRYxYMFu78Ggp7/g==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "license": "MIT",
       "optional": true,
-      "os": ["win32"],
+      "os": [
+        "win32"
+      ],
       "engines": {
         "node": ">= 10"
       }
@@ -2518,221 +2615,309 @@ _Size:_ 404008 bytes
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.52.2.tgz",
       "integrity": "sha512-o3pcKzJgSGt4d74lSZ+OCnHwkKBeAbFDmbEm5gg70eA8VkyCuC/zV9TwBnmw6VjDlRdF4Pshfb+WE9E6XY1PoQ==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["android"]
+      "os": [
+        "android"
+      ]
     },
     "node_modules/@rollup/rollup-android-arm64": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-android-arm64/-/rollup-android-arm64-4.52.2.tgz",
       "integrity": "sha512-cqFSWO5tX2vhC9hJTK8WAiPIm4Q8q/cU8j2HQA0L3E1uXvBYbOZMhE2oFL8n2pKB5sOCHY6bBuHaRwG7TkfJyw==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["android"]
+      "os": [
+        "android"
+      ]
     },
     "node_modules/@rollup/rollup-darwin-arm64": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.52.2.tgz",
       "integrity": "sha512-vngduywkkv8Fkh3wIZf5nFPXzWsNsVu1kvtLETWxTFf/5opZmflgVSeLgdHR56RQh71xhPhWoOkEBvbehwTlVA==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"]
+      "os": [
+        "darwin"
+      ]
     },
     "node_modules/@rollup/rollup-darwin-x64": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-darwin-x64/-/rollup-darwin-x64-4.52.2.tgz",
       "integrity": "sha512-h11KikYrUCYTrDj6h939hhMNlqU2fo/X4NB0OZcys3fya49o1hmFaczAiJWVAFgrM1NCP6RrO7lQKeVYSKBPSQ==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"]
+      "os": [
+        "darwin"
+      ]
     },
     "node_modules/@rollup/rollup-freebsd-arm64": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-freebsd-arm64/-/rollup-freebsd-arm64-4.52.2.tgz",
       "integrity": "sha512-/eg4CI61ZUkLXxMHyVlmlGrSQZ34xqWlZNW43IAU4RmdzWEx0mQJ2mN/Cx4IHLVZFL6UBGAh+/GXhgvGb+nVxw==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["freebsd"]
+      "os": [
+        "freebsd"
+      ]
     },
     "node_modules/@rollup/rollup-freebsd-x64": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-freebsd-x64/-/rollup-freebsd-x64-4.52.2.tgz",
       "integrity": "sha512-QOWgFH5X9+p+S1NAfOqc0z8qEpJIoUHf7OWjNUGOeW18Mx22lAUOiA9b6r2/vpzLdfxi/f+VWsYjUOMCcYh0Ng==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["freebsd"]
+      "os": [
+        "freebsd"
+      ]
     },
     "node_modules/@rollup/rollup-linux-arm-gnueabihf": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-arm-gnueabihf/-/rollup-linux-arm-gnueabihf-4.52.2.tgz",
       "integrity": "sha512-kDWSPafToDd8LcBYd1t5jw7bD5Ojcu12S3uT372e5HKPzQt532vW+rGFFOaiR0opxePyUkHrwz8iWYEyH1IIQA==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-arm-musleabihf": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-arm-musleabihf/-/rollup-linux-arm-musleabihf-4.52.2.tgz",
       "integrity": "sha512-gKm7Mk9wCv6/rkzwCiUC4KnevYhlf8ztBrDRT9g/u//1fZLapSRc+eDZj2Eu2wpJ+0RzUKgtNijnVIB4ZxyL+w==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-arm64-gnu": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-arm64-gnu/-/rollup-linux-arm64-gnu-4.52.2.tgz",
       "integrity": "sha512-66lA8vnj5mB/rtDNwPgrrKUOtCLVQypkyDa2gMfOefXK6rcZAxKLO9Fy3GkW8VkPnENv9hBkNOFfGLf6rNKGUg==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-arm64-musl": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-arm64-musl/-/rollup-linux-arm64-musl-4.52.2.tgz",
       "integrity": "sha512-s+OPucLNdJHvuZHuIz2WwncJ+SfWHFEmlC5nKMUgAelUeBUnlB4wt7rXWiyG4Zn07uY2Dd+SGyVa9oyLkVGOjA==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-loong64-gnu": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-loong64-gnu/-/rollup-linux-loong64-gnu-4.52.2.tgz",
       "integrity": "sha512-8wTRM3+gVMDLLDdaT6tKmOE3lJyRy9NpJUS/ZRWmLCmOPIJhVyXwjBo+XbrrwtV33Em1/eCTd5TuGJm4+DmYjw==",
-      "cpu": ["loong64"],
+      "cpu": [
+        "loong64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-ppc64-gnu": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-ppc64-gnu/-/rollup-linux-ppc64-gnu-4.52.2.tgz",
       "integrity": "sha512-6yqEfgJ1anIeuP2P/zhtfBlDpXUb80t8DpbYwXQ3bQd95JMvUaqiX+fKqYqUwZXqdJDd8xdilNtsHM2N0cFm6A==",
-      "cpu": ["ppc64"],
+      "cpu": [
+        "ppc64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-riscv64-gnu": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-riscv64-gnu/-/rollup-linux-riscv64-gnu-4.52.2.tgz",
       "integrity": "sha512-sshYUiYVSEI2B6dp4jMncwxbrUqRdNApF2c3bhtLAU0qA8Lrri0p0NauOsTWh3yCCCDyBOjESHMExonp7Nzc0w==",
-      "cpu": ["riscv64"],
+      "cpu": [
+        "riscv64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-riscv64-musl": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-riscv64-musl/-/rollup-linux-riscv64-musl-4.52.2.tgz",
       "integrity": "sha512-duBLgd+3pqC4MMwBrKkFxaZerUxZcYApQVC5SdbF5/e/589GwVvlRUnyqMFbM8iUSb1BaoX/3fRL7hB9m2Pj8Q==",
-      "cpu": ["riscv64"],
+      "cpu": [
+        "riscv64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-s390x-gnu": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-s390x-gnu/-/rollup-linux-s390x-gnu-4.52.2.tgz",
       "integrity": "sha512-tzhYJJidDUVGMgVyE+PmxENPHlvvqm1KILjjZhB8/xHYqAGeizh3GBGf9u6WdJpZrz1aCpIIHG0LgJgH9rVjHQ==",
-      "cpu": ["s390x"],
+      "cpu": [
+        "s390x"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-x64-gnu": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-x64-gnu/-/rollup-linux-x64-gnu-4.52.2.tgz",
       "integrity": "sha512-opH8GSUuVcCSSyHHcl5hELrmnk4waZoVpgn/4FDao9iyE4WpQhyWJ5ryl5M3ocp4qkRuHfyXnGqg8M9oKCEKRA==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-linux-x64-musl": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.52.2.tgz",
       "integrity": "sha512-LSeBHnGli1pPKVJ79ZVJgeZWWZXkEe/5o8kcn23M8eMKCUANejchJbF/JqzM4RRjOJfNRhKJk8FuqL1GKjF5oQ==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@rollup/rollup-openharmony-arm64": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-openharmony-arm64/-/rollup-openharmony-arm64-4.52.2.tgz",
       "integrity": "sha512-uPj7MQ6/s+/GOpolavm6BPo+6CbhbKYyZHUDvZ/SmJM7pfDBgdGisFX3bY/CBDMg2ZO4utfhlApkSfZ92yXw7Q==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["openharmony"]
+      "os": [
+        "openharmony"
+      ]
     },
     "node_modules/@rollup/rollup-win32-arm64-msvc": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-win32-arm64-msvc/-/rollup-win32-arm64-msvc-4.52.2.tgz",
       "integrity": "sha512-Z9MUCrSgIaUeeHAiNkm3cQyst2UhzjPraR3gYYfOjAuZI7tcFRTOD+4cHLPoS/3qinchth+V56vtqz1Tv+6KPA==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"]
+      "os": [
+        "win32"
+      ]
     },
     "node_modules/@rollup/rollup-win32-ia32-msvc": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-win32-ia32-msvc/-/rollup-win32-ia32-msvc-4.52.2.tgz",
       "integrity": "sha512-+GnYBmpjldD3XQd+HMejo+0gJGwYIOfFeoBQv32xF/RUIvccUz20/V6Otdv+57NE70D5pa8W/jVGDoGq0oON4A==",
-      "cpu": ["ia32"],
+      "cpu": [
+        "ia32"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"]
+      "os": [
+        "win32"
+      ]
     },
     "node_modules/@rollup/rollup-win32-x64-gnu": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.52.2.tgz",
       "integrity": "sha512-ApXFKluSB6kDQkAqZOKXBjiaqdF1BlKi+/eqnYe9Ee7U2K3pUDKsIyr8EYm/QDHTJIM+4X+lI0gJc3TTRhd+dA==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"]
+      "os": [
+        "win32"
+      ]
     },
     "node_modules/@rollup/rollup-win32-x64-msvc": {
       "version": "4.52.2",
       "resolved": "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.52.2.tgz",
       "integrity": "sha512-ARz+Bs8kY6FtitYM96PqPEVvPXqEZmPZsSkXvyX19YzDqkCaIlhCieLLMI5hxO9SRZ2XtCtm8wxhy0iJ2jxNfw==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"]
+      "os": [
+        "win32"
+      ]
     },
     "node_modules/@rtsao/scc": {
       "version": "1.1.0",
@@ -3869,157 +4054,219 @@ _Size:_ 404008 bytes
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-android-arm-eabi/-/resolver-binding-android-arm-eabi-1.11.1.tgz",
       "integrity": "sha512-ppLRUgHVaGRWUx0R0Ut06Mjo9gBaBkg3v/8AxusGLhsIotbBLuRk51rAzqLC8gq6NyyAojEXglNjzf6R948DNw==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["android"]
+      "os": [
+        "android"
+      ]
     },
     "node_modules/@unrs/resolver-binding-android-arm64": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-android-arm64/-/resolver-binding-android-arm64-1.11.1.tgz",
       "integrity": "sha512-lCxkVtb4wp1v+EoN+HjIG9cIIzPkX5OtM03pQYkG+U5O/wL53LC4QbIeazgiKqluGeVEeBlZahHalCaBvU1a2g==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["android"]
+      "os": [
+        "android"
+      ]
     },
     "node_modules/@unrs/resolver-binding-darwin-arm64": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-darwin-arm64/-/resolver-binding-darwin-arm64-1.11.1.tgz",
       "integrity": "sha512-gPVA1UjRu1Y/IsB/dQEsp2V1pm44Of6+LWvbLc9SDk1c2KhhDRDBUkQCYVWe6f26uJb3fOK8saWMgtX8IrMk3g==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"]
+      "os": [
+        "darwin"
+      ]
     },
     "node_modules/@unrs/resolver-binding-darwin-x64": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-darwin-x64/-/resolver-binding-darwin-x64-1.11.1.tgz",
       "integrity": "sha512-cFzP7rWKd3lZaCsDze07QX1SC24lO8mPty9vdP+YVa3MGdVgPmFc59317b2ioXtgCMKGiCLxJ4HQs62oz6GfRQ==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"]
+      "os": [
+        "darwin"
+      ]
     },
     "node_modules/@unrs/resolver-binding-freebsd-x64": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-freebsd-x64/-/resolver-binding-freebsd-x64-1.11.1.tgz",
       "integrity": "sha512-fqtGgak3zX4DCB6PFpsH5+Kmt/8CIi4Bry4rb1ho6Av2QHTREM+47y282Uqiu3ZRF5IQioJQ5qWRV6jduA+iGw==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["freebsd"]
+      "os": [
+        "freebsd"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-arm-gnueabihf": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-arm-gnueabihf/-/resolver-binding-linux-arm-gnueabihf-1.11.1.tgz",
       "integrity": "sha512-u92mvlcYtp9MRKmP+ZvMmtPN34+/3lMHlyMj7wXJDeXxuM0Vgzz0+PPJNsro1m3IZPYChIkn944wW8TYgGKFHw==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-arm-musleabihf": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-arm-musleabihf/-/resolver-binding-linux-arm-musleabihf-1.11.1.tgz",
       "integrity": "sha512-cINaoY2z7LVCrfHkIcmvj7osTOtm6VVT16b5oQdS4beibX2SYBwgYLmqhBjA1t51CarSaBuX5YNsWLjsqfW5Cw==",
-      "cpu": ["arm"],
+      "cpu": [
+        "arm"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-arm64-gnu": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-arm64-gnu/-/resolver-binding-linux-arm64-gnu-1.11.1.tgz",
       "integrity": "sha512-34gw7PjDGB9JgePJEmhEqBhWvCiiWCuXsL9hYphDF7crW7UgI05gyBAi6MF58uGcMOiOqSJ2ybEeCvHcq0BCmQ==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-arm64-musl": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-arm64-musl/-/resolver-binding-linux-arm64-musl-1.11.1.tgz",
       "integrity": "sha512-RyMIx6Uf53hhOtJDIamSbTskA99sPHS96wxVE/bJtePJJtpdKGXO1wY90oRdXuYOGOTuqjT8ACccMc4K6QmT3w==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-ppc64-gnu": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-ppc64-gnu/-/resolver-binding-linux-ppc64-gnu-1.11.1.tgz",
       "integrity": "sha512-D8Vae74A4/a+mZH0FbOkFJL9DSK2R6TFPC9M+jCWYia/q2einCubX10pecpDiTmkJVUH+y8K3BZClycD8nCShA==",
-      "cpu": ["ppc64"],
+      "cpu": [
+        "ppc64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-riscv64-gnu": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-riscv64-gnu/-/resolver-binding-linux-riscv64-gnu-1.11.1.tgz",
       "integrity": "sha512-frxL4OrzOWVVsOc96+V3aqTIQl1O2TjgExV4EKgRY09AJ9leZpEg8Ak9phadbuX0BA4k8U5qtvMSQQGGmaJqcQ==",
-      "cpu": ["riscv64"],
+      "cpu": [
+        "riscv64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-riscv64-musl": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-riscv64-musl/-/resolver-binding-linux-riscv64-musl-1.11.1.tgz",
       "integrity": "sha512-mJ5vuDaIZ+l/acv01sHoXfpnyrNKOk/3aDoEdLO/Xtn9HuZlDD6jKxHlkN8ZhWyLJsRBxfv9GYM2utQ1SChKew==",
-      "cpu": ["riscv64"],
+      "cpu": [
+        "riscv64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-s390x-gnu": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-s390x-gnu/-/resolver-binding-linux-s390x-gnu-1.11.1.tgz",
       "integrity": "sha512-kELo8ebBVtb9sA7rMe1Cph4QHreByhaZ2QEADd9NzIQsYNQpt9UkM9iqr2lhGr5afh885d/cB5QeTXSbZHTYPg==",
-      "cpu": ["s390x"],
+      "cpu": [
+        "s390x"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-x64-gnu": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-x64-gnu/-/resolver-binding-linux-x64-gnu-1.11.1.tgz",
       "integrity": "sha512-C3ZAHugKgovV5YvAMsxhq0gtXuwESUKc5MhEtjBpLoHPLYM+iuwSj3lflFwK3DPm68660rZ7G8BMcwSro7hD5w==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-linux-x64-musl": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-linux-x64-musl/-/resolver-binding-linux-x64-musl-1.11.1.tgz",
       "integrity": "sha512-rV0YSoyhK2nZ4vEswT/QwqzqQXw5I6CjoaYMOX0TqBlWhojUf8P94mvI7nuJTeaCkkds3QE4+zS8Ko+GdXuZtA==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["linux"]
+      "os": [
+        "linux"
+      ]
     },
     "node_modules/@unrs/resolver-binding-wasm32-wasi": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-wasm32-wasi/-/resolver-binding-wasm32-wasi-1.11.1.tgz",
       "integrity": "sha512-5u4RkfxJm+Ng7IWgkzi3qrFOvLvQYnPBmjmZQ8+szTK/b31fQCnleNl1GgEt7nIsZRIf5PLhPwT0WM+q45x/UQ==",
-      "cpu": ["wasm32"],
+      "cpu": [
+        "wasm32"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
@@ -4034,31 +4281,43 @@ _Size:_ 404008 bytes
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-win32-arm64-msvc/-/resolver-binding-win32-arm64-msvc-1.11.1.tgz",
       "integrity": "sha512-nRcz5Il4ln0kMhfL8S3hLkxI85BXs3o8EYoattsJNdsX4YUU89iOkVn7g0VHSRxFuVMdM4Q1jEpIId1Ihim/Uw==",
-      "cpu": ["arm64"],
+      "cpu": [
+        "arm64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"]
+      "os": [
+        "win32"
+      ]
     },
     "node_modules/@unrs/resolver-binding-win32-ia32-msvc": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-win32-ia32-msvc/-/resolver-binding-win32-ia32-msvc-1.11.1.tgz",
       "integrity": "sha512-DCEI6t5i1NmAZp6pFonpD5m7i6aFrpofcp4LA2i8IIq60Jyo28hamKBxNrZcyOwVOZkgsRp9O2sXWBWP8MnvIQ==",
-      "cpu": ["ia32"],
+      "cpu": [
+        "ia32"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"]
+      "os": [
+        "win32"
+      ]
     },
     "node_modules/@unrs/resolver-binding-win32-x64-msvc": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/@unrs/resolver-binding-win32-x64-msvc/-/resolver-binding-win32-x64-msvc-1.11.1.tgz",
       "integrity": "sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g==",
-      "cpu": ["x64"],
+      "cpu": [
+        "x64"
+      ],
       "dev": true,
       "license": "MIT",
       "optional": true,
-      "os": ["win32"]
+      "os": [
+        "win32"
+      ]
     },
     "node_modules/@vercel/analytics": {
       "version": "1.5.0",
@@ -6551,7 +6810,9 @@ _Size:_ 404008 bytes
       "hasInstallScript": true,
       "license": "MIT",
       "optional": true,
-      "os": ["darwin"],
+      "os": [
+        "darwin"
+      ],
       "engines": {
         "node": "^8.16.0 || ^10.6.0 || >=11.0.0"
       }
@@ -11593,12 +11854,12 @@ _Size:_ 404008 bytes
     }
   }
 }
+
 ```
 
+
 ### package.json
-
 _Size:_ 2296 bytes
-
 ```json
 {
   "name": "real-estate-multilingual",
@@ -11663,16 +11924,20 @@ _Size:_ 2296 bytes
     "@tailwindcss/forms": "^0.5.9"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,md,mdx,css}": ["prettier --write"],
-    "**/*.{ts,tsx}": ["eslint"]
+    "**/*.{js,jsx,ts,tsx,md,mdx,css}": [
+      "prettier --write"
+    ],
+    "**/*.{ts,tsx}": [
+      "eslint"
+    ]
   }
 }
+
 ```
 
+
 ### postcss.config.mjs
-
 _Size:_ 113 bytes
-
 ```js
 const config = {
   plugins: {
@@ -11682,28 +11947,26 @@ const config = {
 };
 
 export default config;
+
 ```
 
+
 ### public/file.svg
-
 _Size:_ 391 bytes
-
 ```xml
 <svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
 ```
 
+
 ### public/globe.svg
-
 _Size:_ 1035 bytes
-
 ```xml
 <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
 ```
 
+
 ### public/logo.svg
-
 _Size:_ 261 bytes
-
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 24" fill="none">
   <rect width="120" height="24" rx="12" fill="#1d4ed8" />
@@ -11712,35 +11975,31 @@ _Size:_ 261 bytes
 
 ```
 
+
 ### public/next.svg
-
 _Size:_ 1375 bytes
-
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
 ```
 
+
 ### public/vercel.svg
-
 _Size:_ 128 bytes
-
 ```xml
 <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
 ```
 
+
 ### public/window.svg
-
 _Size:_ 385 bytes
-
 ```xml
 <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
 ```
 
+
 ### README.md
-
 _Size:_ 3035 bytes
-
-````md
+```md
 # ZomZom Property · Multilingual Real Estate Experience
 
 This project is a Next.js 14 App Router application providing a multilingual real estate landing and lead-generation experience for ZomZom Property. It includes localized marketing pages, listings, articles, and a contact workflow with Turnstile verification and email delivery.
@@ -11758,7 +12017,6 @@ This project is a Next.js 14 App Router application providing a multilingual rea
 pnpm install
 pnpm dev
 ```
-````
 
 The development server is available at [http://localhost:3000](http://localhost:3000). The root route automatically redirects to the fallback locale (`/en`).
 
@@ -11776,15 +12034,15 @@ The contact endpoint sends submissions to `zomzomproperty@gmail.com` and enforce
 
 ## Scripts
 
-| Command                      | Description                                 |
-| ---------------------------- | ------------------------------------------- |
-| `pnpm dev`                   | Start the Next.js development server        |
-| `pnpm build`                 | Create a production build                   |
-| `pnpm start`                 | Run the production build                    |
-| `pnpm lint`                  | Lint the project with ESLint                |
-| `pnpm test`                  | Run Vitest unit tests                       |
-| `pnpm xray`                  | Show a project summary (files, line counts) |
-| `pnpm xray:single -- <path>` | Show details for a specific file            |
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the Next.js development server |
+| `pnpm build` | Create a production build |
+| `pnpm start` | Run the production build |
+| `pnpm lint` | Lint the project with ESLint |
+| `pnpm test` | Run Vitest unit tests |
+| `pnpm xray` | Show a project summary (files, line counts) |
+| `pnpm xray:single -- <path>` | Show details for a specific file |
 
 ## Testing
 
@@ -11818,37 +12076,37 @@ pnpm test
 - The application injects structured data (`JSON-LD`) for the organization and featured listings.
 - Assets in `/public` are SVG-based placeholders and can be replaced with brand artwork.
 
-````
+```
 
 
 ### scripts/COMMANDS.md
-_Size:_ 8035 bytes
+_Size:_ 8838 bytes
 ```md
 # COMMANDS (มือใหม่ก็ทำตามได้)
 
-> ครั้งแรกหลังโคลนโปรเจ็กต์ ให้รัน:
-> **`npm install`**
+> ครั้งแรกหลังโคลนโปรเจ็กต์ ให้รัน:  
+> **`npm install`**  
 > แนะนำให้ใช้ Node.js เวอร์ชัน ≥ 18
 
 ---
 
 ## สรุปคำสั่งหลัก (Cheat Sheet)
 
-| งาน | คำสั่ง | ผลลัพธ์โดยย่อ |
-|---|---|---|
-| เริ่มเซิร์ฟเวอร์พัฒนา (Dev) | `npm run dev` | เปิดเว็บได้ที่ `http://localhost:3000` มี Hot Reload |
-| สร้าง Production build | `npm run build` | คอมไพล์/ prerender หน้าเว็บไว้ใน `.next/` |
-| รันเซิร์ฟเวอร์ Production จาก build | `npm run start` | รันจากผลลัพธ์ build ที่สร้างไว้ |
-| ตรวจโค้ด (ESLint) | `npm run lint` | รายงานปัญหาโค้ดสไตล์/กฎ ESLint |
-| รันเทสทั้งหมด (Vitest) | `npm run test` | รันเทสแบบจบแล้วออก |
-| รันเทสแบบดูผลสด | `npm run test:watch` | เฝ้าดูไฟล์ เปลี่ยนปุ๊บ เทสอัตโนมัติ |
-| สแกน i18n และสรุปคีย์ | `npm run i18n:audit` | บอกว่ามีคีย์ไหนที่ใช้ในโค้ดแต่ขาดในไฟล์ข้อความ |
-| เติมคีย์ i18n ที่ขาด | `npm run i18n:fill` | เติมคีย์ที่ขาดด้วยค่าจาก `en.json` (กัน build พัง) |
-| รายงานโครงสร้างโปรเจ็กต์ (ย่อ/ไฟล์เดียว) | `npm run xray:single` | สร้าง `reports/PROJECT-REPORT.md` |
-| ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” (ไฟล์เดียว) | `npm run repo:dump:single` | สร้าง `reports/REPO-DUMP.md` |
-| ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” (แยกไฟล์) | `npm run repo:dump:split` | สร้างรายงานหลายไฟล์ใน `reports/` |
-| ดึงทุกอย่างจริงๆ (รวม dotfiles, .env, ไบนารี base64) | `npm run repo:dump:all` | สร้าง `reports/REPO-ALL.md` (ไฟล์ใหญ่มาก) |
-| ติดตั้ง Husky (ครั้งเดียว) | `npm run prepare` | เปิดใช้งาน Git hooks จาก Husky |
+| งาน                                                  | คำสั่ง                     | ผลลัพธ์โดยย่อ                                        |
+| ---------------------------------------------------- | -------------------------- | ---------------------------------------------------- |
+| เริ่มเซิร์ฟเวอร์พัฒนา (Dev)                          | `npm run dev`              | เปิดเว็บได้ที่ `http://localhost:3000` มี Hot Reload |
+| สร้าง Production build                               | `npm run build`            | คอมไพล์/ prerender หน้าเว็บไว้ใน `.next/`            |
+| รันเซิร์ฟเวอร์ Production จาก build                  | `npm run start`            | รันจากผลลัพธ์ build ที่สร้างไว้                      |
+| ตรวจโค้ด (ESLint)                                    | `npm run lint`             | รายงานปัญหาโค้ดสไตล์/กฎ ESLint                       |
+| รันเทสทั้งหมด (Vitest)                               | `npm run test`             | รันเทสแบบจบแล้วออก                                   |
+| รันเทสแบบดูผลสด                                      | `npm run test:watch`       | เฝ้าดูไฟล์ เปลี่ยนปุ๊บ เทสอัตโนมัติ                  |
+| สแกน i18n และสรุปคีย์                                | `npm run i18n:audit`       | บอกว่ามีคีย์ไหนที่ใช้ในโค้ดแต่ขาดในไฟล์ข้อความ       |
+| เติมคีย์ i18n ที่ขาด                                 | `npm run i18n:fill`        | เติมคีย์ที่ขาดด้วยค่าจาก `en.json` (กัน build พัง)   |
+| รายงานโครงสร้างโปรเจ็กต์ (ย่อ/ไฟล์เดียว)             | `npm run xray:single`      | สร้าง `reports/PROJECT-REPORT.md`                    |
+| ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” (ไฟล์เดียว)     | `npm run repo:dump:single` | สร้าง `reports/REPO-DUMP.md`                         |
+| ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” (แยกไฟล์)       | `npm run repo:dump:split`  | สร้างรายงานหลายไฟล์ใน `reports/`                     |
+| ดึงทุกอย่างจริงๆ (รวม dotfiles, .env, ไบนารี base64) | `npm run repo:dump:all`    | สร้าง `reports/REPO-ALL.md` (ไฟล์ใหญ่มาก)            |
+| ติดตั้ง Husky (ครั้งเดียว)                           | `npm run prepare`          | เปิดใช้งาน Git hooks จาก Husky                       |
 
 > หมายเหตุ: โฟลเดอร์รายงานคือ `reports/` (ควรใส่ใน `.gitignore` แล้ว)
 
@@ -11856,11 +12114,12 @@ _Size:_ 8035 bytes
 
 ## การพัฒนาในเครื่อง (Dev)
 
-1) รัน: **`npm run dev`**
-2) เปิดเว็บ: **`http://localhost:3000`**
-3) หยุดเซิร์ฟเวอร์: กด **Ctrl + C** ในเทอร์มินัล
+1. รัน: **`npm run dev`**
+2. เปิดเว็บ: **`http://localhost:3000`**
+3. หยุดเซิร์ฟเวอร์: กด **Ctrl + C** ในเทอร์มินัล
 
 **ผลลัพธ์ที่คาดหวัง**
+
 - เทอร์มินัลแสดง “✓ Ready in Xs”
 - แก้โค้ดไฟล์ใน `src/` หน้าเว็บจะรีโหลดอัตโนมัติ (Hot Reload)
 
@@ -11868,11 +12127,12 @@ _Size:_ 8035 bytes
 
 ## สร้างไฟล์สำหรับโปรดักชัน (Build) และรันจริง
 
-1) รัน build: **`npm run build`**
+1. รัน build: **`npm run build`**
    - ถ้ามี error ให้ดูหัวข้อ **Troubleshooting** ด้านล่าง
-2) รันจาก build: **`npm run start`** (เปิดพอร์ตเริ่มต้น 3000)
+2. รันจาก build: **`npm run start`** (เปิดพอร์ตเริ่มต้น 3000)
 
 **ผลลัพธ์ที่คาดหวัง**
+
 - เห็นข้อความ `Compiled successfully` และขึ้นขั้นตอน `Generating static pages` จนครบ
 - โฟลเดอร์ `.next/` ถูกสร้าง/อัปเดต
 
@@ -11892,10 +12152,10 @@ _Size:_ 8035 bytes
 
 ไฟล์ข้อความอยู่ที่ `src/messages/*.json` โดย **`en.json`** เป็นฐานหลัก
 
-- ตรวจหาคีย์ข้อความที่ใช้ในโค้ด (รวมที่ยังไม่มีในไฟล์):
+- ตรวจหาคีย์ข้อความที่ใช้ในโค้ด (รวมที่ยังไม่มีในไฟล์):  
   **`npm run i18n:audit`**
   - แสดงจำนวนคีย์ที่ระบบใช้งานจริง และสรุปแต่ละ locale ขาดคีย์หรือไม่
-- เติมคีย์ที่ “ขาด/ว่าง” โดยใช้ค่าจาก `en.json` ชั่วคราว:
+- เติมคีย์ที่ “ขาด/ว่าง” โดยใช้ค่าจาก `en.json` ชั่วคราว:  
   **`npm run i18n:fill`**
   - ป้องกัน build พังจากคีย์หาย
   - **ไม่แก้ค่าที่มีอยู่แล้ว** (จะแตะเฉพาะคีย์ที่ไม่มี/ว่าง)
@@ -11906,14 +12166,14 @@ _Size:_ 8035 bytes
 
 ## รายงานโครงสร้างโปรเจ็กต์ (XRAY)
 
-- **ย่อ/ไฟล์เดียว:** `npm run xray:single`
+- **ย่อ/ไฟล์เดียว:** `npm run xray:single`  
   สร้าง `reports/PROJECT-REPORT.md` สรุปเพจ, เลย์เอาต์, ไฟล์ข้อความ i18n ฯลฯ
 
 ---
 
 ## ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” เป็น Markdown
 
-> ใช้เมื่ออยากส่งให้ทีมตรวจทั้งหมด (หรือแนบใน issue)
+> ใช้เมื่ออยากส่งให้ทีมตรวจทั้งหมด (หรือแนบใน issue)  
 > ค่าเริ่มต้นจะ **ไม่ใส่เนื้อหา** ของไฟล์ `.env*` และไฟล์ไบนารี เพื่อความปลอดภัย
 
 - **ไฟล์เดียว:** `npm run repo:dump:single`
@@ -11928,7 +12188,8 @@ _Size:_ 8035 bytes
 
 ## ทดสอบฟอร์มติดต่อ (Contact API)
 
-1) สร้างไฟล์ `.env.local` ในรากโปรเจ็กต์ และตั้งค่าคีย์ SMTP / Turnstile (ตัวอย่าง)
+1. สร้างไฟล์ `.env.local` ในรากโปรเจ็กต์ และตั้งค่าคีย์ SMTP / Turnstile (ตัวอย่าง)
+
    ```ini
    # อีเมลผู้รับปลายทาง (ดูผล)
    CONTACT_RECIPIENT_EMAIL=your@email.com
@@ -11943,13 +12204,13 @@ _Size:_ 8035 bytes
    # Cloudflare Turnstile (โหมดทดสอบ)
    TURNSTILE_SITE_KEY=1x00000000000000000000AA
    TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+   ```
 
-````
+```
+
 
 ### scripts/fill-missing-messages.mjs
-
 _Size:_ 2549 bytes
-
 ```js
 #!/usr/bin/env node
 
@@ -12054,12 +12315,12 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+
 ```
 
+
 ### scripts/i18n-audit.mjs
-
 _Size:_ 8100 bytes
-
 ```js
 #!/usr/bin/env node
 
@@ -12174,8 +12435,7 @@ function sortObject(value) {
 function extractTranslationKeys(content) {
   const translatorMap = new Map();
 
-  const useTranslationsRegex =
-    /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*useTranslations\s*\(\s*(?:(['"`])([^'"`]+)\2)?\s*\)/g;
+  const useTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*useTranslations\s*\(\s*(?:(['"`])([^'"`]+)\2)?\s*\)/g;
   let match;
 
   while ((match = useTranslationsRegex.exec(content)) !== null) {
@@ -12184,8 +12444,7 @@ function extractTranslationKeys(content) {
     translatorMap.set(variable, namespace);
   }
 
-  const getTranslationsRegex =
-    /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:await\s*)?getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/g;
+  const getTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:await\s*)?getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/g;
 
   while ((match = getTranslationsRegex.exec(content)) !== null) {
     const variable = match[1];
@@ -12197,17 +12456,14 @@ function extractTranslationKeys(content) {
     }
   }
 
-  const destructuredRegex =
-    /const\s*\[\s*([^\]]+)\s*\]\s*=\s*await\s*Promise\.all\s*\(\s*\[([\s\S]*?)\]\s*\)/g;
+  const destructuredRegex = /const\s*\[\s*([^\]]+)\s*\]\s*=\s*await\s*Promise\.all\s*\(\s*\[([\s\S]*?)\]\s*\)/g;
 
   while ((match = destructuredRegex.exec(content)) !== null) {
     const variableList = splitTopLevel(match[1]);
     const expressionList = splitTopLevel(match[2]);
 
     expressionList.forEach((expression, index) => {
-      const namespaceMatch = /getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/.exec(
-        expression,
-      );
+      const namespaceMatch = /getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/.exec(expression);
       if (!namespaceMatch) {
         return;
       }
@@ -12225,7 +12481,8 @@ function extractTranslationKeys(content) {
   const keys = new Set();
 
   for (const [variable, namespace] of translatorMap) {
-    const pattern = escapeRegex(variable) + '\\s*\\(\\s*([\'\\"`])([^\'\\"`]+)\\1';
+    const pattern =
+      escapeRegex(variable) + "\\s*\\(\\s*(['\\\"`])([^'\\\"`]+)\\1";
     const callRegex = new RegExp(pattern, 'g');
     let callMatch;
 
@@ -12264,9 +12521,7 @@ async function writeJson(filepath, data) {
 }
 
 async function main() {
-  const sourceFiles = await collectFiles(SRC_DIR, (filepath) =>
-    /\.(?:ts|tsx)$/.test(filepath),
-  );
+  const sourceFiles = await collectFiles(SRC_DIR, (filepath) => /\.(?:ts|tsx)$/.test(filepath));
   const discoveredKeys = new Set();
 
   for (const file of sourceFiles) {
@@ -12275,9 +12530,7 @@ async function main() {
     keys.forEach((key) => discoveredKeys.add(key));
   }
 
-  const messageFiles = (await fs.readdir(MESSAGES_DIR))
-    .filter((file) => file.endsWith('.json'))
-    .sort();
+  const messageFiles = (await fs.readdir(MESSAGES_DIR)).filter((file) => file.endsWith('.json')).sort();
 
   if (!messageFiles.includes(EN_LOCALE)) {
     console.error(`Missing base locale file: ${EN_LOCALE}`);
@@ -12316,10 +12569,7 @@ async function main() {
       }
 
       const baseValue = currentEnFlat[key];
-      const hadOriginalEnValue = Object.prototype.hasOwnProperty.call(
-        originalEnFlat,
-        key,
-      );
+      const hadOriginalEnValue = Object.prototype.hasOwnProperty.call(originalEnFlat, key);
 
       let nextValue = baseValue;
       let usedFallback = false;
@@ -12381,12 +12631,12 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+
 ```
 
+
 ### scripts/i18n-fill.mjs
-
 _Size:_ 3132 bytes
-
 ```js
 #!/usr/bin/env node
 
@@ -12460,9 +12710,7 @@ async function writeJson(filepath, data) {
 }
 
 async function main() {
-  const files = (await fs.readdir(MESSAGES_DIR))
-    .filter((file) => file.endsWith('.json'))
-    .sort();
+  const files = (await fs.readdir(MESSAGES_DIR)).filter((file) => file.endsWith('.json')).sort();
 
   if (!files.includes(EN_LOCALE)) {
     console.error(`Missing base locale file: ${EN_LOCALE}`);
@@ -12516,15 +12764,15 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+
 ```
 
+
 ### scripts/repo-dump.mjs
-
-_Size:_ 8966 bytes
-
+_Size:_ 8967 bytes
 ```js
 #!/usr/bin/env node
-import { promises as fs } from 'node:fs';
+import {promises as fs} from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -12534,74 +12782,28 @@ const rel = (p) => toPosix(path.relative(projectRoot, p));
 const nowIso = () => new Date().toISOString();
 
 const DEFAULT_IGNORES = new Set([
-  'node_modules',
-  '.next',
-  '.git',
-  'dist',
-  'build',
-  '.turbo',
-  '.vercel',
-  'coverage',
-  'reports',
+  'node_modules', '.next', '.git', 'dist', 'build', '.turbo', '.vercel', 'coverage', 'reports'
 ]);
 
 const TEXT_EXT = new Set([
-  '.js',
-  '.mjs',
-  '.cjs',
-  '.ts',
-  '.tsx',
-  '.jsx',
-  '.json',
-  '.md',
-  '.css',
-  '.scss',
-  '.sass',
-  '.less',
-  '.html',
-  '.htm',
-  '.yml',
-  '.yaml',
-  '.env',
-  '.env.local',
-  '.env.example',
-  '.txt',
-  '.svg',
-  '.gitignore',
-  '.gitattributes',
+  '.js','.mjs','.cjs','.ts','.tsx','.jsx',
+  '.json','.md','.css','.scss','.sass','.less',
+  '.html','.htm','.yml','.yaml','.env','.env.local','.env.example',
+  '.txt','.svg','.gitignore','.gitattributes'
 ]);
 
 const FENCE = {
-  '.ts': 'ts',
-  '.tsx': 'tsx',
-  '.js': 'js',
-  '.jsx': 'jsx',
-  '.mjs': 'js',
-  '.cjs': 'js',
-  '.json': 'json',
-  '.md': 'md',
-  '.css': 'css',
-  '.scss': 'scss',
-  '.sass': 'sass',
-  '.less': 'less',
-  '.html': 'html',
-  '.htm': 'html',
-  '.yml': 'yaml',
-  '.yaml': 'yaml',
-  '.svg': 'xml',
-  '.sh': 'bash',
-  '.bat': 'bat',
-  '.ps1': 'powershell',
-  '.env': 'ini',
-  '.env.local': 'ini',
-  '.txt': '',
+  '.ts':'ts', '.tsx':'tsx', '.js':'js', '.jsx':'jsx', '.mjs':'js', '.cjs':'js',
+  '.json':'json', '.md':'md', '.css':'css', '.scss':'scss', '.sass':'sass', '.less':'less',
+  '.html':'html', '.htm':'html', '.yml':'yaml', '.yaml':'yaml', '.svg':'xml',
+  '.sh':'bash', '.bat':'bat', '.ps1':'powershell', '.env':'ini', '.env.local':'ini', '.txt':''
 };
 
 function parseArgs() {
   const a = process.argv.slice(2);
   const get = (flag, def) => {
     const i = a.indexOf(flag);
-    return i !== -1 ? a[i + 1] : def;
+    return i !== -1 ? a[i+1] : def;
   };
   const has = (flag) => a.includes(flag);
 
@@ -12617,14 +12819,14 @@ function parseArgs() {
     b64Binaries: has('--b64-binaries'),
     includeEnv: has('--include-env'),
     includeAll: has('--include-all'), // disable default ignores
-    maxBytes: Number(get('--max-bytes', '0')) || 0, // 0 = no limit
+    maxBytes: Number(get('--max-bytes', '0')) || 0 // 0 = no limit
   };
 }
 
 async function walk(dir, opts, bag = []) {
   let entries;
   try {
-    entries = await fs.readdir(dir, { withFileTypes: true });
+    entries = await fs.readdir(dir, {withFileTypes: true});
   } catch {
     return bag;
   }
@@ -12662,7 +12864,7 @@ async function isBinaryFile(abs) {
   try {
     const fd = await fs.open(abs, 'r');
     const buf = Buffer.alloc(1024);
-    const { bytesRead } = await fd.read(buf, 0, buf.length, 0);
+    const {bytesRead} = await fd.read(buf, 0, buf.length, 0);
     await fd.close();
     const slice = buf.subarray(0, bytesRead);
     for (let i = 0; i < slice.length; i++) {
@@ -12699,7 +12901,7 @@ function renderTree(files, root) {
   }
 
   function walkNode(node, prefix = '') {
-    const keys = Object.keys(node).sort((a, b) => {
+    const keys = Object.keys(node).sort((a,b) => {
       const da = node[a] && typeof node[a] === 'object';
       const db = node[b] && typeof node[b] === 'object';
       if (da !== db) return da ? -1 : 1;
@@ -12721,21 +12923,17 @@ function renderTree(files, root) {
 
 async function buildDump(opts) {
   const files = await walk(opts.root, opts);
-  files.sort((a, b) => rel(a).localeCompare(rel(b)));
+  files.sort((a,b) => rel(a).localeCompare(rel(b)));
 
   const rows = [];
   let totalSize = 0;
 
   const sections = []; // for ALL_FILES.md or single dump
-  const perFileTasks = [];
+  const _perFileTasks = [];
 
   for (const abs of files) {
     let stat;
-    try {
-      stat = await fs.stat(abs);
-    } catch {
-      continue;
-    }
+    try { stat = await fs.stat(abs); } catch { continue; }
     totalSize += stat.size;
 
     const r = rel(abs);
@@ -12756,8 +12954,7 @@ async function buildDump(opts) {
       binary = await isBinaryFile(abs);
       if (binary && !opts.includeBinaries) {
         includeContent = false;
-        reason =
-          '(skipped content: binary — pass --include-binaries to include; optionally --b64-binaries)';
+        reason = '(skipped content: binary — pass --include-binaries to include; optionally --b64-binaries)';
       }
     }
 
@@ -12776,9 +12973,7 @@ async function buildDump(opts) {
           const b64 = contentBuf.toString('base64');
           sections.push(`${header}_Encoding:_ base64\n\`\`\`\n${b64}\n\`\`\`\n`);
         } else {
-          sections.push(
-            `${header}_Binary file included as raw bytes preview disabled._\n`,
-          );
+          sections.push(`${header}_Binary file included as raw bytes preview disabled._\n`);
         }
       } else {
         const fence = codeFenceFor(abs);
@@ -12791,28 +12986,30 @@ async function buildDump(opts) {
   }
 
   const treeMd = renderTree(files, opts.root);
-  const inventoryMd = `# Inventory\nGenerated: ${nowIso()}
+  const inventoryMd =
+`# Inventory\nGenerated: ${nowIso()}
 
 Total files: ${files.length}
-Total size : ${(totalSize / 1024).toFixed(2)} KB
+Total size : ${(totalSize/1024).toFixed(2)} KB
 
 | File | Ext | Bytes | Mode |
 |------|-----|-------|------|
-${rows.map((r) => `| ${r[0]} | ${r[1]} | ${r[2]} | ${r[3]} |`).join('\n')}
+${rows.map(r => `| ${r[0]} | ${r[1]} | ${r[2]} | ${r[3]} |`).join('\n')}
 `;
 
-  return { treeMd, sections, inventoryMd };
+  return {treeMd, sections, inventoryMd};
 }
 
 async function writeOutputs(opts) {
-  const { treeMd, sections, inventoryMd } = await buildDump(opts);
+  const {treeMd, sections, inventoryMd} = await buildDump(opts);
 
-  const ensureDir = async (p) => fs.mkdir(p, { recursive: true });
+  const ensureDir = async (p) => fs.mkdir(p, {recursive: true});
 
   if (opts.single) {
     const outFile = path.isAbsolute(opts.out) ? opts.out : path.join(opts.root, opts.out);
     await ensureDir(path.dirname(outFile));
-    const single = `# REPOSITORY DUMP
+    const single =
+`# REPOSITORY DUMP
 _Generated: ${nowIso()}_
 
 ## 1) Tree
@@ -12833,11 +13030,8 @@ ${sections.join('\n')}
   const outDir = path.isAbsolute(opts.out) ? opts.out : path.join(opts.root, opts.out);
   await ensureDir(outDir);
   await fs.writeFile(path.join(outDir, 'REPO-TREE.md'), treeMd + '\n', 'utf8');
-  await fs.writeFile(
-    path.join(outDir, 'ALL_FILES.md'),
-    `# ALL FILES (Full contents)\n_Generated: ${nowIso()}_\n\n${sections.join('\n')}`,
-    'utf8',
-  );
+  await fs.writeFile(path.join(outDir, 'ALL_FILES.md'),
+    `# ALL FILES (Full contents)\n_Generated: ${nowIso()}_\n\n${sections.join('\n')}`, 'utf8');
   await fs.writeFile(path.join(outDir, 'INVENTORY.md'), inventoryMd, 'utf8');
 
   if (opts.split) {
@@ -12852,9 +13046,7 @@ ${sections.join('\n')}
     }
   }
 
-  console.log(
-    `✔ Wrote:\n- ${rel(path.join(outDir, 'REPO-TREE.md'))}\n- ${rel(path.join(outDir, 'ALL_FILES.md'))}\n- ${rel(path.join(outDir, 'INVENTORY.md'))}${'\n'}${opts.split ? `- ${rel(path.join(outDir, 'files/'))} (per-file .md)` : ''}`,
-  );
+  console.log(`✔ Wrote:\n- ${rel(path.join(outDir, 'REPO-TREE.md'))}\n- ${rel(path.join(outDir, 'ALL_FILES.md'))}\n- ${rel(path.join(outDir, 'INVENTORY.md'))}${'\n'}${opts.split ? `- ${rel(path.join(outDir, 'files/'))} (per-file .md)` : ''}`);
 }
 
 (async function main() {
@@ -12866,55 +13058,55 @@ ${sections.join('\n')}
     process.exit(1);
   }
 })();
+
 ```
 
+
 ### scripts/xray-lite.mjs
-
 _Size:_ 36854 bytes
-
 ```js
 #!/usr/bin/env node
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
-import process from 'node:process';
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import process from "node:process";
 
 const projectRoot = process.cwd();
-const toPosix = (p) => p.split(path.sep).join('/');
+const toPosix = (p) => p.split(path.sep).join("/");
 const rel = (p) => toPosix(path.relative(projectRoot, p));
 
 const TEXT_EXT = new Set([
-  '.js',
-  '.mjs',
-  '.cjs',
-  '.ts',
-  '.tsx',
-  '.jsx',
-  '.json',
-  '.md',
-  '.css',
-  '.scss',
-  '.sass',
-  '.html',
-  '.yml',
-  '.yaml',
+  ".js",
+  ".mjs",
+  ".cjs",
+  ".ts",
+  ".tsx",
+  ".jsx",
+  ".json",
+  ".md",
+  ".css",
+  ".scss",
+  ".sass",
+  ".html",
+  ".yml",
+  ".yaml"
 ]);
 
 const IGNORE_DIRS = new Set([
-  'node_modules',
-  '.next',
-  '.git',
-  'reports',
-  'dist',
-  'build',
-  '.turbo',
-  '.vercel',
+  "node_modules",
+  ".next",
+  ".git",
+  "reports",
+  "dist",
+  "build",
+  ".turbo",
+  ".vercel"
 ]);
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const outIdx = args.indexOf('--out');
-  const out = outIdx !== -1 ? args[outIdx + 1] : 'reports';
-  const single = args.includes('--single') || (out && out.endsWith('.md'));
+  const outIdx = args.indexOf("--out");
+  const out = outIdx !== -1 ? args[outIdx + 1] : "reports";
+  const single = args.includes("--single") || (out && out.endsWith(".md"));
   return { out, single };
 }
 
@@ -12927,7 +13119,7 @@ async function walk(dir, bag = []) {
   }
 
   for (const entry of entries) {
-    if (entry.name.startsWith('.')) continue;
+    if (entry.name.startsWith(".")) continue;
     if (IGNORE_DIRS.has(entry.name)) continue;
     const abs = path.join(dir, entry.name);
     if (entry.isDirectory()) {
@@ -12955,12 +13147,12 @@ async function collectInventory() {
       continue;
     }
     totalSize += stat.size;
-    const ext = path.extname(file) || '<none>';
+    const ext = path.extname(file) || "<none>";
     entries.push({
       file: rel(file),
       size: stat.size,
       ext,
-      text: TEXT_EXT.has(ext.toLowerCase()),
+      text: TEXT_EXT.has(ext.toLowerCase())
     });
   }
 
@@ -12973,16 +13165,16 @@ async function collectInventory() {
       totalFiles: entries.length,
       textFiles,
       binaryFiles,
-      totalSizeKB: +(totalSize / 1024).toFixed(2),
+      totalSizeKB: +(totalSize / 1024).toFixed(2)
     },
-    entries,
+    entries
   };
 }
 
 async function collectPackageInfo() {
-  const pkgPath = path.join(projectRoot, 'package.json');
+  const pkgPath = path.join(projectRoot, "package.json");
   try {
-    const raw = await fs.readFile(pkgPath, 'utf8');
+    const raw = await fs.readFile(pkgPath, "utf8");
     const pkg = JSON.parse(raw);
     return {
       path: rel(pkgPath),
@@ -12990,7 +13182,7 @@ async function collectPackageInfo() {
       version: pkg.version ?? null,
       scripts: pkg.scripts ?? {},
       dependencies: pkg.dependencies ?? {},
-      devDependencies: pkg.devDependencies ?? {},
+      devDependencies: pkg.devDependencies ?? {}
     };
   } catch {
     return {
@@ -12999,7 +13191,7 @@ async function collectPackageInfo() {
       version: null,
       scripts: {},
       dependencies: {},
-      devDependencies: {},
+      devDependencies: {}
     };
   }
 }
@@ -13007,12 +13199,12 @@ async function collectPackageInfo() {
 function detectFramework(pkg) {
   const deps = { ...pkg.dependencies, ...pkg.devDependencies };
   const frameworks = [];
-  if (deps.next) frameworks.push('Next.js');
-  if (deps.react) frameworks.push('React');
-  if (deps['next-intl']) frameworks.push('next-intl');
-  if (deps['@tanstack/react-query']) frameworks.push('TanStack Query');
-  if (deps['@testing-library/react']) frameworks.push('Testing Library');
-  if (deps.tailwindcss) frameworks.push('Tailwind CSS');
+  if (deps.next) frameworks.push("Next.js");
+  if (deps.react) frameworks.push("React");
+  if (deps["next-intl"]) frameworks.push("next-intl");
+  if (deps["@tanstack/react-query"]) frameworks.push("TanStack Query");
+  if (deps["@testing-library/react"]) frameworks.push("Testing Library");
+  if (deps.tailwindcss) frameworks.push("Tailwind CSS");
   return frameworks;
 }
 
@@ -13039,7 +13231,7 @@ async function collectStructure(pkg) {
     const getSource = async () => {
       if (source === undefined) {
         try {
-          source = await fs.readFile(file, 'utf8');
+          source = await fs.readFile(file, "utf8");
         } catch {
           source = null;
         }
@@ -13066,16 +13258,16 @@ async function collectStructure(pkg) {
     apiRoutes: apiRoutes.sort(),
     metadataGenerators: metadataGenerators.sort(),
     serverComponents: serverComponents.sort(),
-    clientComponents: clientComponents.sort(),
+    clientComponents: clientComponents.sort()
   };
 }
 
-function flattenMessages(obj, prefix = '') {
+function flattenMessages(obj, prefix = "") {
   let total = 0;
   for (const key of Object.keys(obj ?? {})) {
     const next = obj[key];
     const nextKey = prefix ? `${prefix}.${key}` : key;
-    if (next && typeof next === 'object' && !Array.isArray(next)) {
+    if (next && typeof next === "object" && !Array.isArray(next)) {
       total += flattenMessages(next, nextKey);
     } else {
       total += 1;
@@ -13085,7 +13277,11 @@ function flattenMessages(obj, prefix = '') {
 }
 
 async function collectI18n() {
-  const candidates = ['src/messages', 'messages', 'i18n/messages'];
+  const candidates = [
+    "src/messages",
+    "messages",
+    "i18n/messages"
+  ];
 
   let base = null;
   for (const candidate of candidates) {
@@ -13102,29 +13298,29 @@ async function collectI18n() {
   if (!base) {
     return {
       base: null,
-      locales: {},
+      locales: {}
     };
   }
 
   const files = await fs.readdir(base);
   const locales = {};
   for (const file of files) {
-    if (!file.endsWith('.json')) continue;
+    if (!file.endsWith(".json")) continue;
     const abs = path.join(base, file);
     try {
-      const raw = await fs.readFile(abs, 'utf8');
+      const raw = await fs.readFile(abs, "utf8");
       const json = JSON.parse(raw);
-      const code = file.replace(/\.json$/, '');
+      const code = file.replace(/\.json$/, "");
       locales[code] = {
         file: rel(abs),
-        keys: flattenMessages(json),
+        keys: flattenMessages(json)
       };
     } catch {}
   }
 
   return {
     base: rel(base),
-    locales,
+    locales
   };
 }
 
@@ -13140,12 +13336,12 @@ async function collectContentSignals() {
     if (!TEXT_EXT.has(path.extname(file).toLowerCase())) continue;
     let source;
     try {
-      source = await fs.readFile(file, 'utf8');
+      source = await fs.readFile(file, "utf8");
     } catch {
       continue;
     }
     const relFile = rel(file);
-    if (source.includes('next/dynamic')) dynamicImports.push(relFile);
+    if (source.includes("next/dynamic")) dynamicImports.push(relFile);
     if (/\bSuspense\b/.test(source)) suspenseUsage.push(relFile);
     if (/JsonLd/.test(source) || /ld\w+\s*=\s*{/.test(source)) jsonLd.push(relFile);
     if (/generateMetadata\s*\(/.test(source)) metadataFiles.push(relFile);
@@ -13157,7 +13353,7 @@ async function collectContentSignals() {
     suspenseUsage: [...new Set(suspenseUsage)].sort(),
     jsonLd: [...new Set(jsonLd)].sort(),
     metadataFiles: [...new Set(metadataFiles)].sort(),
-    nextImageUsage: [...new Set(nextImageUsage)].sort(),
+    nextImageUsage: [...new Set(nextImageUsage)].sort()
   };
 }
 
@@ -13183,7 +13379,7 @@ async function collectTests() {
   return {
     vitest: vitest.sort(),
     playwright: playwright.sort(),
-    jest: jest.sort(),
+    jest: jest.sort()
   };
 }
 
@@ -13192,7 +13388,7 @@ async function collectLocalePages() {
   const locales = new Set();
   const pages = [];
 
-  const prefixes = ['app/', 'src/app/'];
+  const prefixes = ["app/", "src/app/"];
 
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
@@ -13206,7 +13402,7 @@ async function collectLocalePages() {
 
     if (!posix.startsWith(`${prefix}[`)) continue;
 
-    const localeMatch = posix.slice(prefix.length).split('/')[0];
+    const localeMatch = posix.slice(prefix.length).split("/")[0];
     if (!localeMatch || !/^\[[^/]+\]$/.test(localeMatch)) continue;
 
     locales.add(`${prefix}${localeMatch}`);
@@ -13215,11 +13411,11 @@ async function collectLocalePages() {
 
     const routePath = `/${posix
       .slice(prefix.length)
-      .replace(/\/page\.[^/]+$/, '')}`.replace(/\/+/g, '/');
+      .replace(/\/page\.[^/]+$/, "")}`.replace(/\/+/g, "/");
 
     pages.push({
       file: relFile,
-      route: routePath === '/' ? '/' : routePath,
+      route: routePath === "/" ? "/" : routePath
     });
   }
 
@@ -13227,17 +13423,17 @@ async function collectLocalePages() {
 
   return {
     localeDirectories: [...locales].sort(),
-    pages,
+    pages
   };
 }
 
 const CLIENT_ONLY_HOOKS = [
-  'useRouter',
-  'usePathname',
-  'useSearchParams',
-  'useParams',
-  'useSelectedLayoutSegment',
-  'useSelectedLayoutSegments',
+  "useRouter",
+  "usePathname",
+  "useSearchParams",
+  "useParams",
+  "useSelectedLayoutSegment",
+  "useSelectedLayoutSegments"
 ];
 
 async function collectClientHookMisuse() {
@@ -13251,7 +13447,7 @@ async function collectClientHookMisuse() {
 
     let source;
     try {
-      source = await fs.readFile(file, 'utf8');
+      source = await fs.readFile(file, "utf8");
     } catch {
       continue;
     }
@@ -13264,14 +13460,12 @@ async function collectClientHookMisuse() {
     const hasUseClient = /^(["'])use client\1;?/.test(trimmed);
     if (hasUseClient) continue;
 
-    const hooks = CLIENT_ONLY_HOOKS.filter((hook) =>
-      new RegExp(`\\b${hook}\\b`).test(source),
-    );
+    const hooks = CLIENT_ONLY_HOOKS.filter((hook) => new RegExp(`\\b${hook}\\b`).test(source));
     if (!hooks.length) continue;
 
     issues.push({
       file: rel(file),
-      hooks: [...new Set(hooks)].sort(),
+      hooks: [...new Set(hooks)].sort()
     });
   }
 
@@ -13280,55 +13474,23 @@ async function collectClientHookMisuse() {
 }
 
 const NEXT_CONFIG_FILES = [
-  'next.config.js',
-  'next.config.mjs',
-  'next.config.cjs',
-  'next.config.ts',
+  "next.config.js",
+  "next.config.mjs",
+  "next.config.cjs",
+  "next.config.ts"
 ];
 
 const NEXT_FLAG_PATTERNS = [
-  {
-    key: 'reactStrictMode',
-    label: 'reactStrictMode: true',
-    regex: /reactStrictMode\s*:\s*true/,
-  },
-  {
-    key: 'poweredByHeader',
-    label: 'poweredByHeader: false',
-    regex: /poweredByHeader\s*:\s*false/,
-  },
-  {
-    key: 'productionBrowserSourceMaps',
-    label: 'productionBrowserSourceMaps: false',
-    regex: /productionBrowserSourceMaps\s*:\s*false/,
-  },
-  { key: 'swcMinify', label: 'swcMinify: true', regex: /swcMinify\s*:\s*true/ },
-  { key: 'removeConsole', label: 'compiler.removeConsole', regex: /removeConsole\s*:/ },
-  {
-    key: 'serverActions',
-    label: 'experimental.serverActions',
-    regex: /experimental[\s\S]*serverActions/,
-  },
-  {
-    key: 'typedRoutes',
-    label: 'experimental.typedRoutes',
-    regex: /experimental[\s\S]*typedRoutes/,
-  },
-  {
-    key: 'optimizePackageImports',
-    label: 'experimental.optimizePackageImports',
-    regex: /experimental[\s\S]*optimizePackageImports/,
-  },
-  {
-    key: 'strictNextHead',
-    label: 'experimental.strictNextHead',
-    regex: /experimental[\s\S]*strictNextHead/,
-  },
-  {
-    key: 'headers',
-    label: 'headers() defined',
-    regex: /headers\s*:\s*async\s*\(|export\s+async\s+function\s+headers/,
-  },
+  { key: "reactStrictMode", label: "reactStrictMode: true", regex: /reactStrictMode\s*:\s*true/ },
+  { key: "poweredByHeader", label: "poweredByHeader: false", regex: /poweredByHeader\s*:\s*false/ },
+  { key: "productionBrowserSourceMaps", label: "productionBrowserSourceMaps: false", regex: /productionBrowserSourceMaps\s*:\s*false/ },
+  { key: "swcMinify", label: "swcMinify: true", regex: /swcMinify\s*:\s*true/ },
+  { key: "removeConsole", label: "compiler.removeConsole", regex: /removeConsole\s*:/ },
+  { key: "serverActions", label: "experimental.serverActions", regex: /experimental[\s\S]*serverActions/ },
+  { key: "typedRoutes", label: "experimental.typedRoutes", regex: /experimental[\s\S]*typedRoutes/ },
+  { key: "optimizePackageImports", label: "experimental.optimizePackageImports", regex: /experimental[\s\S]*optimizePackageImports/ },
+  { key: "strictNextHead", label: "experimental.strictNextHead", regex: /experimental[\s\S]*strictNextHead/ },
+  { key: "headers", label: "headers() defined", regex: /headers\s*:\s*async\s*\(|export\s+async\s+function\s+headers/ }
 ];
 
 async function collectNextConfigFlags() {
@@ -13338,7 +13500,7 @@ async function collectNextConfigFlags() {
     const abs = path.join(projectRoot, candidate);
     let source;
     try {
-      source = await fs.readFile(abs, 'utf8');
+      source = await fs.readFile(abs, "utf8");
     } catch {
       continue;
     }
@@ -13352,7 +13514,7 @@ async function collectNextConfigFlags() {
 
     results.push({
       file: rel(abs),
-      flags: flags.sort(),
+      flags: flags.sort()
     });
   }
 
@@ -13369,7 +13531,7 @@ async function collectMiddlewareChecks() {
 
     let source;
     try {
-      source = await fs.readFile(file, 'utf8');
+      source = await fs.readFile(file, "utf8");
     } catch {
       continue;
     }
@@ -13378,15 +13540,15 @@ async function collectMiddlewareChecks() {
     const matcherMatch = matcherRegex.exec(source);
     const matchers = matcherMatch
       ? matcherMatch[1]
-          .split(',')
-          .map((token) => token.replace(/['"`]/g, '').trim())
+          .split(",")
+          .map((token) => token.replace(/['"`]/g, "").trim())
           .filter(Boolean)
       : [];
 
     matches.push({
       file: rel(file),
       hasMatcher: matcherMatch !== null,
-      matchers,
+      matchers
     });
   }
 
@@ -13407,7 +13569,7 @@ async function collectSEO() {
 
     let source;
     try {
-      source = await fs.readFile(file, 'utf8');
+      source = await fs.readFile(file, "utf8");
     } catch {
       continue;
     }
@@ -13437,7 +13599,7 @@ async function collectSEO() {
     metadataFunctions: toSorted(metadataFunctions),
     metadataExports: toSorted(metadataExports),
     alternatesLanguages: toSorted(alternates),
-    structuredData: toSorted(jsonLd),
+    structuredData: toSorted(jsonLd)
   };
 }
 
@@ -13448,8 +13610,7 @@ async function collectSecuritySignals() {
   const headerDefinitions = new Set();
   const protectionSignals = new Set();
 
-  const headerRegex =
-    /(content-security-policy|strict-transport-security|x-frame-options|x-content-type-options)/i;
+  const headerRegex = /(content-security-policy|strict-transport-security|x-frame-options|x-content-type-options)/i;
   const cookieRegex = /(httpOnly|secure|sameSite)\s*:\s*(true|['"`][^'"`]+['"`])/;
 
   for (const file of files) {
@@ -13458,7 +13619,7 @@ async function collectSecuritySignals() {
 
     let source;
     try {
-      source = await fs.readFile(file, 'utf8');
+      source = await fs.readFile(file, "utf8");
     } catch {
       continue;
     }
@@ -13488,7 +13649,7 @@ async function collectSecuritySignals() {
     envUsage: toSorted(envUsage),
     secureCookies: toSorted(secureCookies),
     securityHeaders: toSorted(headerDefinitions),
-    protection: toSorted(protectionSignals),
+    protection: toSorted(protectionSignals)
   };
 }
 
@@ -13518,29 +13679,29 @@ async function collectRobotsSitemap() {
   return {
     robots: [...robots].sort(),
     sitemap: [...sitemap].sort(),
-    nextSitemapConfig: [...configs].sort(),
+    nextSitemapConfig: [...configs].sort()
   };
 }
 
 function escapeRegex(value) {
-  return value.replace(/[|\\{}()[\]^$+*?.-]/g, '\\$&');
+  return value.replace(/[|\\{}()[\]^$+*?.-]/g, "\\$&");
 }
 
 function splitTopLevel(value) {
   const parts = [];
   let depth = 0;
-  let current = '';
+  let current = "";
 
   for (const char of value) {
-    if (char === '(' || char === '{' || char === '[') {
+    if (char === "(" || char === "{" || char === "[") {
       depth += 1;
-    } else if (char === ')' || char === '}' || char === ']') {
+    } else if (char === ")" || char === "}" || char === "]") {
       depth = Math.max(0, depth - 1);
-    } else if (char === ',' && depth === 0) {
+    } else if (char === "," && depth === 0) {
       if (current.trim()) {
         parts.push(current.trim());
       }
-      current = '';
+      current = "";
       continue;
     }
 
@@ -13557,18 +13718,16 @@ function splitTopLevel(value) {
 function extractTranslationKeys(content) {
   const translatorMap = new Map();
 
-  const useTranslationsRegex =
-    /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*useTranslations\s*\(\s*(?:(['"`])([^'"`]+)\2)?\s*\)/g;
+  const useTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*useTranslations\s*\(\s*(?:(['"`])([^'"`]+)\2)?\s*\)/g;
   let match;
 
   while ((match = useTranslationsRegex.exec(content)) !== null) {
     const variable = match[1];
-    const namespace = match[3] ?? '';
+    const namespace = match[3] ?? "";
     translatorMap.set(variable, namespace);
   }
 
-  const getTranslationsRegex =
-    /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:await\s*)?getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/g;
+  const getTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:await\s*)?getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/g;
 
   while ((match = getTranslationsRegex.exec(content)) !== null) {
     const variable = match[1];
@@ -13579,22 +13738,19 @@ function extractTranslationKeys(content) {
     }
   }
 
-  const destructuredRegex =
-    /const\s*\[\s*([^\]]+)\s*\]\s*=\s*await\s*Promise\.all\s*\(\s*\[([\s\S]*?)\]\s*\)/g;
+  const destructuredRegex = /const\s*\[\s*([^\]]+)\s*\]\s*=\s*await\s*Promise\.all\s*\(\s*\[([\s\S]*?)\]\s*\)/g;
 
   while ((match = destructuredRegex.exec(content)) !== null) {
     const variableList = splitTopLevel(match[1]);
     const expressionList = splitTopLevel(match[2]);
 
     expressionList.forEach((expression, index) => {
-      const namespaceMatch = /getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/.exec(
-        expression,
-      );
+      const namespaceMatch = /getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/.exec(expression);
       if (!namespaceMatch) return;
 
       const options = namespaceMatch[1];
       const namespace = /namespace\s*:\s*['"`]([^'"`]+)['"`]/.exec(options)?.[1];
-      const variable = variableList[index]?.replace(/\s+/g, '');
+      const variable = variableList[index]?.replace(/\s+/g, "");
 
       if (namespace && variable) {
         translatorMap.set(variable, namespace);
@@ -13605,13 +13761,13 @@ function extractTranslationKeys(content) {
   const keys = new Set();
 
   for (const [variable, namespace] of translatorMap) {
-    const pattern = escapeRegex(variable) + '\\s*\\(\\s*([\'"`])([^\'"`]+)\\1';
-    const callRegex = new RegExp(pattern, 'g');
+    const pattern = escapeRegex(variable) + "\\s*\\(\\s*(['\"`])([^'\"`]+)\\1";
+    const callRegex = new RegExp(pattern, "g");
     let callMatch;
 
     while ((callMatch = callRegex.exec(content)) !== null) {
       const keyPart = callMatch[2];
-      if (keyPart.includes('${')) continue;
+      if (keyPart.includes("${")) continue;
       const key = namespace ? `${namespace}.${keyPart}` : keyPart;
       keys.add(key);
     }
@@ -13621,7 +13777,7 @@ function extractTranslationKeys(content) {
 
   while ((match = directRegex.exec(content)) !== null) {
     const fullKey = match[2];
-    if (!fullKey.includes('${') && fullKey.includes('.')) {
+    if (!fullKey.includes("${") && fullKey.includes(".")) {
       keys.add(fullKey);
     }
   }
@@ -13640,11 +13796,11 @@ async function collectI18nUsedKeys() {
 
     const relFile = rel(file);
     const posix = toPosix(relFile);
-    if (!posix.startsWith('src/')) continue;
+    if (!posix.startsWith("src/")) continue;
 
     let source;
     try {
-      source = await fs.readFile(file, 'utf8');
+      source = await fs.readFile(file, "utf8");
     } catch {
       continue;
     }
@@ -13656,7 +13812,7 @@ async function collectI18nUsedKeys() {
     sortedKeys.forEach((key) => uniqueKeys.add(key));
     usage.push({
       file: relFile,
-      keys: sortedKeys,
+      keys: sortedKeys
     });
   }
 
@@ -13665,47 +13821,47 @@ async function collectI18nUsedKeys() {
   return {
     files: usage,
     totalKeys: uniqueKeys.size,
-    keys: [...uniqueKeys].sort(),
+    keys: [...uniqueKeys].sort()
   };
 }
 
 const CHECKS = [
   {
-    id: 'error-boundary',
-    label: 'Has app-level error boundary',
-    patterns: ['app/error.tsx', 'src/app/error.tsx'],
-    type: 'file',
+    id: "error-boundary",
+    label: "Has app-level error boundary",
+    patterns: ["app/error.tsx", "src/app/error.tsx"],
+    type: "file"
   },
   {
-    id: 'global-error',
-    label: 'Has global-error.tsx',
-    patterns: ['app/global-error.tsx', 'src/app/global-error.tsx'],
-    type: 'file',
+    id: "global-error",
+    label: "Has global-error.tsx",
+    patterns: ["app/global-error.tsx", "src/app/global-error.tsx"],
+    type: "file"
   },
   {
-    id: 'loading-ui',
-    label: 'Has loading.tsx fallback',
-    patterns: ['app/loading.tsx', 'src/app/loading.tsx'],
-    type: 'file',
+    id: "loading-ui",
+    label: "Has loading.tsx fallback",
+    patterns: ["app/loading.tsx", "src/app/loading.tsx"],
+    type: "file"
   },
   {
-    id: 'contact-route',
-    label: 'Contact API route implements Turnstile verification',
-    patterns: ['app/api/contact/route.ts', 'src/app/api/contact/route.ts'],
-    type: 'turnstile',
+    id: "contact-route",
+    label: "Contact API route implements Turnstile verification",
+    patterns: ["app/api/contact/route.ts", "src/app/api/contact/route.ts"],
+    type: "turnstile"
   },
   {
-    id: 'locale-switcher',
-    label: 'Locale switcher preserves hash and scroll state',
-    patterns: ['LocaleSwitcher.tsx'],
-    type: 'locale',
+    id: "locale-switcher",
+    label: "Locale switcher preserves hash and scroll state",
+    patterns: ["LocaleSwitcher.tsx"],
+    type: "locale"
   },
   {
-    id: 'sitemap',
-    label: 'Has sitemap configuration',
-    patterns: ['next-sitemap.config.js', 'next-sitemap.config.mjs'],
-    type: 'file',
-  },
+    id: "sitemap",
+    label: "Has sitemap configuration",
+    patterns: ["next-sitemap.config.js", "next-sitemap.config.mjs"],
+    type: "file"
+  }
 ];
 
 async function collectChecks() {
@@ -13714,7 +13870,7 @@ async function collectChecks() {
 
   const results = [];
   for (const check of CHECKS) {
-    if (check.type === 'file') {
+    if (check.type === "file") {
       const found = check.patterns.some((pattern) => {
         return relFiles.some(({ rel }) => rel.endsWith(pattern));
       });
@@ -13722,44 +13878,37 @@ async function collectChecks() {
       continue;
     }
 
-    if (check.type === 'turnstile') {
-      const match = relFiles.find(({ rel }) =>
-        check.patterns.some((pattern) => rel.endsWith(pattern)),
-      );
+    if (check.type === "turnstile") {
+      const match = relFiles.find(({ rel }) => check.patterns.some((pattern) => rel.endsWith(pattern)));
       if (!match) {
         results.push({ id: check.id, label: check.label, status: false });
         continue;
       }
       try {
-        const source = await fs.readFile(match.abs, 'utf8');
+        const source = await fs.readFile(match.abs, "utf8");
         const hasTurnstile = /turnstile/i.test(source) && /siteverify/.test(source);
-        results.push({
-          id: check.id,
-          label: check.label,
-          status: hasTurnstile,
-          file: match.rel,
-        });
+        results.push({ id: check.id, label: check.label, status: hasTurnstile, file: match.rel });
       } catch {
         results.push({ id: check.id, label: check.label, status: false });
       }
       continue;
     }
 
-    if (check.type === 'locale') {
+    if (check.type === "locale") {
       const match = relFiles.find(({ rel }) => rel.endsWith(check.patterns[0]));
       if (!match) {
         results.push({ id: check.id, label: check.label, status: false });
         continue;
       }
       try {
-        const source = await fs.readFile(match.abs, 'utf8');
+        const source = await fs.readFile(match.abs, "utf8");
         const preservesHash = /location\.hash/.test(source);
         const preservesScroll = /scroll\s*:\s*false/.test(source);
         results.push({
           id: check.id,
           label: check.label,
           status: preservesHash && preservesScroll,
-          file: match.rel,
+          file: match.rel
         });
       } catch {
         results.push({ id: check.id, label: check.label, status: false });
@@ -13771,179 +13920,142 @@ async function collectChecks() {
 }
 
 function mdTable(rows, headers) {
-  if (!rows.length) return '_No data_\n';
-  const widths = headers.map((header, index) =>
-    Math.max(header.length, ...rows.map((row) => String(row[index]).length)),
-  );
-  const render = (row) =>
-    row.map((value, index) => String(value).padEnd(widths[index])).join('  ');
-  const separator = widths.map((width) => '-'.repeat(width)).join('  ');
-  return `${render(headers)}\n${separator}\n${rows.map(render).join('\n')}\n`;
+  if (!rows.length) return "_No data_\n";
+  const widths = headers.map((header, index) => Math.max(header.length, ...rows.map((row) => String(row[index]).length)));
+  const render = (row) => row.map((value, index) => String(value).padEnd(widths[index])).join("  ");
+  const separator = widths.map((width) => "-".repeat(width)).join("  ");
+  return `${render(headers)}\n${separator}\n${rows.map(render).join("\n")}\n`;
 }
 
 async function writeDirectory(outDir, payload) {
   await fs.mkdir(outDir, { recursive: true });
 
-  const inventoryRows = payload.inventory.entries.map((entry) => [
-    entry.file,
-    entry.ext,
-    entry.size,
-    entry.text ? 'text' : 'binary',
-  ]);
-  const inventoryMd = `# INVENTORY\nTotal files: ${payload.inventory.summary.totalFiles}\nText files: ${payload.inventory.summary.textFiles}\nBinary files: ${payload.inventory.summary.binaryFiles}\nTotal size: ${payload.inventory.summary.totalSizeKB} KB\n\n${mdTable(inventoryRows, ['File', 'Ext', 'Size', 'Type'])}\n`;
-  await fs.writeFile(path.join(outDir, 'INVENTORY.md'), inventoryMd, 'utf8');
+  const inventoryRows = payload.inventory.entries.map((entry) => [entry.file, entry.ext, entry.size, entry.text ? "text" : "binary"]);
+  const inventoryMd = `# INVENTORY\nTotal files: ${payload.inventory.summary.totalFiles}\nText files: ${payload.inventory.summary.textFiles}\nBinary files: ${payload.inventory.summary.binaryFiles}\nTotal size: ${payload.inventory.summary.totalSizeKB} KB\n\n${mdTable(inventoryRows, ["File", "Ext", "Size", "Type"])}\n`;
+  await fs.writeFile(path.join(outDir, "INVENTORY.md"), inventoryMd, "utf8");
 
   const pkg = payload.package;
-  const pkgMd = `# PACKAGE\nPath: ${pkg.path ?? '(missing)'}\nName: ${pkg.name ?? '(unknown)'}\nVersion: ${pkg.version ?? '(unknown)'}\n\n## Scripts\n\n\`\`\`json\n${JSON.stringify(pkg.scripts, null, 2)}\n\`\`\`\n\n## Dependencies\n\n\`\`\`json\n${JSON.stringify(pkg.dependencies, null, 2)}\n\`\`\`\n\n## Dev Dependencies\n\n\`\`\`json\n${JSON.stringify(pkg.devDependencies, null, 2)}\n\`\`\`\n`;
-  await fs.writeFile(path.join(outDir, 'PACKAGE.md'), pkgMd, 'utf8');
+  const pkgMd = `# PACKAGE\nPath: ${pkg.path ?? "(missing)"}\nName: ${pkg.name ?? "(unknown)"}\nVersion: ${pkg.version ?? "(unknown)"}\n\n## Scripts\n\n\`\`\`json\n${JSON.stringify(pkg.scripts, null, 2)}\n\`\`\`\n\n## Dependencies\n\n\`\`\`json\n${JSON.stringify(pkg.dependencies, null, 2)}\n\`\`\`\n\n## Dev Dependencies\n\n\`\`\`json\n${JSON.stringify(pkg.devDependencies, null, 2)}\n\`\`\`\n`;
+  await fs.writeFile(path.join(outDir, "PACKAGE.md"), pkgMd, "utf8");
 
   const structureRows = [
-    ['Frameworks', payload.structure.frameworks.join(', ') || '(none)'],
-    ['Pages', payload.structure.pages.length],
-    ['Layouts', payload.structure.layouts.length],
-    ['API Routes', payload.structure.apiRoutes.length],
-    ['Metadata functions', payload.structure.metadataGenerators.length],
-    ['Client components', payload.structure.clientComponents.length],
-    ['Server components', payload.structure.serverComponents.length],
+    ["Frameworks", payload.structure.frameworks.join(", ") || "(none)"],
+    ["Pages", payload.structure.pages.length],
+    ["Layouts", payload.structure.layouts.length],
+    ["API Routes", payload.structure.apiRoutes.length],
+    ["Metadata functions", payload.structure.metadataGenerators.length],
+    ["Client components", payload.structure.clientComponents.length],
+    ["Server components", payload.structure.serverComponents.length]
   ];
-  const structureMd = `# STRUCTURE\n${mdTable(structureRows, ['Item', 'Value'])}\n\n## Pages\n- ${payload.structure.pages.join('\n- ') || '(none)'}\n\n## Layouts\n- ${payload.structure.layouts.join('\n- ') || '(none)'}\n\n## API Routes\n- ${payload.structure.apiRoutes.join('\n- ') || '(none)'}\n`;
-  await fs.writeFile(path.join(outDir, 'STRUCTURE.md'), structureMd, 'utf8');
+  const structureMd = `# STRUCTURE\n${mdTable(structureRows, ["Item", "Value"])}\n\n## Pages\n- ${payload.structure.pages.join("\n- ") || "(none)"}\n\n## Layouts\n- ${payload.structure.layouts.join("\n- ") || "(none)"}\n\n## API Routes\n- ${payload.structure.apiRoutes.join("\n- ") || "(none)"}\n`;
+  await fs.writeFile(path.join(outDir, "STRUCTURE.md"), structureMd, "utf8");
 
-  const intlMd = `# I18N\nBase directory: ${payload.i18n.base ?? '(not found)'}\n\n\`\`\`json\n${JSON.stringify(payload.i18n.locales, null, 2)}\n\`\`\`\n`;
-  await fs.writeFile(path.join(outDir, 'I18N.md'), intlMd, 'utf8');
+  const intlMd = `# I18N\nBase directory: ${payload.i18n.base ?? "(not found)"}\n\n\`\`\`json\n${JSON.stringify(payload.i18n.locales, null, 2)}\n\`\`\`\n`;
+  await fs.writeFile(path.join(outDir, "I18N.md"), intlMd, "utf8");
 
-  const contentMd = `# CONTENT\nDynamic imports:\n- ${payload.content.dynamicImports.join('\n- ') || '(none)'}\n\nSuspense usage:\n- ${payload.content.suspenseUsage.join('\n- ') || '(none)'}\n\nJSON-LD usage:\n- ${payload.content.jsonLd.join('\n- ') || '(none)'}\n\nMetadata generators:\n- ${payload.content.metadataFiles.join('\n- ') || '(none)'}\n\nnext/image usage:\n- ${payload.content.nextImageUsage.join('\n- ') || '(none)'}\n`;
-  await fs.writeFile(path.join(outDir, 'CONTENT.md'), contentMd, 'utf8');
+  const contentMd = `# CONTENT\nDynamic imports:\n- ${payload.content.dynamicImports.join("\n- ") || "(none)"}\n\nSuspense usage:\n- ${payload.content.suspenseUsage.join("\n- ") || "(none)"}\n\nJSON-LD usage:\n- ${payload.content.jsonLd.join("\n- ") || "(none)"}\n\nMetadata generators:\n- ${payload.content.metadataFiles.join("\n- ") || "(none)"}\n\nnext/image usage:\n- ${payload.content.nextImageUsage.join("\n- ") || "(none)"}\n`;
+  await fs.writeFile(path.join(outDir, "CONTENT.md"), contentMd, "utf8");
 
-  const testsMd = `# TESTS\nVitest files:\n- ${payload.tests.vitest.join('\n- ') || '(none)'}\n\nPlaywright files:\n- ${payload.tests.playwright.join('\n- ') || '(none)'}\n\nJest configs:\n- ${payload.tests.jest.join('\n- ') || '(none)'}\n`;
-  await fs.writeFile(path.join(outDir, 'TESTS.md'), testsMd, 'utf8');
+  const testsMd = `# TESTS\nVitest files:\n- ${payload.tests.vitest.join("\n- ") || "(none)"}\n\nPlaywright files:\n- ${payload.tests.playwright.join("\n- ") || "(none)"}\n\nJest configs:\n- ${payload.tests.jest.join("\n- ") || "(none)"}\n`;
+  await fs.writeFile(path.join(outDir, "TESTS.md"), testsMd, "utf8");
 
   const checksMd = `# CHECKS\n\`\`\`json\n${JSON.stringify(payload.checks, null, 2)}\n\`\`\`\n`;
-  await fs.writeFile(path.join(outDir, 'CHECKS.md'), checksMd, 'utf8');
+  await fs.writeFile(path.join(outDir, "CHECKS.md"), checksMd, "utf8");
 
   const localeDirList = payload.localePages.localeDirectories.length
-    ? payload.localePages.localeDirectories.map((dir) => `- ${dir}`).join('\n')
-    : '- (none)';
-  const localePageRows = payload.localePages.pages.map((entry) => [
-    entry.file,
-    entry.route,
-  ]);
-  const localeMd = `# LOCALE ROUTES\n## Locale Directories\n${localeDirList}\n\n## Pages\n${mdTable(localePageRows, ['File', 'Route'])}`;
-  await fs.writeFile(path.join(outDir, 'LOCALE-ROUTES.md'), localeMd, 'utf8');
+    ? payload.localePages.localeDirectories.map((dir) => `- ${dir}`).join("\n")
+    : "- (none)";
+  const localePageRows = payload.localePages.pages.map((entry) => [entry.file, entry.route]);
+  const localeMd = `# LOCALE ROUTES\n## Locale Directories\n${localeDirList}\n\n## Pages\n${mdTable(localePageRows, ["File", "Route"])}`;
+  await fs.writeFile(path.join(outDir, "LOCALE-ROUTES.md"), localeMd, "utf8");
 
-  const guardRows = payload.clientHookMisuse.map((entry) => [
-    entry.file,
-    entry.hooks.join(', '),
-  ]);
-  const guardsMd = `# MISSING GUARDS\nFiles using client-only hooks without a \\\"use client\\\" directive.\n\n${mdTable(guardRows, ['File', 'Hooks'])}\n`;
-  await fs.writeFile(path.join(outDir, 'MISSING-GUARDS.md'), guardsMd, 'utf8');
+  const guardRows = payload.clientHookMisuse.map((entry) => [entry.file, entry.hooks.join(", ")]);
+  const guardsMd = `# MISSING GUARDS\nFiles using client-only hooks without a \\\"use client\\\" directive.\n\n${mdTable(guardRows, ["File", "Hooks"])}\n`;
+  await fs.writeFile(path.join(outDir, "MISSING-GUARDS.md"), guardsMd, "utf8");
 
-  const nextFlagRows = payload.nextConfigFlags.map((entry) => [
-    entry.file,
-    entry.flags.length ? entry.flags.join(', ') : '(none)',
-  ]);
+  const nextFlagRows = payload.nextConfigFlags.map((entry) => [entry.file, entry.flags.length ? entry.flags.join(", ") : "(none)"]);
   const securityUsageRows = [
-    ['Environment variable usage', payload.security.envUsage.length],
-    ['Secure cookie options', payload.security.secureCookies.length],
-    ['Security header definitions', payload.security.securityHeaders.length],
-    ['Protection signals', payload.security.protection.length],
+    ["Environment variable usage", payload.security.envUsage.length],
+    ["Secure cookie options", payload.security.secureCookies.length],
+    ["Security header definitions", payload.security.securityHeaders.length],
+    ["Protection signals", payload.security.protection.length]
   ];
   const securitySections = [
-    { title: 'Environment variable usage', values: payload.security.envUsage },
-    { title: 'Secure cookie options', values: payload.security.secureCookies },
-    { title: 'Security header definitions', values: payload.security.securityHeaders },
-    { title: 'Protection signals', values: payload.security.protection },
+    { title: "Environment variable usage", values: payload.security.envUsage },
+    { title: "Secure cookie options", values: payload.security.secureCookies },
+    { title: "Security header definitions", values: payload.security.securityHeaders },
+    { title: "Protection signals", values: payload.security.protection }
   ]
     .map(({ title, values }) => {
-      const list = values.length
-        ? values.map((value) => `- ${value}`).join('\n')
-        : '- (none)';
+      const list = values.length ? values.map((value) => `- ${value}`).join("\n") : "- (none)";
       return `### ${title}\n${list}`;
     })
-    .join('\n\n');
-  const securityMd = `# SECURITY\n## Next Config Flags\n${mdTable(nextFlagRows, ['File', 'Flags'])}\n## Usage Signals\n${mdTable(securityUsageRows, ['Signal', 'Count'])}\n\n${securitySections}\n`;
-  await fs.writeFile(path.join(outDir, 'SECURITY.md'), securityMd, 'utf8');
+    .join("\n\n");
+  const securityMd = `# SECURITY\n## Next Config Flags\n${mdTable(nextFlagRows, ["File", "Flags"])}\n## Usage Signals\n${mdTable(securityUsageRows, ["Signal", "Count"])}\n\n${securitySections}\n`;
+  await fs.writeFile(path.join(outDir, "SECURITY.md"), securityMd, "utf8");
 
-  const middlewareRows = payload.middleware.map((entry) => [
-    entry.file,
-    entry.hasMatcher ? 'yes' : 'no',
-    entry.matchers.join(', ') || '(none)',
-  ]);
-  const middlewareMd = `# MIDDLEWARE\n${mdTable(middlewareRows, ['File', 'Has matcher', 'Matchers'])}\n`;
-  await fs.writeFile(path.join(outDir, 'MIDDLEWARE.md'), middlewareMd, 'utf8');
+  const middlewareRows = payload.middleware.map((entry) => [entry.file, entry.hasMatcher ? "yes" : "no", entry.matchers.join(", ") || "(none)"]);
+  const middlewareMd = `# MIDDLEWARE\n${mdTable(middlewareRows, ["File", "Has matcher", "Matchers"])}\n`;
+  await fs.writeFile(path.join(outDir, "MIDDLEWARE.md"), middlewareMd, "utf8");
 
   const seoCountRows = [
-    ['generateMetadata functions', payload.seo.metadataFunctions.length],
-    ['metadata exports', payload.seo.metadataExports.length],
-    ['alternate languages', payload.seo.alternatesLanguages.length],
-    ['structured data snippets', payload.seo.structuredData.length],
+    ["generateMetadata functions", payload.seo.metadataFunctions.length],
+    ["metadata exports", payload.seo.metadataExports.length],
+    ["alternate languages", payload.seo.alternatesLanguages.length],
+    ["structured data snippets", payload.seo.structuredData.length]
   ];
   const seoDetails = [
-    { title: 'generateMetadata functions', values: payload.seo.metadataFunctions },
-    { title: 'metadata exports', values: payload.seo.metadataExports },
-    { title: 'alternate languages', values: payload.seo.alternatesLanguages },
-    { title: 'structured data snippets', values: payload.seo.structuredData },
+    { title: "generateMetadata functions", values: payload.seo.metadataFunctions },
+    { title: "metadata exports", values: payload.seo.metadataExports },
+    { title: "alternate languages", values: payload.seo.alternatesLanguages },
+    { title: "structured data snippets", values: payload.seo.structuredData }
   ]
     .map(({ title, values }) => {
-      const list = values.length
-        ? values.map((value) => `- ${value}`).join('\n')
-        : '- (none)';
+      const list = values.length ? values.map((value) => `- ${value}`).join("\n") : "- (none)";
       return `### ${title}\n${list}`;
     })
-    .join('\n\n');
-  const seoMd = `# SEO\n${mdTable(seoCountRows, ['Signal', 'Count'])}\n\n${seoDetails}\n`;
-  await fs.writeFile(path.join(outDir, 'SEO.md'), seoMd, 'utf8');
+    .join("\n\n");
+  const seoMd = `# SEO\n${mdTable(seoCountRows, ["Signal", "Count"])}\n\n${seoDetails}\n`;
+  await fs.writeFile(path.join(outDir, "SEO.md"), seoMd, "utf8");
 
   const robotsSections = [
-    { title: 'robots handlers', values: payload.robots.robots },
-    { title: 'sitemap handlers', values: payload.robots.sitemap },
-    { title: 'next-sitemap configs', values: payload.robots.nextSitemapConfig },
+    { title: "robots handlers", values: payload.robots.robots },
+    { title: "sitemap handlers", values: payload.robots.sitemap },
+    { title: "next-sitemap configs", values: payload.robots.nextSitemapConfig }
   ]
     .map(({ title, values }) => {
-      const list = values.length
-        ? values.map((value) => `- ${value}`).join('\n')
-        : '- (none)';
+      const list = values.length ? values.map((value) => `- ${value}`).join("\n") : "- (none)";
       return `## ${title.charAt(0).toUpperCase()}${title.slice(1)}\n${list}`;
     })
-    .join('\n\n');
+    .join("\n\n");
   const robotsMd = `# ROBOTS & SITEMAP\n${robotsSections}\n`;
-  await fs.writeFile(path.join(outDir, 'ROBOTS.md'), robotsMd, 'utf8');
+  await fs.writeFile(path.join(outDir, "ROBOTS.md"), robotsMd, "utf8");
 
-  const i18nUsageRows = payload.i18nUsage.files.map((entry) => [
-    entry.file,
-    entry.keys.length,
-  ]);
+  const i18nUsageRows = payload.i18nUsage.files.map((entry) => [entry.file, entry.keys.length]);
   const keysList = payload.i18nUsage.keys.length
-    ? payload.i18nUsage.keys.map((key) => `- ${key}`).join('\n')
-    : '- (none)';
+    ? payload.i18nUsage.keys.map((key) => `- ${key}`).join("\n")
+    : "- (none)";
   const perFileDetails = payload.i18nUsage.files
     .map((entry) => {
-      const list = entry.keys.length
-        ? entry.keys.map((key) => `- ${key}`).join('\n')
-        : '- (none)';
+      const list = entry.keys.length ? entry.keys.map((key) => `- ${key}`).join("\n") : "- (none)";
       return `### ${entry.file}\n${list}`;
     })
-    .join('\n\n');
-  const i18nUsageMd = `# I18N KEY SUMMARY\nTotal unique keys: ${payload.i18nUsage.totalKeys}\nFiles with usage: ${payload.i18nUsage.files.length}\n\n## Usage by File\n${mdTable(i18nUsageRows, ['File', 'Keys used'])}\n\n## All Keys\n${keysList}\n\n${perFileDetails}\n`;
-  await fs.writeFile(path.join(outDir, 'I18N-USAGE.md'), i18nUsageMd, 'utf8');
+    .join("\n\n");
+  const i18nUsageMd = `# I18N KEY SUMMARY\nTotal unique keys: ${payload.i18nUsage.totalKeys}\nFiles with usage: ${payload.i18nUsage.files.length}\n\n## Usage by File\n${mdTable(i18nUsageRows, ["File", "Keys used"])}\n\n## All Keys\n${keysList}\n\n${perFileDetails}\n`;
+  await fs.writeFile(path.join(outDir, "I18N-USAGE.md"), i18nUsageMd, "utf8");
 }
 
 function renderSingleReport(payload) {
   const now = new Date().toISOString();
-  const inventoryRows = payload.inventory.entries.map((entry) => [
-    entry.file,
-    entry.ext,
-    entry.size,
-    entry.text ? 'text' : 'binary',
-  ]);
+  const inventoryRows = payload.inventory.entries.map((entry) => [entry.file, entry.ext, entry.size, entry.text ? "text" : "binary"]);
 
-  return `# XRAY REPORT\n_Generated: ${now}_\n\n## Table of Contents\n1. [Inventory](#inventory)\n2. [Package](#package)\n3. [Structure](#structure)\n4. [I18N](#i18n)\n5. [Content](#content)\n6. [Tests](#tests)\n7. [Checks](#checks)\n\n---\n\n## Inventory\nTotal files: ${payload.inventory.summary.totalFiles}\nText files: ${payload.inventory.summary.textFiles}\nBinary files: ${payload.inventory.summary.binaryFiles}\nTotal size: ${payload.inventory.summary.totalSizeKB} KB\n\n${mdTable(inventoryRows, ['File', 'Ext', 'Size', 'Type'])}\n\n## Package\nPath: ${payload.package.path ?? '(missing)'}\nName: ${payload.package.name ?? '(unknown)'}\nVersion: ${payload.package.version ?? '(unknown)'}\n\n### Scripts\n\n\`\`\`json\n${JSON.stringify(payload.package.scripts, null, 2)}\n\`\`\`\n\n### Dependencies\n\n\`\`\`json\n${JSON.stringify(payload.package.dependencies, null, 2)}\n\`\`\`\n\n### Dev Dependencies\n\n\`\`\`json\n${JSON.stringify(payload.package.devDependencies, null, 2)}\n\`\`\`\n\n## Structure\nFrameworks: ${payload.structure.frameworks.join(', ') || '(none)'}\n\nPages:\n- ${payload.structure.pages.join('\n- ') || '(none)'}\n\nLayouts:\n- ${payload.structure.layouts.join('\n- ') || '(none)'}\n\nAPI Routes:\n- ${payload.structure.apiRoutes.join('\n- ') || '(none)'}\n\nMetadata generators:\n- ${payload.structure.metadataGenerators.join('\n- ') || '(none)'}\n\nClient components:\n- ${payload.structure.clientComponents.join('\n- ') || '(none)'}\n\nServer components:\n- ${payload.structure.serverComponents.join('\n- ') || '(none)'}\n\n## I18N\nBase directory: ${payload.i18n.base ?? '(not found)'}\n\n\`\`\`json\n${JSON.stringify(payload.i18n.locales, null, 2)}\n\`\`\`\n\n## Content\nDynamic imports:\n- ${payload.content.dynamicImports.join('\n- ') || '(none)'}\n\nSuspense usage:\n- ${payload.content.suspenseUsage.join('\n- ') || '(none)'}\n\nJSON-LD usage:\n- ${payload.content.jsonLd.join('\n- ') || '(none)'}\n\nMetadata generators:\n- ${payload.content.metadataFiles.join('\n- ') || '(none)'}\n\nnext/image usage:\n- ${payload.content.nextImageUsage.join('\n- ') || '(none)'}\n\n## Tests\nVitest files:\n- ${payload.tests.vitest.join('\n- ') || '(none)'}\n\nPlaywright files:\n- ${payload.tests.playwright.join('\n- ') || '(none)'}\n\nJest configs:\n- ${payload.tests.jest.join('\n- ') || '(none)'}\n\n## Checks\n\`\`\`json\n${JSON.stringify(payload.checks, null, 2)}\n\`\`\`\n`;
+  return `# XRAY REPORT\n_Generated: ${now}_\n\n## Table of Contents\n1. [Inventory](#inventory)\n2. [Package](#package)\n3. [Structure](#structure)\n4. [I18N](#i18n)\n5. [Content](#content)\n6. [Tests](#tests)\n7. [Checks](#checks)\n\n---\n\n## Inventory\nTotal files: ${payload.inventory.summary.totalFiles}\nText files: ${payload.inventory.summary.textFiles}\nBinary files: ${payload.inventory.summary.binaryFiles}\nTotal size: ${payload.inventory.summary.totalSizeKB} KB\n\n${mdTable(inventoryRows, ["File", "Ext", "Size", "Type"])}\n\n## Package\nPath: ${payload.package.path ?? "(missing)"}\nName: ${payload.package.name ?? "(unknown)"}\nVersion: ${payload.package.version ?? "(unknown)"}\n\n### Scripts\n\n\`\`\`json\n${JSON.stringify(payload.package.scripts, null, 2)}\n\`\`\`\n\n### Dependencies\n\n\`\`\`json\n${JSON.stringify(payload.package.dependencies, null, 2)}\n\`\`\`\n\n### Dev Dependencies\n\n\`\`\`json\n${JSON.stringify(payload.package.devDependencies, null, 2)}\n\`\`\`\n\n## Structure\nFrameworks: ${payload.structure.frameworks.join(", ") || "(none)"}\n\nPages:\n- ${payload.structure.pages.join("\n- ") || "(none)"}\n\nLayouts:\n- ${payload.structure.layouts.join("\n- ") || "(none)"}\n\nAPI Routes:\n- ${payload.structure.apiRoutes.join("\n- ") || "(none)"}\n\nMetadata generators:\n- ${payload.structure.metadataGenerators.join("\n- ") || "(none)"}\n\nClient components:\n- ${payload.structure.clientComponents.join("\n- ") || "(none)"}\n\nServer components:\n- ${payload.structure.serverComponents.join("\n- ") || "(none)"}\n\n## I18N\nBase directory: ${payload.i18n.base ?? "(not found)"}\n\n\`\`\`json\n${JSON.stringify(payload.i18n.locales, null, 2)}\n\`\`\`\n\n## Content\nDynamic imports:\n- ${payload.content.dynamicImports.join("\n- ") || "(none)"}\n\nSuspense usage:\n- ${payload.content.suspenseUsage.join("\n- ") || "(none)"}\n\nJSON-LD usage:\n- ${payload.content.jsonLd.join("\n- ") || "(none)"}\n\nMetadata generators:\n- ${payload.content.metadataFiles.join("\n- ") || "(none)"}\n\nnext/image usage:\n- ${payload.content.nextImageUsage.join("\n- ") || "(none)"}\n\n## Tests\nVitest files:\n- ${payload.tests.vitest.join("\n- ") || "(none)"}\n\nPlaywright files:\n- ${payload.tests.playwright.join("\n- ") || "(none)"}\n\nJest configs:\n- ${payload.tests.jest.join("\n- ") || "(none)"}\n\n## Checks\n\`\`\`json\n${JSON.stringify(payload.checks, null, 2)}\n\`\`\`\n`;
 }
 
 async function writeSingle(outFile, payload) {
   await fs.mkdir(path.dirname(outFile), { recursive: true });
   const report = renderSingleReport(payload);
-  await fs.writeFile(outFile, report, 'utf8');
+  await fs.writeFile(outFile, report, "utf8");
 }
 
 async function main() {
@@ -13964,7 +14076,7 @@ async function main() {
     seo,
     security,
     robots,
-    i18nUsage,
+    i18nUsage
   ] = await Promise.all([
     collectInventory(),
     collectStructure(packageInfo),
@@ -13979,31 +14091,28 @@ async function main() {
     collectSEO(),
     collectSecuritySignals(),
     collectRobotsSitemap(),
-    collectI18nUsedKeys(),
+    collectI18nUsedKeys()
   ]);
 
   const localeGuards = {
     totalIssues: clientHookMisuse.length,
     hasIssues: clientHookMisuse.length > 0,
-    files: clientHookMisuse,
+    files: clientHookMisuse
   };
 
   const nextConfig = {
     totalFiles: nextConfigFlags.length,
     filesWithFlags: nextConfigFlags.filter((entry) => entry.flags.length > 0).length,
-    totalFlagCount: nextConfigFlags.reduce(
-      (total, entry) => total + entry.flags.length,
-      0,
-    ),
+    totalFlagCount: nextConfigFlags.reduce((total, entry) => total + entry.flags.length, 0),
     uniqueFlags: [...new Set(nextConfigFlags.flatMap((entry) => entry.flags))].sort(),
-    files: nextConfigFlags,
+    files: nextConfigFlags
   };
 
   const middlewareSummary = {
     total: middleware.length,
     withMatcher: middleware.filter((entry) => entry.hasMatcher).length,
     withoutMatcher: middleware.filter((entry) => !entry.hasMatcher).length,
-    entries: middleware,
+    entries: middleware
   };
 
   const seoSummary = {
@@ -14011,7 +14120,7 @@ async function main() {
     metadataExports: seo.metadataExports.length,
     alternatesLanguages: seo.alternatesLanguages.length,
     structuredData: seo.structuredData.length,
-    files: seo,
+    files: seo
   };
 
   const securitySummary = {
@@ -14019,21 +14128,21 @@ async function main() {
     secureCookies: security.secureCookies.length,
     securityHeaders: security.securityHeaders.length,
     protection: security.protection.length,
-    files: security,
+    files: security
   };
 
   const robotsSummary = {
     robotsHandlers: robots.robots.length,
     sitemapHandlers: robots.sitemap.length,
     nextSitemapConfigs: robots.nextSitemapConfig.length,
-    files: robots,
+    files: robots
   };
 
   const i18nUsageSummary = {
     totalFiles: i18nUsage.files.length,
     totalKeys: i18nUsage.totalKeys,
     files: i18nUsage.files,
-    keys: i18nUsage.keys,
+    keys: i18nUsage.keys
   };
 
   const checkSummaries = {
@@ -14044,7 +14153,7 @@ async function main() {
     seo: seoSummary,
     security: securitySummary,
     robots: robotsSummary,
-    i18nUsage: i18nUsageSummary,
+    i18nUsage: i18nUsageSummary
   };
 
   const payload = {
@@ -14062,18 +14171,13 @@ async function main() {
     seo,
     security,
     robots,
-    i18nUsage,
+    i18nUsage
   };
 
   if (single) {
-    const outFile = out.endsWith('.md') ? out : path.join(out, 'REPORT.md');
-    await writeSingle(
-      path.isAbsolute(outFile) ? outFile : path.join(projectRoot, outFile),
-      payload,
-    );
-    console.log(
-      `✔ XRAY single report -> ${rel(path.isAbsolute(outFile) ? outFile : path.join(projectRoot, outFile))}`,
-    );
+    const outFile = out.endsWith(".md") ? out : path.join(out, "REPORT.md");
+    await writeSingle(path.isAbsolute(outFile) ? outFile : path.join(projectRoot, outFile), payload);
+    console.log(`✔ XRAY single report -> ${rel(path.isAbsolute(outFile) ? outFile : path.join(projectRoot, outFile))}`);
     return;
   }
 
@@ -14086,63 +14190,63 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+
 ```
 
-### src/**tests**/error-boundary.test.tsx
 
+### src/__tests__/error-boundary.test.tsx
 _Size:_ 908 bytes
-
 ```tsx
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import LocaleError from '@/app/[locale]/error';
-import messages from '@/messages/en.json';
-import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it, vi } from 'vitest';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import LocaleError from "@/app/[locale]/error";
+import messages from "@/messages/en.json";
+import { NextIntlClientProvider } from "next-intl";
+import { describe, expect, it, vi } from "vitest";
 
-describe('Locale error boundary', () => {
-  it('renders translated copy and triggers reset', async () => {
+describe("Locale error boundary", () => {
+  it("renders translated copy and triggers reset", async () => {
     const reset = vi.fn();
     render(
       <NextIntlClientProvider locale="en" messages={messages}>
-        <LocaleError error={new Error('test')} reset={reset} />
+        <LocaleError error={new Error("test")} reset={reset} />
       </NextIntlClientProvider>,
     );
 
     expect(screen.getByText(messages.errors.title)).toBeInTheDocument();
-    const button = screen.getByRole('button', { name: messages.errors.tryAgain });
+    const button = screen.getByRole("button", { name: messages.errors.tryAgain });
     await userEvent.click(button);
     expect(reset).toHaveBeenCalled();
   });
 });
+
 ```
 
-### src/**tests**/i18n.test.ts
 
+### src/__tests__/i18n.test.ts
 _Size:_ 550 bytes
-
 ```ts
-import { describe, expect, it } from 'vitest';
-import { createAppTranslator, fallbackLocale, loadMessages } from '@/lib/i18n';
+import { describe, expect, it } from "vitest";
+import { createAppTranslator, fallbackLocale, loadMessages } from "@/lib/i18n";
 
-describe('i18n helpers', () => {
-  it('falls back to the default locale when messages are missing', async () => {
-    const result = await loadMessages('xx');
+describe("i18n helpers", () => {
+  it("falls back to the default locale when messages are missing", async () => {
+    const result = await loadMessages("xx");
     expect(result.locale).toBe(fallbackLocale);
   });
 
-  it('creates a translator with known keys', async () => {
-    const translator = await createAppTranslator('en');
-    expect(translator('home.hero.title')).toContain('Luxury homes');
+  it("creates a translator with known keys", async () => {
+    const translator = await createAppTranslator("en");
+    expect(translator("home.hero.title")).toContain("Luxury homes");
   });
 });
+
 ```
 
-### src/**tests**/locale-switcher.test.tsx
 
+### src/__tests__/locale-switcher.test.tsx
 _Size:_ 1154 bytes
-
 ```tsx
 import React from 'react';
 import { render, screen } from '@testing-library/react';
@@ -14179,17 +14283,18 @@ describe('LocaleSwitcher', () => {
     expect(replaceMock).toHaveBeenCalledWith('/th/articles#hero', { scroll: false });
   });
 });
+
 ```
 
+
 ### src/app/[locale]/articles/[slug]/page.tsx
-
-_Size:_ 3513 bytes
-
+_Size:_ 3603 bytes
 ```tsx
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import { loadArticles } from '@/lib/data/loaders';
 import { formatDate } from '@/lib/utils';
@@ -14260,7 +14365,9 @@ export default async function ArticleDetail({
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Suspense fallback={null}>
+        <Breadcrumbs />
+      </Suspense>
       <article className="mt-8 space-y-6">
         <header className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-brand-500">
@@ -14286,17 +14393,18 @@ export default async function ArticleDetail({
     </div>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/articles/page.tsx
-
-_Size:_ 3607 bytes
-
+_Size:_ 3697 bytes
 ```tsx
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Script from 'next/script';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { loadArticles } from '@/lib/data/loaders';
 import { formatDate } from '@/lib/utils';
@@ -14348,7 +14456,9 @@ export default async function ArticlesPage({ params }: { params: { locale?: stri
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Suspense fallback={null}>
+        <Breadcrumbs />
+      </Suspense>
       <header className="mt-8 space-y-3">
         <h1 className="text-3xl font-semibold text-slate-900">
           {tArticles('sectionTitle')}
@@ -14388,24 +14498,24 @@ export default async function ArticlesPage({ params }: { params: { locale?: stri
     </div>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/ArticlesCarousel.tsx
-
 _Size:_ 2887 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import Link from 'next/link';
-import useSWR from 'swr';
-import { useTranslations } from 'next-intl';
-import type { Article } from '@/lib/data/schemas';
-import { createStaticKey } from '@/lib/swr-config';
-import { formatDate } from '@/lib/utils';
-import { useLocale } from 'next-intl';
+import Link from "next/link";
+import useSWR from "swr";
+import { useTranslations } from "next-intl";
+import type { Article } from "@/lib/data/schemas";
+import { createStaticKey } from "@/lib/swr-config";
+import { formatDate } from "@/lib/utils";
+import { useLocale } from "next-intl";
 
-const ARTICLES_KEY = createStaticKey('articles');
+const ARTICLES_KEY = createStaticKey("articles");
 
 type Props = {
   initial: Article[];
@@ -14432,9 +14542,7 @@ export default function ArticlesCarousel({
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              {sectionTitle}
-            </h2>
+            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">{sectionTitle}</h2>
             <p className="mt-2 max-w-2xl text-sm text-slate-600">{sectionSubtitle}</p>
           </div>
           <Link
@@ -14453,17 +14561,15 @@ export default function ArticlesCarousel({
               <div className="space-y-1 text-xs font-medium uppercase tracking-wide text-brand-500">
                 <span>{formatDate(article.published, locale)}</span>
                 <span>·</span>
-                <span>{t('articles.readTime', { minutes: article.readingMinutes })}</span>
+                <span>{t("articles.readTime", { minutes: article.readingMinutes })}</span>
               </div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                {t(article.titleKey)}
-              </h3>
+              <h3 className="text-lg font-semibold text-slate-900">{t(article.titleKey)}</h3>
               <p className="flex-1 text-sm text-slate-600">{t(article.excerptKey)}</p>
               <Link
                 href={`${viewAllHref}/${article.slug}`}
                 className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 transition hover:text-brand-500"
               >
-                {t('articles.readMore')}
+                {t("articles.readMore")}
                 <span aria-hidden>→</span>
               </Link>
             </article>
@@ -14473,17 +14579,17 @@ export default function ArticlesCarousel({
     </section>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/BackToTop.tsx
-
 _Size:_ 996 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -14493,30 +14599,31 @@ export default function BackToTop() {
       setVisible(window.scrollY > 320);
     };
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <button
       type="button"
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={cn(
-        'fixed bottom-6 right-6 z-50 rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition focus:outline-none focus:ring-2 focus:ring-brand-200',
-        visible ? 'opacity-100' : 'pointer-events-none opacity-0',
+        "fixed bottom-6 right-6 z-50 rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition focus:outline-none focus:ring-2 focus:ring-brand-200",
+        visible ? "opacity-100" : "pointer-events-none opacity-0",
       )}
       aria-hidden={!visible}
     >
-      ↑<span className="sr-only">Back to top</span>
+      ↑
+      <span className="sr-only">Back to top</span>
     </button>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/Breadcrumbs.tsx
-
 _Size:_ 4624 bytes
-
 ```tsx
 'use client';
 
@@ -14673,18 +14780,18 @@ export default function Breadcrumbs() {
     </>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/FaqAccordion.tsx
-
 _Size:_ 1681 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import type { Faq } from '@/lib/data/schemas';
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+import type { Faq } from "@/lib/data/schemas";
 
 export default function FaqAccordion({
   faqs,
@@ -14702,19 +14809,14 @@ export default function FaqAccordion({
     <section className="py-16">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 sm:px-6 lg:px-8">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-            {sectionTitle}
-          </h2>
+          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">{sectionTitle}</h2>
           <p className="mt-2 text-sm text-slate-600">{sectionSubtitle}</p>
         </div>
         <div className="space-y-4">
           {faqs.map((faq) => {
             const isOpen = openId === faq.id;
             return (
-              <div
-                key={faq.id}
-                className="rounded-3xl border border-slate-200/60 bg-white/80 p-6 shadow-soft"
-              >
+              <div key={faq.id} className="rounded-3xl border border-slate-200/60 bg-white/80 p-6 shadow-soft">
                 <button
                   type="button"
                   className="flex w-full items-center justify-between text-left text-sm font-semibold text-slate-900"
@@ -14722,11 +14824,9 @@ export default function FaqAccordion({
                   aria-expanded={isOpen}
                 >
                   {t(faq.questionKey)}
-                  <span className="ml-4 text-brand-500">{isOpen ? '–' : '+'}</span>
+                  <span className="ml-4 text-brand-500">{isOpen ? "–" : "+"}</span>
                 </button>
-                {isOpen && (
-                  <p className="mt-4 text-sm text-slate-600">{t(faq.answerKey)}</p>
-                )}
+                {isOpen && <p className="mt-4 text-sm text-slate-600">{t(faq.answerKey)}</p>}
               </div>
             );
           })}
@@ -14735,14 +14835,14 @@ export default function FaqAccordion({
     </section>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/Footer.tsx
-
 _Size:_ 989 bytes
-
 ```tsx
-import Link from 'next/link';
+import Link from "next/link";
 
 export type FooterLink = {
   label: string;
@@ -14767,11 +14867,7 @@ export default function Footer({
         </div>
         <nav className="flex flex-wrap gap-4 text-sm text-slate-600">
           {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="transition hover:text-brand-600"
-            >
+            <Link key={item.href} href={item.href} className="transition hover:text-brand-600">
               {item.label}
             </Link>
           ))}
@@ -14781,12 +14877,12 @@ export default function Footer({
     </footer>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/Hero.tsx
-
 _Size:_ 3443 bytes
-
 ```tsx
 'use client';
 
@@ -14886,20 +14982,20 @@ export default function Hero({
     </section>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/LayoutShell.tsx
-
 _Size:_ 898 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import type { ReactNode } from 'react';
-import BackToTop from './BackToTop';
-import Footer, { type FooterLink } from './Footer';
-import Navigation, { type NavItem } from './Navigation';
-import { SectionObserverProvider } from './SectionObserver';
+import type { ReactNode } from "react";
+import BackToTop from "./BackToTop";
+import Footer, { type FooterLink } from "./Footer";
+import Navigation, { type NavItem } from "./Navigation";
+import { SectionObserverProvider } from "./SectionObserver";
 
 export default function LayoutShell({
   children,
@@ -14923,12 +15019,12 @@ export default function LayoutShell({
     </SectionObserverProvider>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/ListingsGrid.tsx
-
 _Size:_ 5760 bytes
-
 ```tsx
 'use client';
 
@@ -15083,12 +15179,12 @@ export default function ListingsGrid({
     </section>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/LocaleSwitcher.tsx
-
 _Size:_ 1867 bytes
-
 ```tsx
 'use client';
 
@@ -15144,19 +15240,19 @@ export default function LocaleSwitcher({ className }: { className?: string }) {
     </label>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/Navigation.tsx
-
 _Size:_ 1398 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import LocaleSwitcher from './LocaleSwitcher';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import LocaleSwitcher from "./LocaleSwitcher";
+import { cn } from "@/lib/utils";
 
 export type NavItem = {
   label: string;
@@ -15169,10 +15265,7 @@ export default function Navigation({ items }: { items: NavItem[] }) {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/80 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link
-          href={items[0]?.href ?? '/'}
-          className="text-lg font-semibold text-slate-900"
-        >
+        <Link href={items[0]?.href ?? "/"} className="text-lg font-semibold text-slate-900">
           ZomZom Property
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
@@ -15181,10 +15274,10 @@ export default function Navigation({ items }: { items: NavItem[] }) {
               key={item.href}
               href={item.href}
               className={cn(
-                'relative transition hover:text-brand-600',
-                pathname.startsWith(item.href) ? 'text-brand-600' : undefined,
+                "relative transition hover:text-brand-600",
+                pathname.startsWith(item.href) ? "text-brand-600" : undefined,
               )}
-              data-nav={item.href.split('/').pop()}
+              data-nav={item.href.split("/").pop()}
             >
               {item.label}
             </Link>
@@ -15197,14 +15290,14 @@ export default function Navigation({ items }: { items: NavItem[] }) {
     </header>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/components/SectionObserver.tsx
-
 _Size:_ 1984 bytes
-
 ```tsx
-'use client';
+"use client";
 
 import {
   createContext,
@@ -15213,19 +15306,13 @@ import {
   useMemo,
   useState,
   type ReactNode,
-} from 'react';
+} from "react";
 
 const SectionObserverContext = createContext<{
   activeSection: string;
 } | null>(null);
 
-function SectionObserver({
-  sectionIds,
-  onChange,
-}: {
-  sectionIds: string[];
-  onChange: (id: string) => void;
-}) {
+function SectionObserver({ sectionIds, onChange }: { sectionIds: string[]; onChange: (id: string) => void }) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -15238,7 +15325,7 @@ function SectionObserver({
       },
       {
         threshold: [0.2, 0.4, 0.6],
-        rootMargin: '-20% 0px -35% 0px',
+        rootMargin: "-20% 0px -35% 0px",
       },
     );
 
@@ -15262,7 +15349,7 @@ export function SectionObserverProvider({
   sectionIds: string[];
   children: ReactNode;
 }) {
-  const [activeSection, setActiveSection] = useState(sectionIds[0] ?? 'hero');
+  const [activeSection, setActiveSection] = useState(sectionIds[0] ?? "hero");
 
   useEffect(() => {
     document.body.dataset.activeSection = activeSection;
@@ -15284,21 +15371,21 @@ export function SectionObserverProvider({
 export function useActiveSection() {
   const context = useContext(SectionObserverContext);
   if (!context) {
-    throw new Error('useActiveSection must be used within SectionObserverProvider');
+    throw new Error("useActiveSection must be used within SectionObserverProvider");
   }
   return context.activeSection;
 }
+
 ```
 
+
 ### src/app/[locale]/components/Testimonials.tsx
-
 _Size:_ 1309 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import { useTranslations } from 'next-intl';
-import type { Testimonial } from '@/lib/data/schemas';
+import { useTranslations } from "next-intl";
+import type { Testimonial } from "@/lib/data/schemas";
 
 export default function Testimonials({
   testimonials,
@@ -15315,22 +15402,16 @@ export default function Testimonials({
     <section className="py-16">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 text-center sm:px-6 lg:px-8">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-            {sectionTitle}
-          </h2>
+          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">{sectionTitle}</h2>
           <p className="mt-2 text-sm text-slate-600">{sectionSubtitle}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {testimonials.map((item) => (
             <figure key={item.id} className="fade-surface h-full text-left">
-              <blockquote className="text-sm text-slate-600">
-                “{t(item.quoteKey)}”
-              </blockquote>
+              <blockquote className="text-sm text-slate-600">“{t(item.quoteKey)}”</blockquote>
               <figcaption className="mt-4 text-sm font-semibold text-slate-900">
                 {t(item.nameKey)}
-                <span className="ml-2 text-xs font-normal text-slate-500">
-                  {t(item.roleKey)}
-                </span>
+                <span className="ml-2 text-xs font-normal text-slate-500">{t(item.roleKey)}</span>
               </figcaption>
             </figure>
           ))}
@@ -15339,17 +15420,17 @@ export default function Testimonials({
     </section>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/contact/ContactForm.tsx
-
 _Size:_ 5161 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import { useState, useTransition } from 'react';
-import { Turnstile } from '@marsidev/react-turnstile';
+import { useState, useTransition } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export type ContactCopy = {
   intro: string;
@@ -15377,42 +15458,42 @@ export default function ContactForm({
   copy: ContactCopy;
   turnstileSiteKey: string;
 }) {
-  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [message, setMessage] = useState<string>('');
-  const [token, setToken] = useState<string>('');
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [message, setMessage] = useState<string>("");
+  const [token, setToken] = useState<string>("");
   const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(formData: FormData) {
-    setStatus('idle');
-    setMessage('');
+    setStatus("idle");
+    setMessage("");
 
     const payload = {
-      name: formData.get('name')?.toString() ?? '',
-      email: formData.get('email')?.toString() ?? '',
-      phone: formData.get('phone')?.toString() ?? '',
-      budget: formData.get('budget')?.toString() ?? '',
-      message: formData.get('message')?.toString() ?? '',
+      name: formData.get("name")?.toString() ?? "",
+      email: formData.get("email")?.toString() ?? "",
+      phone: formData.get("phone")?.toString() ?? "",
+      budget: formData.get("budget")?.toString() ?? "",
+      message: formData.get("message")?.toString() ?? "",
       locale,
       turnstileToken: token,
-      honeypot: formData.get('website')?.toString() ?? '',
+      honeypot: formData.get("website")?.toString() ?? "",
     };
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       const result = await response.json();
       if (!response.ok) {
-        setStatus('error');
+        setStatus("error");
         setMessage(result.message ?? copy.error);
         return;
       }
-      setStatus('success');
+      setStatus("success");
       setMessage(result.message ?? copy.success);
     } catch {
-      setStatus('error');
+      setStatus("error");
       setMessage(copy.error);
     }
   }
@@ -15480,9 +15561,9 @@ export default function ContactForm({
       <div className="flex flex-col gap-3">
         <Turnstile
           siteKey={turnstileSiteKey}
-          options={{ theme: 'light' }}
-          onSuccess={(value) => setToken(value ?? '')}
-          onExpire={() => setToken('')}
+          options={{ theme: "light" }}
+          onSuccess={(value) => setToken(value ?? "")}
+          onExpire={() => setToken("")}
         />
         <button
           type="submit"
@@ -15492,25 +15573,24 @@ export default function ContactForm({
           {isPending ? copy.sending : copy.submit}
         </button>
       </div>
-      {status !== 'idle' && (
-        <p
-          className={`text-sm ${status === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}
-        >
+      {status !== "idle" && (
+        <p className={`text-sm ${status === "success" ? "text-emerald-600" : "text-rose-600"}`}>
           {message}
         </p>
       )}
     </form>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/contact/page.tsx
-
-_Size:_ 2465 bytes
-
+_Size:_ 2555 bytes
 ```tsx
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ContactForm, { type ContactCopy } from './ContactForm';
 import { createPageMetadata } from '@/lib/seo';
@@ -15566,7 +15646,9 @@ export default async function ContactPage({ params }: { params: { locale?: strin
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Suspense fallback={null}>
+        <Breadcrumbs />
+      </Suspense>
       <div className="mt-8 space-y-4">
         <h1 className="text-3xl font-semibold text-slate-900">{tContact('title')}</h1>
         <p className="text-sm text-slate-600">{tContact('subtitle')}</p>
@@ -15577,26 +15659,20 @@ export default async function ContactPage({ params }: { params: { locale?: strin
     </div>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/error.tsx
-
 _Size:_ 961 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
-export default function LocaleError({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
-  const t = useTranslations('errors');
+export default function LocaleError({ error, reset }: { error: Error; reset: () => void }) {
+  const t = useTranslations("errors");
 
   useEffect(() => {
     console.error(error);
@@ -15605,27 +15681,28 @@ export default function LocaleError({
   return (
     <div className="mx-auto flex min-h-[60vh] w-full max-w-3xl flex-col items-center justify-center gap-6 px-4 text-center">
       <div className="space-y-2">
-        <h1 className="text-3xl font-semibold text-slate-900">{t('title')}</h1>
-        <p className="text-sm text-slate-600">{t('description')}</p>
+        <h1 className="text-3xl font-semibold text-slate-900">{t("title")}</h1>
+        <p className="text-sm text-slate-600">{t("description")}</p>
       </div>
       <button
         type="button"
         onClick={reset}
         className="rounded-full bg-brand-600 px-6 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
       >
-        {t('tryAgain')}
+        {t("tryAgain")}
       </button>
     </div>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/layout.tsx
-
-_Size:_ 2943 bytes
-
+_Size:_ 3131 bytes
 ```tsx
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
@@ -15712,28 +15789,30 @@ export default async function LocaleLayout({
     <html lang={locale} dir={getLocaleDirection(locale)}>
       <body className="bg-slate-50 text-slate-900">
         <Providers locale={locale} messages={messages} fallback={fallback}>
-          <LayoutShell
-            navItems={navItems}
-            footer={footer}
-            sectionIds={['hero', 'listings', 'articles', 'contact']}
-          >
-            <Script id="org-jsonld" type="application/ld+json">
-              {jsonLd}
-            </Script>
-            {children}
-          </LayoutShell>
+          <Suspense fallback={null}>
+            <LayoutShell
+              navItems={navItems}
+              footer={footer}
+              sectionIds={['hero', 'listings', 'articles', 'contact']}
+            >
+              <Script id="org-jsonld" type="application/ld+json">
+                {jsonLd}
+              </Script>
+              {children}
+            </LayoutShell>
+          </Suspense>
         </Providers>
         <Analytics />
       </body>
     </html>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/listings/ListingsSearchClient.tsx
-
 _Size:_ 674 bytes
-
 ```tsx
 'use client';
 
@@ -15755,12 +15834,12 @@ export default function ListingsSearchClient({ locale, ...gridProps }: Props) {
 
   return <ListingsGrid {...gridProps} locale={locale} query={query} tag={tag} />;
 }
+
 ```
 
+
 ### src/app/[locale]/listings/page.tsx
-
-_Size:_ 3614 bytes
-
+_Size:_ 3214 bytes
 ```tsx
 import type { Metadata } from 'next';
 import Script from 'next/script';
@@ -15825,26 +15904,16 @@ export default async function ListingsPage({ params }: { params: { locale?: stri
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-      <Breadcrumbs />
+      <Suspense fallback={null}>
+        <Breadcrumbs />
+      </Suspense>
       <div className="mt-8 space-y-4">
         <h1 className="text-3xl font-semibold text-slate-900">
           {tListings('sectionTitle')}
         </h1>
         <p className="text-sm text-slate-600">{tListings('directorySubtitle')}</p>
       </div>
-      <Suspense
-        fallback={
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <div
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static placeholder list
-                key={index}
-                className="h-60 animate-pulse rounded-3xl bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100"
-              />
-            ))}
-          </div>
-        }
-      >
+      <Suspense fallback={null}>
         <ListingsSearchClient
           locale={locale as AppLocale}
           initial={listings.items}
@@ -15864,12 +15933,12 @@ export default async function ListingsPage({ params }: { params: { locale?: stri
     </div>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/loading.tsx
-
 _Size:_ 427 bytes
-
 ```tsx
 export default function LocaleLoading() {
   return (
@@ -15885,12 +15954,12 @@ export default function LocaleLoading() {
     </div>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/not-found.tsx
-
 _Size:_ 1250 bytes
-
 ```tsx
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
@@ -15926,12 +15995,12 @@ export default async function LocaleNotFound({
     </div>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/page.tsx
-
 _Size:_ 5133 bytes
-
 ```tsx
 import Script from 'next/script';
 import { getTranslations } from 'next-intl/server';
@@ -16082,20 +16151,20 @@ export default async function LocaleHome({ params }: { params: { locale?: string
     </>
   );
 }
+
 ```
 
+
 ### src/app/[locale]/providers.tsx
-
 _Size:_ 699 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import type { AbstractIntlMessages } from 'next-intl';
-import { NextIntlClientProvider } from 'next-intl';
-import type { ReactNode } from 'react';
-import { SWRConfig } from 'swr';
-import { defaultSWRConfig } from '@/lib/swr-config';
+import type { AbstractIntlMessages } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
+import type { ReactNode } from "react";
+import { SWRConfig } from "swr";
+import { defaultSWRConfig } from "@/lib/swr-config";
 
 type Props = {
   locale: string;
@@ -16111,21 +16180,21 @@ export default function Providers({ locale, messages, fallback, children }: Prop
     </NextIntlClientProvider>
   );
 }
+
 ```
 
+
 ### src/app/api/contact/route.ts
-
-_Size:_ 5283 bytes
-
+_Size:_ 5715 bytes
 ```ts
-import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
+import {cookies} from 'next/headers';
+import {NextResponse} from 'next/server';
 import nodemailer from 'nodemailer';
-import { z } from 'zod';
+import {z} from 'zod';
 
 const TURNSTILE_ENDPOINT = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-const TURNSTILE_SECRET_KEY =
-  process.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET;
+const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET;
+
 const CONTACT_COOLDOWN_COOKIE = 'contact-cooldown';
 const CONTACT_COOLDOWN_MINUTES = 2;
 
@@ -16137,45 +16206,35 @@ const BodySchema = z.object({
   budget: z.string().optional(),
   locale: z.string().min(2).optional(),
   turnstileToken: z.string().min(1),
-  honeypot: z.string().optional(),
+  honeypot: z.string().optional()
 });
 
 type Body = z.infer<typeof BodySchema>;
 
 async function verifyTurnstile(token: string, ip?: string | null) {
+  // Dev/test bypass: Cloudflare test keys start with "1x"
   if (process.env.NODE_ENV !== 'production' && TURNSTILE_SECRET_KEY?.startsWith('1x')) {
     return true;
   }
-
   if (!TURNSTILE_SECRET_KEY) {
     console.error('TURNSTILE_SECRET_KEY is not configured');
     return false;
   }
 
-  const payload = new URLSearchParams({
-    secret: TURNSTILE_SECRET_KEY,
-    response: token,
-  });
-
-  if (ip) {
-    payload.append('remoteip', ip);
-  }
+  const payload = new URLSearchParams({secret: TURNSTILE_SECRET_KEY, response: token});
+  if (ip) payload.append('remoteip', ip);
 
   try {
     const response = await fetch(TURNSTILE_ENDPOINT, {
       method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      body: payload,
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+      body: payload
     });
-
-    if (!response.ok) {
-      return false;
-    }
-
+    if (!response.ok) return false;
     const result = await response.json();
     return Boolean(result.success);
-  } catch (error) {
-    console.error('Failed to verify Turnstile', error);
+  } catch (err) {
+    console.error('Failed to verify Turnstile', err);
     return false;
   }
 }
@@ -16184,38 +16243,45 @@ function cooldownOk(now = Date.now()) {
   const cookieStore = cookies();
   const cookieValue = cookieStore.get(CONTACT_COOLDOWN_COOKIE)?.value;
 
-  if (!cookieValue) {
-    return { ok: true, cookieStore };
-  }
-
+  if (!cookieValue) return {ok: true};
   const lastAttempt = Number(cookieValue);
-  if (Number.isNaN(lastAttempt)) {
-    return { ok: true, cookieStore };
-  }
+  if (Number.isNaN(lastAttempt)) return {ok: true};
 
   const elapsed = now - lastAttempt;
-  if (elapsed < CONTACT_COOLDOWN_MINUTES * 60 * 1000) {
-    return { ok: false, cookieStore };
-  }
-
-  return { ok: true, cookieStore };
+  if (elapsed < CONTACT_COOLDOWN_MINUTES * 60 * 1000) return {ok: false};
+  return {ok: true};
 }
 
-async function sendEmail({ name, email, phone, message, budget }: Body) {
+async function sendEmail({name, email, phone, message, budget}: Body) {
   const host = process.env.SMTP_HOST || process.env.EMAIL_HOST;
   const port = Number(process.env.SMTP_PORT || process.env.EMAIL_PORT || 465);
   const user = process.env.SMTP_USER || process.env.EMAIL_USER;
   const pass = process.env.SMTP_PASS || process.env.EMAIL_PASSWORD;
   const fromAddress =
-    process.env.SMTP_FROM ||
-    `ZomZom Property <${user || '<noreply@zomzomproperty.com>'}>`;
-  const recipient =
-    process.env.CONTACT_RECIPIENT_EMAIL ||
-    process.env.SMTP_TO ||
-    'zomzomproperty@gmail.com';
+    process.env.SMTP_FROM || (user ? `ZomZom Property <${user}>` : 'ZomZom Property <noreply@zomzomproperty.com>');
+  const recipient = process.env.CONTACT_RECIPIENT_EMAIL || process.env.SMTP_TO || 'zomzomproperty@gmail.com';
+
   const sanitizedMessage = message.replace(/<[^>]*>/g, '').slice(0, 2000);
 
-  if (!host || !user || !pass) {
+  // Developer-friendly bypass: ไม่มี SMTP ครบใน non-prod → log แล้วถือว่าส่งสำเร็จ
+  const smtpConfigured = Boolean(host && user && pass);
+  if (process.env.NODE_ENV !== 'production' && !smtpConfigured) {
+    console.log('[DEV EMAIL BYPASS] Simulating email delivery:\n', {
+      from: fromAddress,
+      to: recipient,
+      subject: `New inquiry from ${name}`,
+      body: {
+        name,
+        email,
+        phone: phone ?? '-',
+        budget: budget ?? '-',
+        message: sanitizedMessage
+      }
+    });
+    return true;
+  }
+
+  if (!smtpConfigured) {
     console.error('SMTP configuration is incomplete');
     return false;
   }
@@ -16223,11 +16289,8 @@ async function sendEmail({ name, email, phone, message, budget }: Body) {
   const transporter = nodemailer.createTransport({
     host,
     port,
-    secure: port === 465,
-    auth: {
-      user,
-      pass,
-    },
+    secure: port === 465 || String(process.env.SMTP_SECURE).toLowerCase() === 'true',
+    auth: {user, pass}
   });
 
   try {
@@ -16236,9 +16299,8 @@ async function sendEmail({ name, email, phone, message, budget }: Body) {
       to: recipient,
       subject: `New inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone ?? '-'}\nBudget: ${budget ?? '-'}\nMessage: ${sanitizedMessage}`,
-      replyTo: email,
+      replyTo: email
     });
-
     return true;
   } catch (error) {
     console.error('Failed to send contact email', error);
@@ -16249,30 +16311,22 @@ async function sendEmail({ name, email, phone, message, budget }: Body) {
 export async function POST(request: Request) {
   const json = await request.json().catch(() => null);
   const parsed = BodySchema.safeParse(json);
-
   if (!parsed.success) {
-    return NextResponse.json(
-      { message: 'Please review the form and try again.' },
-      { status: 400 },
-    );
+    return NextResponse.json({message: 'Please review the form and try again.'}, {status: 400});
   }
 
   const body = parsed.data;
 
+  // Honeypot → รับไว้เงียบ ๆ ตอบสำเร็จ
   if (body.honeypot) {
-    return NextResponse.json({
-      message: 'We received your message! Our team will reply shortly.',
-    });
+    return NextResponse.json({message: 'We received your message! Our team will reply shortly.'});
   }
 
-  const { ok, cookieStore } = cooldownOk();
+  const {ok} = cooldownOk();
   if (!ok) {
     return NextResponse.json(
-      {
-        message:
-          'Thanks! You just contacted us. Give us a moment before submitting another message.',
-      },
-      { status: 429 },
+      {message: 'Thanks! You just contacted us. Give us a moment before submitting another message.'},
+      {status: 429}
     );
   }
 
@@ -16280,52 +16334,42 @@ export async function POST(request: Request) {
   const turnstileOk = await verifyTurnstile(body.turnstileToken, forwardedFor);
   if (!turnstileOk) {
     return NextResponse.json(
-      { message: 'The verification failed. Please refresh and try again.' },
-      { status: 400 },
+      {message: 'The verification failed. Please refresh and try again.'},
+      {status: 400}
     );
   }
 
   const delivered = await sendEmail(body);
   if (!delivered) {
     return NextResponse.json(
-      {
-        message:
-          'We couldn’t send your message right now. Please email us directly at hello@zomzomproperty.com.',
-      },
-      { status: 500 },
+      {message: 'We couldn’t send your message right now. Please email us directly at hello@zomzomproperty.com.'},
+      {status: 500}
     );
   }
 
-  cookieStore.set(CONTACT_COOLDOWN_COOKIE, Date.now().toString(), {
+  const res = NextResponse.json({message: 'We received your message! Our team will reply shortly.'});
+  res.cookies.set(CONTACT_COOLDOWN_COOKIE, Date.now().toString(), {
+    // ระวัง: เวลา cookie ใช้ millisecond → แปลงเป็น Date
     expires: new Date(Date.now() + CONTACT_COOLDOWN_MINUTES * 60 * 1000),
     httpOnly: true,
     sameSite: 'lax',
     secure: true,
-    path: '/',
+    path: '/'
   });
-
-  return NextResponse.json({
-    message: 'We received your message! Our team will reply shortly.',
-  });
+  return res;
 }
+
 ```
 
+
 ### src/app/global-error.tsx
-
 _Size:_ 890 bytes
-
 ```tsx
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
+export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -16348,12 +16392,12 @@ export default function GlobalError({
     </html>
   );
 }
+
 ```
 
+
 ### src/app/globals.css
-
 _Size:_ 1072 bytes
-
 ```css
 @tailwind base;
 @tailwind components;
@@ -16377,8 +16421,7 @@ main {
 }
 
 .section-gradient {
-  background-image:
-    radial-gradient(circle at top, rgba(37, 99, 235, 0.12), transparent 55%),
+  background-image: radial-gradient(circle at top, rgba(37, 99, 235, 0.12), transparent 55%),
     radial-gradient(circle at bottom, rgba(14, 116, 144, 0.1), transparent 45%);
 }
 
@@ -16386,14 +16429,14 @@ main {
   @apply rounded-3xl border border-slate-100/60 bg-white/70 p-6 shadow-soft backdrop-blur;
 }
 
-[data-active-section='listings'] [data-nav='listings'],
-[data-active-section='articles'] [data-nav='articles'],
-[data-active-section='contact'] [data-nav='contact'] {
+[data-active-section="listings"] [data-nav="listings"],
+[data-active-section="articles"] [data-nav="articles"],
+[data-active-section="contact"] [data-nav="contact"] {
   @apply text-brand-600 after:w-full;
 }
 
 [data-nav]::after {
-  content: '';
+  content: "";
   @apply block h-0.5 w-0 bg-brand-500 transition-all duration-300 ease-in-out;
 }
 
@@ -16404,12 +16447,12 @@ main {
 .shadow-hero {
   box-shadow: 0 20px 45px -25px rgba(15, 23, 42, 0.45);
 }
+
 ```
 
+
 ### src/app/icon.svg
-
 _Size:_ 301 bytes
-
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <rect width="64" height="64" rx="16" fill="#2563eb" />
@@ -16419,64 +16462,69 @@ _Size:_ 301 bytes
 
 ```
 
+
 ### src/app/layout.tsx
-
 _Size:_ 657 bytes
-
 ```tsx
-import type { Metadata, Viewport } from 'next';
-import './globals.css';
-import { createRootMetadata } from '@/lib/seo';
-import { fallbackLocale } from '@/lib/i18n';
+import type { Metadata, Viewport } from "next";
+import "./globals.css";
+import { createRootMetadata } from "@/lib/seo";
+import { fallbackLocale } from "@/lib/i18n";
 
 export const metadata: Metadata = createRootMetadata();
 
 export const viewport: Viewport = {
-  themeColor: '#2563eb',
-  colorScheme: 'light',
-  width: 'device-width',
+  themeColor: "#2563eb",
+  colorScheme: "light",
+  width: "device-width",
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang={fallbackLocale} suppressHydrationWarning>
-      <body className="min-h-screen bg-slate-50 text-slate-900">{children}</body>
+      <body className="min-h-screen bg-slate-50 text-slate-900">
+        {children}
+      </body>
     </html>
   );
 }
+
 ```
 
+
 ### src/app/not-found.tsx
-
 _Size:_ 173 bytes
-
 ```tsx
-import { redirect } from 'next/navigation';
-import { fallbackLocale } from '@/lib/i18n';
+import { redirect } from "next/navigation";
+import { fallbackLocale } from "@/lib/i18n";
 
 export default function RootNotFound() {
   redirect(`/${fallbackLocale}`);
 }
+
 ```
 
+
 ### src/app/page.tsx
-
 _Size:_ 165 bytes
-
 ```tsx
-import { redirect } from 'next/navigation';
-import { fallbackLocale } from '@/lib/i18n';
+import { redirect } from "next/navigation";
+import { fallbackLocale } from "@/lib/i18n";
 
 export default function Home() {
   redirect(`/${fallbackLocale}`);
 }
+
 ```
 
+
 ### src/lib/data/articles.json
-
 _Size:_ 1358 bytes
-
 ```json
 [
   {
@@ -16522,12 +16570,12 @@ _Size:_ 1358 bytes
     "image": "/images/article-market.svg"
   }
 ]
+
 ```
 
+
 ### src/lib/data/faqs.json
-
 _Size:_ 384 bytes
-
 ```json
 [
   {
@@ -16546,12 +16594,12 @@ _Size:_ 384 bytes
     "answerKey": "home.faq.financing.a"
   }
 ]
+
 ```
 
+
 ### src/lib/data/highlights.json
-
 _Size:_ 320 bytes
-
 ```json
 [
   {
@@ -16570,12 +16618,12 @@ _Size:_ 320 bytes
     "value": "98%"
   }
 ]
+
 ```
 
+
 ### src/lib/data/listings.json
-
 _Size:_ 1651 bytes
-
 ```json
 [
   {
@@ -16631,19 +16679,19 @@ _Size:_ 1651 bytes
     "image": "/images/emerald-haven.svg"
   }
 ]
+
 ```
 
+
 ### src/lib/data/loaders.ts
-
 _Size:_ 2896 bytes
-
 ```ts
-import { z } from 'zod';
-import listingsSource from './listings.json' assert { type: 'json' };
-import articlesSource from './articles.json' assert { type: 'json' };
-import highlightsSource from './highlights.json' assert { type: 'json' };
-import faqsSource from './faqs.json' assert { type: 'json' };
-import testimonialsSource from './testimonials.json' assert { type: 'json' };
+import { z } from "zod";
+import listingsSource from "./listings.json" assert { type: "json" };
+import articlesSource from "./articles.json" assert { type: "json" };
+import highlightsSource from "./highlights.json" assert { type: "json" };
+import faqsSource from "./faqs.json" assert { type: "json" };
+import testimonialsSource from "./testimonials.json" assert { type: "json" };
 import {
   articleSchema,
   faqSchema,
@@ -16655,51 +16703,51 @@ import {
   type Highlight,
   type Listing,
   type Testimonial,
-} from './schemas';
+} from "./schemas";
 
 const defaultListings: Listing[] = [
   {
-    id: 'harbor-view',
-    titleKey: 'listings.fallback.title',
-    descriptionKey: 'listings.fallback.description',
-    locationKey: 'listings.fallback.location',
+    id: "harbor-view",
+    titleKey: "listings.fallback.title",
+    descriptionKey: "listings.fallback.description",
+    locationKey: "listings.fallback.location",
     price: 480000,
-    currency: 'USD',
+    currency: "USD",
     bedrooms: 2,
     bathrooms: 2,
     area: 110,
-    tags: ['turnkey'],
-    image: '/images/fallback-listing.svg',
+    tags: ["turnkey"],
+    image: "/images/fallback-listing.svg",
   },
 ];
 
 const defaultArticles: Article[] = [
   {
-    id: 'market-basics',
-    slug: 'market-basics',
-    titleKey: 'articles.fallback.title',
-    excerptKey: 'articles.fallback.excerpt',
-    bodyKeys: ['articles.fallback.body'],
-    published: '2024-01-01',
+    id: "market-basics",
+    slug: "market-basics",
+    titleKey: "articles.fallback.title",
+    excerptKey: "articles.fallback.excerpt",
+    bodyKeys: ["articles.fallback.body"],
+    published: "2024-01-01",
     readingMinutes: 3,
-    image: '/images/fallback-article.svg',
+    image: "/images/fallback-article.svg",
   },
 ];
 
 const defaultHighlights: Highlight[] = [
-  { id: 'default', labelKey: 'home.highlights.fallback', value: '--' },
+  { id: "default", labelKey: "home.highlights.fallback", value: "--" },
 ];
 
 const defaultFaqs: Faq[] = [
-  { id: 'default', questionKey: 'home.faq.fallback.q', answerKey: 'home.faq.fallback.a' },
+  { id: "default", questionKey: "home.faq.fallback.q", answerKey: "home.faq.fallback.a" },
 ];
 
 const defaultTestimonials: Testimonial[] = [
   {
-    id: 'default',
-    nameKey: 'home.testimonials.fallback.name',
-    roleKey: 'home.testimonials.fallback.role',
-    quoteKey: 'home.testimonials.fallback.quote',
+    id: "default",
+    nameKey: "home.testimonials.fallback.name",
+    roleKey: "home.testimonials.fallback.role",
+    quoteKey: "home.testimonials.fallback.quote",
   },
 ];
 
@@ -16714,10 +16762,10 @@ function parseArray<T>(schema: z.ZodType<T>, raw: unknown, fallback: T[]): LoadR
     return { items: parsed.data };
   }
 
-  console.warn('Failed to validate data', parsed.error.flatten().fieldErrors);
+  console.warn("Failed to validate data", parsed.error.flatten().fieldErrors);
   return {
     items: fallback,
-    issues: ['data.validation'],
+    issues: ["data.validation"],
   };
 }
 
@@ -16740,14 +16788,14 @@ export function loadFaqs(): LoadResult<Faq> {
 export function loadTestimonials(): LoadResult<Testimonial> {
   return parseArray(testimonialSchema, testimonialsSource, defaultTestimonials);
 }
+
 ```
 
+
 ### src/lib/data/schemas.ts
-
 _Size:_ 1898 bytes
-
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const localizedKeySchema = z.string().min(1);
 
@@ -16812,12 +16860,12 @@ export type Highlight = z.infer<typeof highlightSchema>;
 export type Faq = z.infer<typeof faqSchema>;
 export type Testimonial = z.infer<typeof testimonialSchema>;
 export type ContactFormPayload = z.infer<typeof contactFormSchema>;
+
 ```
 
+
 ### src/lib/data/testimonials.json
-
 _Size:_ 357 bytes
-
 ```json
 [
   {
@@ -16833,132 +16881,111 @@ _Size:_ 357 bytes
     "quoteKey": "home.testimonials.ahmad.quote"
   }
 ]
+
 ```
 
+
 ### src/lib/i18n.ts
-
-_Size:_ 2716 bytes
-
+_Size:_ 2416 bytes
 ```ts
-import { getRequestConfig, requestLocale } from 'next-intl/server';
+// src/lib/i18n.ts
+import { getRequestConfig } from 'next-intl/server';
 import { createTranslator, type AbstractIntlMessages } from 'next-intl';
 import { notFound } from 'next/navigation';
 
 export const locales = ['th', 'en', 'zh-CN', 'zh-TW', 'my', 'ru'] as const;
 export type AppLocale = (typeof locales)[number];
-export const fallbackLocale: AppLocale = 'en';
+export const defaultLocale: AppLocale = 'en';
 
-export const localeNames: Record<AppLocale, string> = {
-  th: 'ไทย',
-  en: 'English',
-  'zh-CN': '简体中文',
-  'zh-TW': '繁體中文',
-  my: 'မြန်မာ',
-  ru: 'Русский',
-};
+export function isValidLocale(input: string | null | undefined): input is AppLocale {
+  return !!input && (locales as readonly string[]).includes(input);
+}
 
-const rtlLocales = new Set<AppLocale>();
+function stripLeadingLocale(pathname: string) {
+  const m = pathname.match(/^\/([A-Za-z-]+)(\/|$)/);
+  if (m && (locales as readonly string[]).includes(m[1])) {
+    return pathname.slice(m[0].length - 1) || '/';
+  }
+  return pathname || '/';
+}
 
-export const routing = {
-  locales,
-  defaultLocale: fallbackLocale,
-  localePrefix: 'always' as const,
-};
+/**
+ * คืนชุดลิงก์ hreflang สำหรับทุก locale + 'x-default'
+ * key = hreflang code, value = absolute path
+ */
+export function getHreflangLocales(
+  current: AppLocale,
+  pathname = '/',
+): Record<string, string> {
+  const clean = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const basePath = stripLeadingLocale(clean);
+  const pathPart = basePath === '/' ? '' : basePath;
 
-export function isValidLocale(locale: string): locale is AppLocale {
-  return locales.includes(locale as AppLocale);
+  const map: Record<string, string> = {};
+  for (const l of locales) {
+    map[l] = `/${l}${pathPart}`;
+  }
+  // x-default ชี้ไปที่ defaultLocale
+  map['x-default'] = `/${defaultLocale}${pathPart}`;
+  return map;
 }
 
 export async function loadMessages(
-  locale: string,
-): Promise<{ locale: AppLocale; messages: AbstractIntlMessages }> {
-  const resolved = isValidLocale(locale) ? locale : fallbackLocale;
-  try {
-    const messages = (await import(`../messages/${resolved}.json`)).default;
-    return { locale: resolved, messages } as const;
-  } catch (error) {
-    if (resolved !== fallbackLocale) {
-      const fallback = await loadMessages(fallbackLocale);
-      return fallback;
-    }
-    throw error;
-  }
+  locale: AppLocale,
+): Promise<{ messages: AbstractIntlMessages; timeZone?: string }> {
+  // จาก src/lib -> src/messages = ../messages
+  const messages: AbstractIntlMessages = (await import(`../messages/${locale}.json`))
+    .default;
+  const timeZone = process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok';
+  return { messages, timeZone };
 }
 
-export async function createAppTranslator(locale: string) {
-  const { messages, locale: resolved } = await loadMessages(locale);
-  return createTranslator({ locale: resolved, messages });
+export async function getTranslator(locale: AppLocale) {
+  const { messages, timeZone } = await loadMessages(locale);
+  return createTranslator({ locale, messages, timeZone });
 }
 
-export function getLocaleDirection(locale: string): 'ltr' | 'rtl' {
-  if (isValidLocale(locale) && rtlLocales.has(locale)) {
-    return 'rtl';
-  }
-  return 'ltr';
-}
-
-export function getLocaleLabel(locale: string) {
-  if (isValidLocale(locale)) {
-    return localeNames[locale];
-  }
-  return localeNames[fallbackLocale];
-}
-
-export function getHreflangLocales(current: AppLocale, pathname = '') {
-  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  const normalizedPath = cleanPath.replace(/^\/[a-zA-Z-]+/, '');
-  const basePath = normalizedPath.startsWith('/') ? normalizedPath : `/${normalizedPath}`;
-  return Object.fromEntries(
-    locales.map((locale) => [locale, `/${locale}${basePath === '/' ? '' : basePath}`]),
-  );
-}
-
-export default getRequestConfig(async () => {
-  const locale = await requestLocale();
-
-  if (!locale || !isValidLocale(locale)) {
+// รูปแบบใหม่: รับ {requestLocale} จากพารามิเตอร์ แล้ว await
+export default getRequestConfig(async ({ requestLocale }) => {
+  const requested = await requestLocale;
+  if (!isValidLocale(requested)) {
     notFound();
   }
-
-  const { messages, locale: resolvedLocale } = await loadMessages(locale);
-
-  return {
-    locale: resolvedLocale,
-    messages,
-    timeZone: process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok',
-  };
+  const locale = requested as AppLocale;
+  const { messages, timeZone } = await loadMessages(locale);
+  return { locale, messages, timeZone };
 });
+
 ```
 
+
 ### src/lib/seo.ts
-
 _Size:_ 4556 bytes
-
 ```ts
-import type { Metadata } from 'next';
-import Script from 'next/script';
-import { createElement, type ReactElement } from 'react';
-import { getHreflangLocales, routing, type AppLocale } from '@/lib/i18n';
-import type { Listing } from '@/lib/data/schemas';
+import type { Metadata } from "next";
+import Script from "next/script";
+import { createElement, type ReactElement } from "react";
+import { getHreflangLocales, routing, type AppLocale } from "@/lib/i18n";
+import type { Listing } from "@/lib/data/schemas";
 
-const SITE_NAME = 'ZomZom Property';
+const SITE_NAME = "ZomZom Property";
 const DEFAULT_DESCRIPTION =
-  'Boutique multilingual real estate advisory helping global buyers secure premium Southeast Asian residences.';
+  "Boutique multilingual real estate advisory helping global buyers secure premium Southeast Asian residences.";
 const DEFAULT_KEYWORDS = [
-  'real estate',
-  'Thailand property',
-  'investment',
-  'luxury homes',
-  'multilingual agents',
+  "real estate",
+  "Thailand property",
+  "investment",
+  "luxury homes",
+  "multilingual agents",
 ];
 
 function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? 'https://zomzomproperty.com';
+  return process.env.NEXT_PUBLIC_SITE_URL ?? "https://zomzomproperty.com";
 }
 
-export function getAbsoluteUrl(pathname = '/') {
-  const base = getSiteUrl().replace(/\/$/, '');
-  const path = pathname.startsWith('/') ? pathname : `/${pathname}`;
+export function getAbsoluteUrl(pathname = "/") {
+  const base = getSiteUrl().replace(/\/$/, "");
+  const path = pathname.startsWith("/") ? pathname : `/${pathname}`;
   return `${base}${path}`;
 }
 
@@ -16973,24 +17000,22 @@ export function createRootMetadata(): Metadata {
     keywords: DEFAULT_KEYWORDS,
     authors: [{ name: SITE_NAME }],
     openGraph: {
-      type: 'website',
+      type: "website",
       title: SITE_NAME,
       description: DEFAULT_DESCRIPTION,
       url: getSiteUrl(),
       siteName: SITE_NAME,
       locale: routing.defaultLocale,
-      alternateLocale: routing.locales.filter(
-        (locale) => locale !== routing.defaultLocale,
-      ),
+      alternateLocale: routing.locales.filter((locale) => locale !== routing.defaultLocale),
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: SITE_NAME,
       description: DEFAULT_DESCRIPTION,
     },
-    category: 'real estate',
+    category: "real estate",
     icons: {
-      icon: '/icon.svg',
+      icon: "/icon.svg",
     },
   } satisfies Metadata;
 }
@@ -16999,7 +17024,7 @@ export function createPageMetadata({
   locale,
   title,
   description = DEFAULT_DESCRIPTION,
-  pathname = '',
+  pathname = "",
   keywords = DEFAULT_KEYWORDS,
 }: {
   locale: AppLocale;
@@ -17009,7 +17034,7 @@ export function createPageMetadata({
   keywords?: string[];
 }): Metadata {
   const alternates = getHreflangLocales(locale, pathname);
-  const absolute = getAbsoluteUrl(`/${locale}${pathname}`.replace(/\/{2,}/g, '/'));
+  const absolute = getAbsoluteUrl(`/${locale}${pathname}`.replace(/\/{2,}/g, "/"));
 
   return {
     title,
@@ -17023,14 +17048,14 @@ export function createPageMetadata({
       title,
       description,
       url: absolute,
-      type: 'article',
+      type: "article",
       siteName: SITE_NAME,
       locale,
     },
     twitter: {
       title,
       description,
-      card: 'summary_large_image',
+      card: "summary_large_image",
     },
   } satisfies Metadata;
 }
@@ -17047,7 +17072,7 @@ export function JsonLd({ id, data }: JsonLdProps): ReactElement {
     Script,
     {
       id,
-      type: 'application/ld+json',
+      type: "application/ld+json",
     },
     JSON.stringify(data),
   );
@@ -17055,16 +17080,16 @@ export function JsonLd({ id, data }: JsonLdProps): ReactElement {
 
 export function buildOrganizationJsonLd(locale: AppLocale) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'RealEstateAgent',
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
     name: SITE_NAME,
     description: DEFAULT_DESCRIPTION,
     url: getAbsoluteUrl(`/${locale}`),
     areaServed: routing.locales,
-    logo: getAbsoluteUrl('/logo.svg'),
+    logo: getAbsoluteUrl("/logo.svg"),
     sameAs: [
-      'https://www.facebook.com/zomzomproperty',
-      'https://www.instagram.com/zomzomproperty',
+      "https://www.facebook.com/zomzomproperty",
+      "https://www.instagram.com/zomzomproperty",
     ],
   };
 }
@@ -17078,8 +17103,8 @@ export function ldOrganization(locale: AppLocale): JsonLdProps {
 
 export function buildWebsiteJsonLd(locale: AppLocale) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
     name: SITE_NAME,
     description: DEFAULT_DESCRIPTION,
     url: getAbsoluteUrl(`/${locale}`),
@@ -17097,29 +17122,29 @@ export function ldWebsite(locale: AppLocale): JsonLdProps {
 
 export function buildListingJsonLd(locale: AppLocale, listing: Listing) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Residence',
+    "@context": "https://schema.org",
+    "@type": "Residence",
     name: listing.titleKey,
     description: listing.descriptionKey,
     numberOfRooms: listing.bedrooms,
     url: getAbsoluteUrl(`/${locale}/listings#${listing.id}`),
     floorSize: {
-      '@type': 'QuantitativeValue',
+      "@type": "QuantitativeValue",
       value: listing.area,
-      unitCode: 'MTK',
+      unitCode: "MTK",
     },
     price: listing.price,
     currency: listing.currency,
   };
 }
+
 ```
 
+
 ### src/lib/swr-config.ts
-
 _Size:_ 560 bytes
-
 ```ts
-import type { SWRConfiguration } from 'swr';
+import type { SWRConfiguration } from "swr";
 
 export const defaultSWRConfig: SWRConfiguration = {
   revalidateOnFocus: false,
@@ -17138,15 +17163,15 @@ export const defaultSWRConfig: SWRConfiguration = {
 export function createStaticKey(namespace: string, id?: string) {
   return id ? `${namespace}:${id}` : namespace;
 }
+
 ```
 
+
 ### src/lib/utils.ts
-
 _Size:_ 758 bytes
-
 ```ts
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: Array<string | undefined | null | false>) {
   return twMerge(clsx(inputs));
@@ -17154,7 +17179,7 @@ export function cn(...inputs: Array<string | undefined | null | false>) {
 
 export function formatCurrency(value: number, locale: string, currency: string) {
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: "currency",
     currency,
     maximumFractionDigits: 0,
   }).format(value);
@@ -17162,9 +17187,9 @@ export function formatCurrency(value: number, locale: string, currency: string) 
 
 export function formatDate(value: string, locale: string) {
   return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   }).format(new Date(value));
 }
 
@@ -17173,12 +17198,12 @@ export function getCookieExpiry(minutes: number) {
   now.setMinutes(now.getMinutes() + minutes);
   return now;
 }
+
 ```
 
+
 ### src/messages/en.json
-
 _Size:_ 10386 bytes
-
 ```json
 {
   "seo": {
@@ -17397,12 +17422,12 @@ _Size:_ 10386 bytes
     "backHome": "Return home"
   }
 }
+
 ```
 
+
 ### src/messages/my.json
-
 _Size:_ 21236 bytes
-
 ```json
 {
   "seo": {
@@ -17621,12 +17646,12 @@ _Size:_ 21236 bytes
     "backHome": "ပင်မသို့ ပြန်သွားရန်"
   }
 }
+
 ```
 
+
 ### src/messages/ru.json
-
 _Size:_ 13565 bytes
-
 ```json
 {
   "seo": {
@@ -17845,12 +17870,12 @@ _Size:_ 13565 bytes
     "backHome": "На главную"
   }
 }
+
 ```
 
+
 ### src/messages/th.json
-
 _Size:_ 17660 bytes
-
 ```json
 {
   "seo": {
@@ -18069,12 +18094,12 @@ _Size:_ 17660 bytes
     "backHome": "กลับหน้าแรก"
   }
 }
+
 ```
 
+
 ### src/messages/zh-CN.json
-
 _Size:_ 8536 bytes
-
 ```json
 {
   "seo": {
@@ -18293,12 +18318,12 @@ _Size:_ 8536 bytes
     "backHome": "返回首页"
   }
 }
+
 ```
 
+
 ### src/messages/zh-TW.json
-
 _Size:_ 8458 bytes
-
 ```json
 {
   "seo": {
@@ -18517,12 +18542,12 @@ _Size:_ 8458 bytes
     "backHome": "回到首頁"
   }
 }
+
 ```
 
+
 ### src/middleware.ts
-
 _Size:_ 608 bytes
-
 ```ts
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
@@ -18549,19 +18574,19 @@ export default function middleware(request: NextRequest) {
 export const config = {
   matcher: ['/:path*'],
 };
+
 ```
 
+
 ### tailwind.config.ts
-
 _Size:_ 1467 bytes
-
 ```ts
-import type { Config } from 'tailwindcss';
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
+import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms";
 
 const config: Config = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -18569,37 +18594,37 @@ const config: Config = {
       },
       colors: {
         brand: {
-          50: '#f0f7ff',
-          100: '#d6e8ff',
-          200: '#b0d1ff',
-          300: '#7fb1ff',
-          400: '#4d8eff',
-          500: '#2563eb',
-          600: '#1b4ecd',
-          700: '#1640a3',
-          800: '#143688',
-          900: '#122f72',
+          50: "#f0f7ff",
+          100: "#d6e8ff",
+          200: "#b0d1ff",
+          300: "#7fb1ff",
+          400: "#4d8eff",
+          500: "#2563eb",
+          600: "#1b4ecd",
+          700: "#1640a3",
+          800: "#143688",
+          900: "#122f72",
         },
       },
       keyframes: {
-        'fade-up': {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        'pulse-slow': {
-          '0%, 100%': { opacity: '0.4' },
-          '50%': { opacity: '1' },
+        "pulse-slow": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "1" },
         },
       },
       animation: {
-        'fade-up': 'fade-up 0.6s ease-out both',
-        'pulse-slow': 'pulse-slow 4s ease-in-out infinite',
+        "fade-up": "fade-up 0.6s ease-out both",
+        "pulse-slow": "pulse-slow 4s ease-in-out infinite",
       },
       boxShadow: {
-        soft: '0 20px 45px -20px rgba(37, 99, 235, 0.45)',
+        soft: "0 20px 45px -20px rgba(37, 99, 235, 0.45)",
       },
       backgroundImage: {
-        grid: 'linear-gradient(to right, rgba(37, 99, 235, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(37, 99, 235, 0.08) 1px, transparent 1px)',
+        grid: "linear-gradient(to right, rgba(37, 99, 235, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(37, 99, 235, 0.08) 1px, transparent 1px)",
       },
     },
   },
@@ -18607,12 +18632,12 @@ const config: Config = {
 };
 
 export default config;
+
 ```
 
+
 ### tsconfig.json
-
 _Size:_ 629 bytes
-
 ```json
 {
   "compilerOptions": {
@@ -18641,40 +18666,43 @@ _Size:_ 629 bytes
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
+
 ```
 
+
 ### vitest.config.ts
-
 _Size:_ 455 bytes
-
 ```ts
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./vitest.setup.ts'],
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"],
     globals: true,
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      reporter: ["text", "json", "html"],
     },
-    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
   },
   resolve: {
     alias: {
-      '@': new URL('./src', import.meta.url).pathname,
+      "@": new URL("./src", import.meta.url).pathname,
     },
   },
   esbuild: {
-    jsx: 'automatic',
+    jsx: "automatic",
   },
 });
+
 ```
+
 
 ### vitest.setup.ts
-
 _Size:_ 44 bytes
-
 ```ts
 import '@testing-library/jest-dom/vitest';
+
 ```
+
+

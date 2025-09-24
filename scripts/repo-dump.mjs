@@ -156,7 +156,6 @@ async function buildDump(opts) {
   let totalSize = 0;
 
   const sections = []; // for ALL_FILES.md or single dump
-  const perFileTasks = [];
 
   for (const abs of files) {
     let stat;
