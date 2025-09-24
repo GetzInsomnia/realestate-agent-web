@@ -1,57 +1,123 @@
 # COMMANDS (มือใหม่ก็ทำตามได้)
 
-> ถ้ายังไม่ได้ติดตั้ง dependency:  
-> **ครั้งแรกเท่านั้น** รัน: `npm install`
+> ครั้งแรกหลังโคลนโปรเจ็กต์ ให้รัน:  
+> **`npm install`**  
+> แนะนำให้ใช้ Node.js เวอร์ชัน ≥ 18
 
-## พัฒนาในเครื่อง (Dev)
+---
 
-- เริ่มเซิร์ฟเวอร์พัฒนา:  
-  `npm run dev`  
-  เสร็จแล้วเปิดเว็บที่ http://localhost:3000
+## สรุปคำสั่งหลัก (Cheat Sheet)
 
-## สร้างไฟล์สำหรับโปรดักชัน (Build)
+| งาน                                                  | คำสั่ง                     | ผลลัพธ์โดยย่อ                                        |
+| ---------------------------------------------------- | -------------------------- | ---------------------------------------------------- |
+| เริ่มเซิร์ฟเวอร์พัฒนา (Dev)                          | `npm run dev`              | เปิดเว็บได้ที่ `http://localhost:3000` มี Hot Reload |
+| สร้าง Production build                               | `npm run build`            | คอมไพล์/ prerender หน้าเว็บไว้ใน `.next/`            |
+| รันเซิร์ฟเวอร์ Production จาก build                  | `npm run start`            | รันจากผลลัพธ์ build ที่สร้างไว้                      |
+| ตรวจโค้ด (ESLint)                                    | `npm run lint`             | รายงานปัญหาโค้ดสไตล์/กฎ ESLint                       |
+| รันเทสทั้งหมด (Vitest)                               | `npm run test`             | รันเทสแบบจบแล้วออก                                   |
+| รันเทสแบบดูผลสด                                      | `npm run test:watch`       | เฝ้าดูไฟล์ เปลี่ยนปุ๊บ เทสอัตโนมัติ                  |
+| สแกน i18n และสรุปคีย์                                | `npm run i18n:audit`       | บอกว่ามีคีย์ไหนที่ใช้ในโค้ดแต่ขาดในไฟล์ข้อความ       |
+| เติมคีย์ i18n ที่ขาด                                 | `npm run i18n:fill`        | เติมคีย์ที่ขาดด้วยค่าจาก `en.json` (กัน build พัง)   |
+| รายงานโครงสร้างโปรเจ็กต์ (ย่อ/ไฟล์เดียว)             | `npm run xray:single`      | สร้าง `reports/PROJECT-REPORT.md`                    |
+| ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” (ไฟล์เดียว)     | `npm run repo:dump:single` | สร้าง `reports/REPO-DUMP.md`                         |
+| ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” (แยกไฟล์)       | `npm run repo:dump:split`  | สร้างรายงานหลายไฟล์ใน `reports/`                     |
+| ดึงทุกอย่างจริงๆ (รวม dotfiles, .env, ไบนารี base64) | `npm run repo:dump:all`    | สร้าง `reports/REPO-ALL.md` (ไฟล์ใหญ่มาก)            |
+| ติดตั้ง Husky (ครั้งเดียว)                           | `npm run prepare`          | เปิดใช้งาน Git hooks จาก Husky                       |
 
-- สร้าง build โปรดักชัน:  
-  `npm run build`  
-  หากมี error เรื่อง **Suspense / useSearchParams** หรือ i18n, ทำตามหัวข้อ “Troubleshooting” ด้านล่าง
+> หมายเหตุ: โฟลเดอร์รายงานคือ `reports/` (ควรใส่ใน `.gitignore` แล้ว)
 
-## ตรวจโค้ดพื้นฐาน
+---
 
-- Lint (ESLint):  
-  `npm run lint`
-- เทส (Vitest):  
-  `npm run test`
+## การพัฒนาในเครื่อง (Dev)
 
-## การแปลภาษา (i18n)
+1. รัน: **`npm run dev`**
+2. เปิดเว็บ: **`http://localhost:3000`**
+3. หยุดเซิร์ฟเวอร์: กด **Ctrl + C** ในเทอร์มินัล
 
-- สแกนโค้ดทั้งหมดเพื่อหาคีย์ข้อความที่ใช้งาน แล้วเติมให้แต่ละไฟล์ข้อความ:  
-  `npm run i18n:audit`  
-  แสดงผลว่าแต่ละ locale ขาดคีย์ไหม
-- เติมข้อความที่ขาดโดยดึงค่าจาก en.json (กัน build พัง):  
-  `npm run i18n:fill`
+**ผลลัพธ์ที่คาดหวัง**
 
-> หมายเหตุ: ทั้งสองคำสั่งไม่แปลภาษาให้อัตโนมัติ แต่จะทำให้ไฟล์ locale ครบคีย์ก่อน (ใช้ข้อความภาษาอังกฤษชั่วคราว)
+- เทอร์มินัลแสดง “✓ Ready in Xs”
+- แก้โค้ดไฟล์ใน `src/` หน้าเว็บจะรีโหลดอัตโนมัติ (Hot Reload)
+
+---
+
+## สร้างไฟล์สำหรับโปรดักชัน (Build) และรันจริง
+
+1. รัน build: **`npm run build`**
+   - ถ้ามี error ให้ดูหัวข้อ **Troubleshooting** ด้านล่าง
+2. รันจาก build: **`npm run start`** (เปิดพอร์ตเริ่มต้น 3000)
+
+**ผลลัพธ์ที่คาดหวัง**
+
+- เห็นข้อความ `Compiled successfully` และขึ้นขั้นตอน `Generating static pages` จนครบ
+- โฟลเดอร์ `.next/` ถูกสร้าง/อัปเดต
+
+---
+
+## ตรวจโค้ดและรันเทส
+
+- เช็กกฎโค้ด (ESLint): **`npm run lint`**
+  - ถ้าเงียบๆ แปลว่าไม่พบปัญหา
+- รันเทสทั้งหมด (Vitest): **`npm run test`**
+  - ถ้าผ่านจะสรุป `X passed`
+- เปิดโหมดดูผลสด: **`npm run test:watch`**
+
+---
+
+## ระบบแปลภาษา (i18n)
+
+ไฟล์ข้อความอยู่ที่ `src/messages/*.json` โดย **`en.json`** เป็นฐานหลัก
+
+- ตรวจหาคีย์ข้อความที่ใช้ในโค้ด (รวมที่ยังไม่มีในไฟล์):  
+  **`npm run i18n:audit`**
+  - แสดงจำนวนคีย์ที่ระบบใช้งานจริง และสรุปแต่ละ locale ขาดคีย์หรือไม่
+- เติมคีย์ที่ “ขาด/ว่าง” โดยใช้ค่าจาก `en.json` ชั่วคราว:  
+  **`npm run i18n:fill`**
+  - ป้องกัน build พังจากคีย์หาย
+  - **ไม่แก้ค่าที่มีอยู่แล้ว** (จะแตะเฉพาะคีย์ที่ไม่มี/ว่าง)
+
+> เคล็ดลับ: ถ้าเพิ่มหน้าหรือคอมโพเนนต์ใหม่ที่เรียก `t('some.key')` ให้รัน `i18n:audit` → `i18n:fill` เพื่อให้ไฟล์ locale ครบก่อน
+
+---
 
 ## รายงานโครงสร้างโปรเจ็กต์ (XRAY)
 
-- สร้างรายงานสรุปไฟล์/เพจ/โครงสร้าง i18n:  
-  `npm run xray:single`  
-  ไฟล์รายงานจะอยู่ในโฟลเดอร์ `reports/` (เช่น `reports/PROJECT-XRAY.md`)
+- **ย่อ/ไฟล์เดียว:** `npm run xray:single`  
+  สร้าง `reports/PROJECT-REPORT.md` สรุปเพจ, เลย์เอาต์, ไฟล์ข้อความ i18n ฯลฯ
+
+---
+
+## ดึง “โครงสร้าง + โค้ดทุกไฟล์ข้อความ” เป็น Markdown
+
+> ใช้เมื่ออยากส่งให้ทีมตรวจทั้งหมด (หรือแนบใน issue)  
+> ค่าเริ่มต้นจะ **ไม่ใส่เนื้อหา** ของไฟล์ `.env*` และไฟล์ไบนารี เพื่อความปลอดภัย
+
+- **ไฟล์เดียว:** `npm run repo:dump:single`
+  - ผลลัพธ์: `reports/REPO-DUMP.md`
+  - มี 3 ส่วน: Tree (แผนผังไฟล์), Inventory (ตารางไฟล์ทั้งหมด), Files (โค้ดเต็มของไฟล์ข้อความ)
+- **แยกไฟล์รายซอร์ส:** `npm run repo:dump:split`
+  - ผลลัพธ์: รายงานหลายไฟล์ใน `reports/` และโฟลเดอร์ `reports/files/**.md`
+- **รวมทุกอย่างจริงๆ (ระวังความลับ!):** `npm run repo:dump:all`
+  - รวม dotfiles + `.env*` + ไบนารี (แปลง base64) → `reports/REPO-ALL.md`
+
+---
 
 ## ทดสอบฟอร์มติดต่อ (Contact API)
 
-1. ตั้งค่า `.env.local` ให้ครบ (SMTP + Turnstile test keys)
-2. รัน `npm run dev` แล้วเปิดหน้า `/en/contact` ส่งฟอร์มทดสอบ
-3. เช็คอินบ็อกซ์ปลายทาง (ค่าจาก `CONTACT_RECIPIENT_EMAIL`) หรือดู log ของ Mailtrap
+1. สร้างไฟล์ `.env.local` ในรากโปรเจ็กต์ และตั้งค่าคีย์ SMTP / Turnstile (ตัวอย่าง)
 
-## Troubleshooting (ที่พบบ่อย)
+   ```ini
+   # อีเมลผู้รับปลายทาง (ดูผล)
+   CONTACT_RECIPIENT_EMAIL=your@email.com
 
-- **useSearchParams ต้องอยู่ใน Client Component และถูกครอบด้วย `<Suspense>`**  
-  ถ้า build ขึ้น error ประมาณ “useSearchParams() should be wrapped in a suspense boundary”:  
-  ให้เอาคอมโพเนนต์ที่ใช้ `useSearchParams()` ไปแยกเป็นไฟล์/คอมโพเนนต์ `use client` และเวลานำไปใช้ในเพจ ให้ครอบด้วย
-  ```tsx
-  import { Suspense } from 'react';
-  <Suspense fallback={null}>
-    <YourClientComponent />
-  </Suspense>;
-  ```
+   # ค่าจากผู้ให้บริการ SMTP (เช่น Mailtrap, Gmail SMTP ฯลฯ)
+   SMTP_HOST=smtp.mailtrap.io
+   SMTP_PORT=2525
+   SMTP_SECURE=false
+   SMTP_USER=xxxxxxxxxxxxxx
+   SMTP_PASS=xxxxxxxxxxxxxx
+
+   # Cloudflare Turnstile (โหมดทดสอบ)
+   TURNSTILE_SITE_KEY=1x00000000000000000000AA
+   TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+   ```
