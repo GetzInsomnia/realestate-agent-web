@@ -1,5 +1,5 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zomzomproperty.com";
-const locales = ["th", "en", "zh-CN", "zh-TW", "my", "ru"];
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zomzomproperty.com';
+const locales = ['th', 'en', 'zh-CN', 'zh-TW', 'my', 'ru'];
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
@@ -8,14 +8,14 @@ const config = {
   generateIndexSitemap: true,
   transform: async (_, loc) => {
     const alternateRefs = locales.map((locale) => ({
-      href: `${siteUrl.replace(/\/$/, "")}/${locale}${loc === "/" ? "" : loc}`,
+      href: `${siteUrl.replace(/\/$/, '')}/${locale}${loc === '/' ? '' : loc}`,
       hreflang: locale,
     }));
 
     return {
-      loc: `${siteUrl.replace(/\/$/, "")}${loc}`,
-      changefreq: "weekly",
-      priority: loc === "/" ? 1 : 0.7,
+      loc: `${siteUrl.replace(/\/$/, '')}${loc}`,
+      changefreq: 'weekly',
+      priority: loc === '/' ? 1 : 0.7,
       alternateRefs,
     };
   },

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type { ReactNode } from "react";
-import BackToTop from "./BackToTop";
-import Footer, { type FooterLink } from "./Footer";
-import Navigation, { type NavItem } from "./Navigation";
-import { SectionObserverProvider } from "./SectionObserver";
+import type { ReactNode } from 'react';
+import BackToTop from './BackToTop';
+import Footer, { type FooterLink } from './Footer';
+import Navigation, { type NavItem } from './Navigation';
+import { SectionObserverProvider } from './SectionObserver';
 
 export default function LayoutShell({
   children,

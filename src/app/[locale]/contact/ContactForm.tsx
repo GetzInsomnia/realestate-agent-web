@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useTransition } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { useState, useTransition } from 'react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 export type ContactCopy = {
   intro: string;
@@ -29,42 +29,42 @@ export default function ContactForm({
   copy: ContactCopy;
   turnstileSiteKey: string;
 }) {
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [message, setMessage] = useState<string>("");
-  const [token, setToken] = useState<string>("");
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState<string>('');
+  const [token, setToken] = useState<string>('');
   const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(formData: FormData) {
-    setStatus("idle");
-    setMessage("");
+    setStatus('idle');
+    setMessage('');
 
     const payload = {
-      name: formData.get("name")?.toString() ?? "",
-      email: formData.get("email")?.toString() ?? "",
-      phone: formData.get("phone")?.toString() ?? "",
-      budget: formData.get("budget")?.toString() ?? "",
-      message: formData.get("message")?.toString() ?? "",
+      name: formData.get('name')?.toString() ?? '',
+      email: formData.get('email')?.toString() ?? '',
+      phone: formData.get('phone')?.toString() ?? '',
+      budget: formData.get('budget')?.toString() ?? '',
+      message: formData.get('message')?.toString() ?? '',
       locale,
       turnstileToken: token,
-      honeypot: formData.get("website")?.toString() ?? "",
+      honeypot: formData.get('website')?.toString() ?? '',
     };
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       const result = await response.json();
       if (!response.ok) {
-        setStatus("error");
+        setStatus('error');
         setMessage(result.message ?? copy.error);
         return;
       }
-      setStatus("success");
+      setStatus('success');
       setMessage(result.message ?? copy.success);
     } catch {
-      setStatus("error");
+      setStatus('error');
       setMessage(copy.error);
     }
   }
@@ -132,9 +132,9 @@ export default function ContactForm({
       <div className="flex flex-col gap-3">
         <Turnstile
           siteKey={turnstileSiteKey}
-          options={{ theme: "light" }}
-          onSuccess={(value) => setToken(value ?? "")}
-          onExpire={() => setToken("")}
+          options={{ theme: 'light' }}
+          onSuccess={(value) => setToken(value ?? '')}
+          onExpire={() => setToken('')}
         />
         <button
           type="submit"
@@ -144,8 +144,10 @@ export default function ContactForm({
           {isPending ? copy.sending : copy.submit}
         </button>
       </div>
-      {status !== "idle" && (
-        <p className={`text-sm ${status === "success" ? "text-emerald-600" : "text-rose-600"}`}>
+      {status !== 'idle' && (
+        <p
+          className={`text-sm ${status === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}
+        >
           {message}
         </p>
       )}

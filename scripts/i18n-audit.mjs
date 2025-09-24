@@ -111,7 +111,8 @@ function sortObject(value) {
 function extractTranslationKeys(content) {
   const translatorMap = new Map();
 
-  const useTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*useTranslations\s*\(\s*(?:(['"`])([^'"`]+)\2)?\s*\)/g;
+  const useTranslationsRegex =
+    /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*useTranslations\s*\(\s*(?:(['"`])([^'"`]+)\2)?\s*\)/g;
   let match;
 
   while ((match = useTranslationsRegex.exec(content)) !== null) {
@@ -120,7 +121,8 @@ function extractTranslationKeys(content) {
     translatorMap.set(variable, namespace);
   }
 
-  const getTranslationsRegex = /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:await\s*)?getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/g;
+  const getTranslationsRegex =
+    /(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:await\s*)?getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/g;
 
   while ((match = getTranslationsRegex.exec(content)) !== null) {
     const variable = match[1];
@@ -132,14 +134,17 @@ function extractTranslationKeys(content) {
     }
   }
 
-  const destructuredRegex = /const\s*\[\s*([^\]]+)\s*\]\s*=\s*await\s*Promise\.all\s*\(\s*\[([\s\S]*?)\]\s*\)/g;
+  const destructuredRegex =
+    /const\s*\[\s*([^\]]+)\s*\]\s*=\s*await\s*Promise\.all\s*\(\s*\[([\s\S]*?)\]\s*\)/g;
 
   while ((match = destructuredRegex.exec(content)) !== null) {
     const variableList = splitTopLevel(match[1]);
     const expressionList = splitTopLevel(match[2]);
 
     expressionList.forEach((expression, index) => {
-      const namespaceMatch = /getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/.exec(expression);
+      const namespaceMatch = /getTranslations\s*\(\s*\{([\s\S]*?)\}\s*\)/.exec(
+        expression,
+      );
       if (!namespaceMatch) {
         return;
       }
@@ -157,8 +162,7 @@ function extractTranslationKeys(content) {
   const keys = new Set();
 
   for (const [variable, namespace] of translatorMap) {
-    const pattern =
-      escapeRegex(variable) + "\\s*\\(\\s*(['\\\"`])([^'\\\"`]+)\\1";
+    const pattern = escapeRegex(variable) + '\\s*\\(\\s*([\'\\"`])([^\'\\"`]+)\\1';
     const callRegex = new RegExp(pattern, 'g');
     let callMatch;
 
@@ -197,7 +201,9 @@ async function writeJson(filepath, data) {
 }
 
 async function main() {
-  const sourceFiles = await collectFiles(SRC_DIR, (filepath) => /\.(?:ts|tsx)$/.test(filepath));
+  const sourceFiles = await collectFiles(SRC_DIR, (filepath) =>
+    /\.(?:ts|tsx)$/.test(filepath),
+  );
   const discoveredKeys = new Set();
 
   for (const file of sourceFiles) {
@@ -206,7 +212,9 @@ async function main() {
     keys.forEach((key) => discoveredKeys.add(key));
   }
 
-  const messageFiles = (await fs.readdir(MESSAGES_DIR)).filter((file) => file.endsWith('.json')).sort();
+  const messageFiles = (await fs.readdir(MESSAGES_DIR))
+    .filter((file) => file.endsWith('.json'))
+    .sort();
 
   if (!messageFiles.includes(EN_LOCALE)) {
     console.error(`Missing base locale file: ${EN_LOCALE}`);
@@ -245,7 +253,10 @@ async function main() {
       }
 
       const baseValue = currentEnFlat[key];
-      const hadOriginalEnValue = Object.prototype.hasOwnProperty.call(originalEnFlat, key);
+      const hadOriginalEnValue = Object.prototype.hasOwnProperty.call(
+        originalEnFlat,
+        key,
+      );
 
       let nextValue = baseValue;
       let usedFallback = false;

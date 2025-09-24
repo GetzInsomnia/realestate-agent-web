@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type { AbstractIntlMessages } from "next-intl";
-import { NextIntlClientProvider } from "next-intl";
-import type { ReactNode } from "react";
-import { SWRConfig } from "swr";
-import { defaultSWRConfig } from "@/lib/swr-config";
+import type { AbstractIntlMessages } from 'next-intl';
+import { NextIntlClientProvider } from 'next-intl';
+import type { ReactNode } from 'react';
+import { SWRConfig } from 'swr';
+import { defaultSWRConfig } from '@/lib/swr-config';
 
 type Props = {
   locale: string;

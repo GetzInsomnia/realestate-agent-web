@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -7,13 +7,19 @@ import {
   useMemo,
   useState,
   type ReactNode,
-} from "react";
+} from 'react';
 
 const SectionObserverContext = createContext<{
   activeSection: string;
 } | null>(null);
 
-function SectionObserver({ sectionIds, onChange }: { sectionIds: string[]; onChange: (id: string) => void }) {
+function SectionObserver({
+  sectionIds,
+  onChange,
+}: {
+  sectionIds: string[];
+  onChange: (id: string) => void;
+}) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -26,7 +32,7 @@ function SectionObserver({ sectionIds, onChange }: { sectionIds: string[]; onCha
       },
       {
         threshold: [0.2, 0.4, 0.6],
-        rootMargin: "-20% 0px -35% 0px",
+        rootMargin: '-20% 0px -35% 0px',
       },
     );
 
@@ -50,7 +56,7 @@ export function SectionObserverProvider({
   sectionIds: string[];
   children: ReactNode;
 }) {
-  const [activeSection, setActiveSection] = useState(sectionIds[0] ?? "hero");
+  const [activeSection, setActiveSection] = useState(sectionIds[0] ?? 'hero');
 
   useEffect(() => {
     document.body.dataset.activeSection = activeSection;
@@ -72,7 +78,7 @@ export function SectionObserverProvider({
 export function useActiveSection() {
   const context = useContext(SectionObserverContext);
   if (!context) {
-    throw new Error("useActiveSection must be used within SectionObserverProvider");
+    throw new Error('useActiveSection must be used within SectionObserverProvider');
   }
   return context.activeSection;
 }

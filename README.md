@@ -32,15 +32,15 @@ The contact endpoint sends submissions to `zomzomproperty@gmail.com` and enforce
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `pnpm dev` | Start the Next.js development server |
-| `pnpm build` | Create a production build |
-| `pnpm start` | Run the production build |
-| `pnpm lint` | Lint the project with ESLint |
-| `pnpm test` | Run Vitest unit tests |
-| `pnpm xray` | Show a project summary (files, line counts) |
-| `pnpm xray:single -- <path>` | Show details for a specific file |
+| Command                      | Description                                 |
+| ---------------------------- | ------------------------------------------- |
+| `pnpm dev`                   | Start the Next.js development server        |
+| `pnpm build`                 | Create a production build                   |
+| `pnpm start`                 | Run the production build                    |
+| `pnpm lint`                  | Lint the project with ESLint                |
+| `pnpm test`                  | Run Vitest unit tests                       |
+| `pnpm xray`                  | Show a project summary (files, line counts) |
+| `pnpm xray:single -- <path>` | Show details for a specific file            |
 
 ## Testing
 

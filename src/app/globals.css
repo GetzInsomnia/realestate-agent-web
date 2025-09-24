@@ -20,7 +20,8 @@ main {
 }
 
 .section-gradient {
-  background-image: radial-gradient(circle at top, rgba(37, 99, 235, 0.12), transparent 55%),
+  background-image:
+    radial-gradient(circle at top, rgba(37, 99, 235, 0.12), transparent 55%),
     radial-gradient(circle at bottom, rgba(14, 116, 144, 0.1), transparent 45%);
 }
 
@@ -28,14 +29,14 @@ main {
   @apply rounded-3xl border border-slate-100/60 bg-white/70 p-6 shadow-soft backdrop-blur;
 }
 
-[data-active-section="listings"] [data-nav="listings"],
-[data-active-section="articles"] [data-nav="articles"],
-[data-active-section="contact"] [data-nav="contact"] {
+[data-active-section='listings'] [data-nav='listings'],
+[data-active-section='articles'] [data-nav='articles'],
+[data-active-section='contact'] [data-nav='contact'] {
   @apply text-brand-600 after:w-full;
 }
 
 [data-nav]::after {
-  content: "";
+  content: '';
   @apply block h-0.5 w-0 bg-brand-500 transition-all duration-300 ease-in-out;
 }
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import {promises as fs} from 'node:fs';
+import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -9,28 +9,74 @@ const rel = (p) => toPosix(path.relative(projectRoot, p));
 const nowIso = () => new Date().toISOString();
 
 const DEFAULT_IGNORES = new Set([
-  'node_modules', '.next', '.git', 'dist', 'build', '.turbo', '.vercel', 'coverage', 'reports'
+  'node_modules',
+  '.next',
+  '.git',
+  'dist',
+  'build',
+  '.turbo',
+  '.vercel',
+  'coverage',
+  'reports',
 ]);
 
 const TEXT_EXT = new Set([
-  '.js','.mjs','.cjs','.ts','.tsx','.jsx',
-  '.json','.md','.css','.scss','.sass','.less',
-  '.html','.htm','.yml','.yaml','.env','.env.local','.env.example',
-  '.txt','.svg','.gitignore','.gitattributes'
+  '.js',
+  '.mjs',
+  '.cjs',
+  '.ts',
+  '.tsx',
+  '.jsx',
+  '.json',
+  '.md',
+  '.css',
+  '.scss',
+  '.sass',
+  '.less',
+  '.html',
+  '.htm',
+  '.yml',
+  '.yaml',
+  '.env',
+  '.env.local',
+  '.env.example',
+  '.txt',
+  '.svg',
+  '.gitignore',
+  '.gitattributes',
 ]);
 
 const FENCE = {
-  '.ts':'ts', '.tsx':'tsx', '.js':'js', '.jsx':'jsx', '.mjs':'js', '.cjs':'js',
-  '.json':'json', '.md':'md', '.css':'css', '.scss':'scss', '.sass':'sass', '.less':'less',
-  '.html':'html', '.htm':'html', '.yml':'yaml', '.yaml':'yaml', '.svg':'xml',
-  '.sh':'bash', '.bat':'bat', '.ps1':'powershell', '.env':'ini', '.env.local':'ini', '.txt':''
+  '.ts': 'ts',
+  '.tsx': 'tsx',
+  '.js': 'js',
+  '.jsx': 'jsx',
+  '.mjs': 'js',
+  '.cjs': 'js',
+  '.json': 'json',
+  '.md': 'md',
+  '.css': 'css',
+  '.scss': 'scss',
+  '.sass': 'sass',
+  '.less': 'less',
+  '.html': 'html',
+  '.htm': 'html',
+  '.yml': 'yaml',
+  '.yaml': 'yaml',
+  '.svg': 'xml',
+  '.sh': 'bash',
+  '.bat': 'bat',
+  '.ps1': 'powershell',
+  '.env': 'ini',
+  '.env.local': 'ini',
+  '.txt': '',
 };
 
 function parseArgs() {
   const a = process.argv.slice(2);
   const get = (flag, def) => {
     const i = a.indexOf(flag);
-    return i !== -1 ? a[i+1] : def;
+    return i !== -1 ? a[i + 1] : def;
   };
   const has = (flag) => a.includes(flag);
 
@@ -46,14 +92,14 @@ function parseArgs() {
     b64Binaries: has('--b64-binaries'),
     includeEnv: has('--include-env'),
     includeAll: has('--include-all'), // disable default ignores
-    maxBytes: Number(get('--max-bytes', '0')) || 0 // 0 = no limit
+    maxBytes: Number(get('--max-bytes', '0')) || 0, // 0 = no limit
   };
 }
 
 async function walk(dir, opts, bag = []) {
   let entries;
   try {
-    entries = await fs.readdir(dir, {withFileTypes: true});
+    entries = await fs.readdir(dir, { withFileTypes: true });
   } catch {
     return bag;
   }
@@ -91,7 +137,7 @@ async function isBinaryFile(abs) {
   try {
     const fd = await fs.open(abs, 'r');
     const buf = Buffer.alloc(1024);
-    const {bytesRead} = await fd.read(buf, 0, buf.length, 0);
+    const { bytesRead } = await fd.read(buf, 0, buf.length, 0);
     await fd.close();
     const slice = buf.subarray(0, bytesRead);
     for (let i = 0; i < slice.length; i++) {
@@ -128,7 +174,7 @@ function renderTree(files, root) {
   }
 
   function walkNode(node, prefix = '') {
-    const keys = Object.keys(node).sort((a,b) => {
+    const keys = Object.keys(node).sort((a, b) => {
       const da = node[a] && typeof node[a] === 'object';
       const db = node[b] && typeof node[b] === 'object';
       if (da !== db) return da ? -1 : 1;
@@ -150,7 +196,7 @@ function renderTree(files, root) {
 
 async function buildDump(opts) {
   const files = await walk(opts.root, opts);
-  files.sort((a,b) => rel(a).localeCompare(rel(b)));
+  files.sort((a, b) => rel(a).localeCompare(rel(b)));
 
   const rows = [];
   let totalSize = 0;
@@ -159,7 +205,11 @@ async function buildDump(opts) {
 
   for (const abs of files) {
     let stat;
-    try { stat = await fs.stat(abs); } catch { continue; }
+    try {
+      stat = await fs.stat(abs);
+    } catch {
+      continue;
+    }
     totalSize += stat.size;
 
     const r = rel(abs);
@@ -180,7 +230,8 @@ async function buildDump(opts) {
       binary = await isBinaryFile(abs);
       if (binary && !opts.includeBinaries) {
         includeContent = false;
-        reason = '(skipped content: binary — pass --include-binaries to include; optionally --b64-binaries)';
+        reason =
+          '(skipped content: binary — pass --include-binaries to include; optionally --b64-binaries)';
       }
     }
 
@@ -199,7 +250,9 @@ async function buildDump(opts) {
           const b64 = contentBuf.toString('base64');
           sections.push(`${header}_Encoding:_ base64\n\`\`\`\n${b64}\n\`\`\`\n`);
         } else {
-          sections.push(`${header}_Binary file included as raw bytes preview disabled._\n`);
+          sections.push(
+            `${header}_Binary file included as raw bytes preview disabled._\n`,
+          );
         }
       } else {
         const fence = codeFenceFor(abs);
@@ -212,30 +265,28 @@ async function buildDump(opts) {
   }
 
   const treeMd = renderTree(files, opts.root);
-  const inventoryMd =
-`# Inventory\nGenerated: ${nowIso()}
+  const inventoryMd = `# Inventory\nGenerated: ${nowIso()}
 
 Total files: ${files.length}
-Total size : ${(totalSize/1024).toFixed(2)} KB
+Total size : ${(totalSize / 1024).toFixed(2)} KB
 
 | File | Ext | Bytes | Mode |
 |------|-----|-------|------|
-${rows.map(r => `| ${r[0]} | ${r[1]} | ${r[2]} | ${r[3]} |`).join('\n')}
+${rows.map((r) => `| ${r[0]} | ${r[1]} | ${r[2]} | ${r[3]} |`).join('\n')}
 `;
 
-  return {treeMd, sections, inventoryMd};
+  return { treeMd, sections, inventoryMd };
 }
 
 async function writeOutputs(opts) {
-  const {treeMd, sections, inventoryMd} = await buildDump(opts);
+  const { treeMd, sections, inventoryMd } = await buildDump(opts);
 
-  const ensureDir = async (p) => fs.mkdir(p, {recursive: true});
+  const ensureDir = async (p) => fs.mkdir(p, { recursive: true });
 
   if (opts.single) {
     const outFile = path.isAbsolute(opts.out) ? opts.out : path.join(opts.root, opts.out);
     await ensureDir(path.dirname(outFile));
-    const single =
-`# REPOSITORY DUMP
+    const single = `# REPOSITORY DUMP
 _Generated: ${nowIso()}_
 
 ## 1) Tree
@@ -256,8 +307,11 @@ ${sections.join('\n')}
   const outDir = path.isAbsolute(opts.out) ? opts.out : path.join(opts.root, opts.out);
   await ensureDir(outDir);
   await fs.writeFile(path.join(outDir, 'REPO-TREE.md'), treeMd + '\n', 'utf8');
-  await fs.writeFile(path.join(outDir, 'ALL_FILES.md'),
-    `# ALL FILES (Full contents)\n_Generated: ${nowIso()}_\n\n${sections.join('\n')}`, 'utf8');
+  await fs.writeFile(
+    path.join(outDir, 'ALL_FILES.md'),
+    `# ALL FILES (Full contents)\n_Generated: ${nowIso()}_\n\n${sections.join('\n')}`,
+    'utf8',
+  );
   await fs.writeFile(path.join(outDir, 'INVENTORY.md'), inventoryMd, 'utf8');
 
   if (opts.split) {
@@ -272,7 +326,9 @@ ${sections.join('\n')}
     }
   }
 
-  console.log(`✔ Wrote:\n- ${rel(path.join(outDir, 'REPO-TREE.md'))}\n- ${rel(path.join(outDir, 'ALL_FILES.md'))}\n- ${rel(path.join(outDir, 'INVENTORY.md'))}${'\n'}${opts.split ? `- ${rel(path.join(outDir, 'files/'))} (per-file .md)` : ''}`);
+  console.log(
+    `✔ Wrote:\n- ${rel(path.join(outDir, 'REPO-TREE.md'))}\n- ${rel(path.join(outDir, 'ALL_FILES.md'))}\n- ${rel(path.join(outDir, 'INVENTORY.md'))}${'\n'}${opts.split ? `- ${rel(path.join(outDir, 'files/'))} (per-file .md)` : ''}`,
+  );
 }
 
 (async function main() {

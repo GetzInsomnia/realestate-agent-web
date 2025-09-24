@@ -1,7 +1,7 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-import tailwindPlugin from "eslint-plugin-tailwindcss";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { FlatCompat } from '@eslint/eslintrc';
+import tailwindPlugin from 'eslint-plugin-tailwindcss';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -11,14 +11,14 @@ const compat = new FlatCompat({
 });
 
 const config = [
-  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
+  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
   {
     plugins: {
       tailwindcss: tailwindPlugin,
     },
     rules: {
-      "tailwindcss/no-custom-classname": "off",
-      "tailwindcss/classnames-order": "warn",
+      'tailwindcss/no-custom-classname': 'off',
+      'tailwindcss/classnames-order': 'warn',
     },
     settings: {
       tailwindcss: {
@@ -28,12 +28,12 @@ const config = [
   },
   {
     ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-      "coverage/**",
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'build/**',
+      'next-env.d.ts',
+      'coverage/**',
     ],
   },
 ];

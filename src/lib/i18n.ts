@@ -36,7 +36,10 @@ function stripLeadingLocale(pathname: string) {
  * คืนชุดลิงก์ hreflang สำหรับทุก locale + 'x-default'
  * key = hreflang code, value = absolute-ish path (ต่อ base เองใน SEO)
  */
-export function getHreflangLocales(current: AppLocale, pathname = '/'): Record<string, string> {
+export function getHreflangLocales(
+  current: AppLocale,
+  pathname = '/',
+): Record<string, string> {
   const clean = pathname.startsWith('/') ? pathname : `/${pathname}`;
   const basePath = stripLeadingLocale(clean);
   const pathPart = basePath === '/' ? '' : basePath;
@@ -80,7 +83,8 @@ export async function loadMessages(
   input: string | AppLocale,
 ): Promise<{ locale: AppLocale; messages: AbstractIntlMessages; timeZone?: string }> {
   const locale = isValidLocale(String(input)) ? (input as AppLocale) : fallbackLocale;
-  const messages: AbstractIntlMessages = (await import(`../messages/${locale}.json`)).default;
+  const messages: AbstractIntlMessages = (await import(`../messages/${locale}.json`))
+    .default;
   const timeZone = process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok';
   return { locale, messages, timeZone };
 }

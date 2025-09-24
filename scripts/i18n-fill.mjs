@@ -70,7 +70,9 @@ async function writeJson(filepath, data) {
 }
 
 async function main() {
-  const files = (await fs.readdir(MESSAGES_DIR)).filter((file) => file.endsWith('.json')).sort();
+  const files = (await fs.readdir(MESSAGES_DIR))
+    .filter((file) => file.endsWith('.json'))
+    .sort();
 
   if (!files.includes(EN_LOCALE)) {
     console.error(`Missing base locale file: ${EN_LOCALE}`);

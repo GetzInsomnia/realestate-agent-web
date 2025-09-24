@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export type FooterLink = {
   label: string;
@@ -23,7 +23,11 @@ export default function Footer({
         </div>
         <nav className="flex flex-wrap gap-4 text-sm text-slate-600">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="transition hover:text-brand-600">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="transition hover:text-brand-600"
+            >
               {item.label}
             </Link>
           ))}

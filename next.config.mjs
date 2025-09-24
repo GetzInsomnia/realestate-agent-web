@@ -1,23 +1,23 @@
-import createNextIntlPlugin from "next-intl/plugin";
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin("./src/lib/i18n.ts");
+const withNextIntl = createNextIntlPlugin('./src/lib/i18n.ts');
 
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
     serverActions: {
-      bodySizeLimit: "2mb",
+      bodySizeLimit: '2mb',
     },
   },
   eslint: {
-    dirs: ["src", "scripts"],
+    dirs: ['src', 'scripts'],
   },
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   swcMinify: true,
   compiler: {
     removeConsole: {
-      exclude: ["error"],
+      exclude: ['error'],
     },
   },
 };

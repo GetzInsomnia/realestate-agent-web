@@ -1,5 +1,5 @@
-import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: Array<string | undefined | null | false>) {
   return twMerge(clsx(inputs));
@@ -7,7 +7,7 @@ export function cn(...inputs: Array<string | undefined | null | false>) {
 
 export function formatCurrency(value: number, locale: string, currency: string) {
   return new Intl.NumberFormat(locale, {
-    style: "currency",
+    style: 'currency',
     currency,
     maximumFractionDigits: 0,
   }).format(value);
@@ -15,9 +15,9 @@ export function formatCurrency(value: number, locale: string, currency: string) 
 
 export function formatDate(value: string, locale: string) {
   return new Intl.DateTimeFormat(locale, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   }).format(new Date(value));
 }
 
