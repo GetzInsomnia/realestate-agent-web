@@ -9,6 +9,9 @@ import { formatDate } from '@/lib/utils';
 import { createPageMetadata, getAbsoluteUrl } from '@/lib/seo';
 import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
 
+const stripArticlesNs = (key: string) =>
+  key.startsWith('articles.') ? key.replace(/^articles\./, '') : key;
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -48,7 +51,7 @@ export default async function ArticlesPage({ params }: { params: { locale?: stri
       '@type': 'ListItem',
       position: index + 1,
       url: getAbsoluteUrl(`/${locale}/articles/${article.slug}`),
-      name: tArticles(`items.${article.id}.title`),
+      name: tArticles(stripArticlesNs(article.titleKey)),
     })),
   };
 
@@ -75,10 +78,10 @@ export default async function ArticlesPage({ params }: { params: { locale?: stri
               <span>{tArticles('readTime', { minutes: article.readingMinutes })}</span>
             </div>
             <h2 className="mt-4 text-2xl font-semibold text-slate-900">
-              {tArticles(`items.${article.id}.title`)}
+              {tArticles(stripArticlesNs(article.titleKey))}
             </h2>
             <p className="mt-2 text-sm text-slate-600">
-              {tArticles(`items.${article.id}.excerpt`)}
+              {tArticles(stripArticlesNs(article.excerptKey))}
             </p>
             <Link
               href={`/${locale}/articles/${article.slug}`}
