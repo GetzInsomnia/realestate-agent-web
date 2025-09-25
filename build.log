@@ -1,0 +1,61 @@
+
+> real-estate-multilingual@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.15
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/48) ...
+   Generating static pages (12/48) 
+   Generating static pages (24/48) 
+   Generating static pages (36/48) 
+ Γ£ô Generating static pages (48/48)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                     Size     First Load JS
+Γöî Γùï /                                           1.52 kB        88.8 kB
+Γö£ Γùï /_not-found                                 142 B          87.4 kB
+Γö£ ΓùÅ /[locale]                                   38.6 kB         163 kB
+Γö£   Γö£ /th
+Γö£   Γö£ /en
+Γö£   Γö£ /zh-CN
+Γö£   Γöö [+3 more paths]
+Γö£ ΓùÅ /[locale]/articles                          209 B           123 kB
+Γö£   Γö£ /th/articles
+Γö£   Γö£ /en/articles
+Γö£   Γö£ /zh-CN/articles
+Γö£   Γöö [+3 more paths]
+Γö£ ΓùÅ /[locale]/articles/[slug]                   203 B           123 kB
+Γö£   Γö£ /th/articles/buying-property-in-thailand
+Γö£   Γö£ /th/articles/residence-visa-pathways
+Γö£   Γö£ /th/articles/southeast-asia-market-pulse
+Γö£   Γöö [+15 more paths]
+Γö£ ΓùÅ /[locale]/contact                           3.21 kB         126 kB
+Γö£   Γö£ /th/contact
+Γö£   Γö£ /en/contact
+Γö£   Γö£ /zh-CN/contact
+Γö£   Γöö [+3 more paths]
+Γö£ ΓùÅ /[locale]/listings                          1.69 kB         129 kB
+Γö£   Γö£ /th/listings
+Γö£   Γö£ /en/listings
+Γö£   Γö£ /zh-CN/listings
+Γö£   Γöö [+3 more paths]
+Γö£ ╞Æ /api/contact                                0 B                0 B
+Γöö Γùï /icon.svg                                   0 B                0 B
++ First Load JS shared by all                   87.3 kB
+  Γö£ chunks/117-49282a4ee4e94dc3.js              31.6 kB
+  Γö£ chunks/fd9d1056-c00ae6d8f1e6f57a.js         53.6 kB
+  Γöö other shared chunks (total)                 2.09 kB
+
+
+╞Æ Middleware                                    62.7 kB
+
+Γùï  (Static)   prerendered as static content
+ΓùÅ  (SSG)      prerendered as static HTML (uses getStaticProps)
+╞Æ  (Dynamic)  server-rendered on demand
+
