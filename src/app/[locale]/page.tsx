@@ -46,7 +46,11 @@ export default async function LocaleHome({ params }: { params: { locale?: string
 
   const heroHighlights = highlights.items.map((item) => ({
     value: item.value,
-    label: tHome(`highlights.${item.id}`),
+    label: tHome(
+      item.labelKey.startsWith('home.')
+        ? item.labelKey.slice('home.'.length)
+        : item.labelKey
+    ),
   }));
 
   const tagLabels = {
