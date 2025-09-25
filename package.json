@@ -15,6 +15,7 @@
     "prepare": "husky",
     "i18n:audit": "node scripts/i18n-audit.mjs",
     "i18n:fill": "node scripts/i18n-fill.mjs",
+    "i18n:sync": "node scripts/i18n-sync.mjs",
     "repo:dump:single": "node scripts/repo-dump.mjs --single --out reports/REPO-DUMP.md",
     "repo:dump:split": "node scripts/repo-dump.mjs --out reports --split",
     "repo:dump:all": "node scripts/repo-dump.mjs --single --out reports/REPO-ALL.md --include-dotfiles --include-env --include-binaries --b64-binaries"
