@@ -9,6 +9,9 @@ import { formatDate } from '@/lib/utils';
 import { createPageMetadata, getAbsoluteUrl } from '@/lib/seo';
 import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
 
+const stripArticlesNs = (key: string) =>
+  key.startsWith('articles.') ? key.replace(/^articles\./, '') : key;
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -37,11 +40,11 @@ export async function generateMetadata({
       pathname: `/articles/${slug}`,
     });
   }
-  const t = await getTranslations({ locale, namespace: 'articles' });
+  const tArticles = await getTranslations({ locale, namespace: 'articles' });
   return createPageMetadata({
     locale: appLocale,
-    title: t(`items.${article.id}.title`),
-    description: t(`items.${article.id}.excerpt`),
+    title: tArticles(stripArticlesNs(article.titleKey)),
+    description: tArticles(stripArticlesNs(article.excerptKey)),
     pathname: `/articles/${article.slug}`,
   });
 }
@@ -65,8 +68,8 @@ export default async function ArticleDetail({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: tArticles(`items.${article.id}.title`),
-    description: tArticles(`items.${article.id}.excerpt`),
+    headline: tArticles(stripArticlesNs(article.titleKey)),
+    description: tArticles(stripArticlesNs(article.excerptKey)),
     datePublished: article.published,
     url: getAbsoluteUrl(`/${locale}/articles/${article.slug}`),
   };
@@ -83,15 +86,15 @@ export default async function ArticleDetail({
             {tArticles('readTime', { minutes: article.readingMinutes })}
           </p>
           <h1 className="text-3xl font-semibold text-slate-900">
-            {tArticles(`items.${article.id}.title`)}
+            {tArticles(stripArticlesNs(article.titleKey))}
           </h1>
           <p className="text-sm text-slate-600">
-            {tArticles(`items.${article.id}.excerpt`)}
+            {tArticles(stripArticlesNs(article.excerptKey))}
           </p>
         </header>
         <div className="prose prose-slate max-w-none text-sm leading-relaxed">
           {article.bodyKeys.map((key) => (
-            <p key={key}>{tArticles(key)}</p>
+            <p key={key}>{tArticles(stripArticlesNs(key))}</p>
           ))}
         </div>
       </article>
