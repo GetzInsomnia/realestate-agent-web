@@ -1,6 +1,6 @@
 // src/lib/i18n.ts
-import { getRequestConfig } from 'next-intl/server';
 import { createTranslator, type AbstractIntlMessages } from 'next-intl';
+import { getRequestConfig } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 // ---- Locales ---------------------------------------------------------------
@@ -10,6 +10,7 @@ export type AppLocale = (typeof locales)[number];
 
 export const defaultLocale: AppLocale = 'en';
 export const fallbackLocale: AppLocale = defaultLocale;
+export const defaultTimeZone = 'Asia/Bangkok';
 
 export function isValidLocale(input: unknown): input is AppLocale {
   return typeof input === 'string' && (locales as readonly string[]).includes(input);
@@ -69,13 +70,13 @@ export function getHreflangLocales(
 // โหลดไฟล์ข้อความตาม locale (คืนทั้ง locale ที่ใช้จริง + messages + timeZone)
 export async function loadMessages(
   localeLike: string,
-): Promise<{ locale: AppLocale; messages: AbstractIntlMessages; timeZone?: string }> {
+): Promise<{ locale: AppLocale; messages: AbstractIntlMessages; timeZone: string }> {
   const locale: AppLocale = isValidLocale(localeLike)
     ? (localeLike as AppLocale)
     : fallbackLocale;
   const messages = (await import(`../messages/${locale}.json`))
     .default as AbstractIntlMessages;
-  const timeZone = process.env.INTL_DEFAULT_TIME_ZONE || 'Asia/Bangkok';
+  const timeZone = defaultTimeZone;
   return { locale, messages, timeZone };
 }
 
@@ -94,12 +95,18 @@ export const routing = {
 // ---- next-intl request config (App Router) --------------------------------
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  const requested = await requestLocale; // ✅ ไม่ใช้พารามิเตอร์ 'locale' ที่ deprecated แล้ว
+  const requested = await requestLocale;
+
   if (!isValidLocale(requested)) {
     // ถ้า path ไม่ใช่ภาษาในระบบ => 404 (กันการ gen หน้าเพี้ยน)
     notFound();
   }
-  const locale = requested as AppLocale;
-  const { messages, timeZone } = await loadMessages(locale);
-  return { locale, messages, timeZone };
+
+  const { locale, messages } = await loadMessages(requested);
+
+  return {
+    locale,
+    messages,
+    timeZone: defaultTimeZone,
+  };
 });
