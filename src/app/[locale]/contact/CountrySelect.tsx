@@ -146,17 +146,14 @@ export default function CountrySelect({
           }
         }}
       >
-        <div className="grid h-9 grid-cols-[1.5rem_auto] items-center gap-1 text-left">
+        <div className="grid w-full grid-cols-[1.5rem_auto] items-center gap-1 text-left">
           <span
             className={`fi fi-${selected.code.toLowerCase()} block h-4 w-5 rounded-sm`}
             aria-hidden="true"
           />
-          <div className="flex min-w-0 items-center justify-between gap-2 text-xs">
-            <span className="shrink-0 uppercase text-slate-500">{selected.code}</span>
-            <span className="min-w-0 font-mono tabular-nums text-slate-700">
-              {selected.dialCode}
-            </span>
-          </div>
+          <span className="min-w-0 font-mono tabular-nums text-slate-700">
+            {selected.dialCode}
+          </span>
           <span className="sr-only">{selected.name}</span>
         </div>
       </button>
@@ -229,27 +226,14 @@ export default function CountrySelect({
                   });
                 }}
               >
-                <div className="grid h-9 grid-cols-[1.5rem_auto] items-center gap-1">
+                <div className="grid w-full grid-cols-[1.5rem_auto] items-center gap-1 text-left">
                   <span
                     className={`fi fi-${country.code.toLowerCase()} block h-4 w-5 rounded-sm`}
                     aria-hidden="true"
                   />
-                  <div className="flex min-w-0 items-center justify-between gap-2 text-xs">
-                    <span
-                      className={`shrink-0 uppercase ${
-                        isSelected ? 'text-brand-600' : 'text-slate-500'
-                      }`}
-                    >
-                      {country.code}
-                    </span>
-                    <span
-                      className={`min-w-0 font-mono tabular-nums ${
-                        isSelected ? 'text-brand-600' : 'text-slate-700'
-                      }`}
-                    >
-                      {country.dialCode}
-                    </span>
-                  </div>
+                  <span className="min-w-0 font-mono tabular-nums text-slate-700">
+                    {country.dialCode}
+                  </span>
                   <span className="sr-only">{country.name}</span>
                 </div>
               </button>
