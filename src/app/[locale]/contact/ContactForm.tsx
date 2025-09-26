@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import React, { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -94,8 +94,21 @@ export default function ContactForm({
   turnstileSiteKey: string;
 }) {
   const t = useTranslations('contact');
-  const defaultCountry = useMemo(() => getDefaultCountryForLocale(locale), [locale]);
-  const defaultCurrency = defaultCurrencyForCountry(defaultCountry.code);
+  const sortedCountries = React.useMemo(
+    () =>
+      [...COUNTRIES].sort(
+        (a, b) => parseInt(a.dialCode.slice(1), 10) - parseInt(b.dialCode.slice(1), 10),
+      ),
+    [],
+  );
+  const defaultCountry = React.useMemo(
+    () => getDefaultCountryForLocale(locale),
+    [locale],
+  );
+  const defaultCurrency = React.useMemo(
+    () => defaultCurrencyForCountry(defaultCountry.code),
+    [defaultCountry],
+  );
   const [files, setFiles] = useState<File[]>([]);
   const [fileError, setFileError] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -107,6 +120,14 @@ export default function ContactForm({
   const [budgetInput, setBudgetInput] = useState('');
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const countryDropdownRef = useRef<HTMLDivElement>(null);
+  const countryTriggerRef = useRef<HTMLButtonElement>(null);
+  const countryOptionRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
+  const [countryActiveIndex, setCountryActiveIndex] = useState(() => {
+    const index = sortedCountries.findIndex((c) => c.code === defaultCountry.code);
+    return index >= 0 ? index : 0;
+  });
 
   const numberFormatter = useMemo(
     () =>
@@ -125,6 +146,13 @@ export default function ContactForm({
     return parts.filter((part) => part.type === 'group').map((part) => part.value);
   }, [numberFormatter]);
 
+  useEffect(() => {
+    const index = sortedCountries.findIndex((c) => c.code === defaultCountry.code);
+    if (index >= 0) {
+      setCountryActiveIndex(index);
+    }
+  }, [defaultCountry, sortedCountries]);
+
   const {
     control,
     handleSubmit,
@@ -133,6 +161,7 @@ export default function ContactForm({
     setError,
     clearErrors,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<ContactFormInput>({
     resolver: zodResolver(ContactFormSchema),
@@ -166,16 +195,43 @@ export default function ContactForm({
   }, [token, setValue]);
 
   useEffect(() => {
-    setBudgetCurrency(defaultCurrency);
-  }, [defaultCurrency]);
+    const currentCurrency = getValues('budget.currency') as CurrencyCode | undefined;
+    if (!currentCurrency) {
+      setBudgetCurrency(defaultCurrency);
+      setValue('budget.currency', defaultCurrency);
+    } else {
+      setBudgetCurrency(currentCurrency);
+    }
+  }, [defaultCurrency, getValues, setValue]);
 
   useEffect(() => {
-    setValue('phone', {
-      country: defaultCountry.code,
-      dialCode: defaultCountry.dialCode,
-      national: '',
+    const currentCountry = getValues('phone.country');
+    if (!currentCountry) {
+      setValue('phone.country', defaultCountry.code);
+      setValue('phone.dialCode', defaultCountry.dialCode);
+    }
+  }, [defaultCountry, getValues, setValue]);
+
+  useEffect(() => {
+    if (!countryDropdownOpen) return;
+
+    function handleClick(event: MouseEvent) {
+      if (!countryDropdownRef.current?.contains(event.target as Node)) {
+        setCountryDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [countryDropdownOpen]);
+
+  useEffect(() => {
+    if (!countryDropdownOpen) return;
+    requestAnimationFrame(() => {
+      const node = countryOptionRefs.current[countryActiveIndex];
+      node?.focus();
     });
-  }, [defaultCountry, setValue]);
+  }, [countryActiveIndex, countryDropdownOpen]);
 
   const namePlaceholder = t('placeholders.name');
   const phonePlaceholder = t('placeholders.phone');
@@ -395,28 +451,157 @@ export default function ContactForm({
               national: '',
             };
             const country: Country = COUNTRY_BY_CODE[current.country] ?? defaultCountry;
+            countryOptionRefs.current = new Array(sortedCountries.length);
             return (
               <label className="flex flex-col gap-1 text-sm">
                 <span>{copy.fields.phone}</span>
                 <div className="flex gap-2">
-                  <select
-                    className="w-48 min-w-[8rem] rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-                    value={country.code}
-                    onChange={(event) => {
-                      const next = COUNTRY_BY_CODE[event.target.value] ?? defaultCountry;
-                      field.onChange({
-                        country: next.code,
-                        dialCode: next.dialCode,
-                        national: current.national ?? '',
-                      });
+                  <div
+                    ref={countryDropdownRef}
+                    className="relative w-48 min-w-[8rem]"
+                    onBlur={(event) => {
+                      if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+                        setCountryDropdownOpen(false);
+                      }
                     }}
                   >
-                    {COUNTRIES.map((option) => (
-                      <option key={option.code} value={option.code}>
-                        {option.flag} {option.name} ({option.dialCode})
-                      </option>
-                    ))}
-                  </select>
+                    <button
+                      type="button"
+                      ref={countryTriggerRef}
+                      className="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                      aria-haspopup="listbox"
+                      aria-expanded={countryDropdownOpen}
+                      onClick={() => {
+                        const index = sortedCountries.findIndex(
+                          (c) => c.code === country.code,
+                        );
+                        setCountryActiveIndex(index >= 0 ? index : 0);
+                        setCountryDropdownOpen((open) => !open);
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                          event.preventDefault();
+                          const index = sortedCountries.findIndex(
+                            (c) => c.code === country.code,
+                          );
+                          setCountryActiveIndex(index >= 0 ? index : 0);
+                          setCountryDropdownOpen(true);
+                        } else if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          const index = sortedCountries.findIndex(
+                            (c) => c.code === country.code,
+                          );
+                          const nextIndex = index >= 0 ? index : 0;
+                          if (countryDropdownOpen) {
+                            setCountryDropdownOpen(false);
+                          } else {
+                            setCountryActiveIndex(nextIndex);
+                            setCountryDropdownOpen(true);
+                          }
+                        } else if (event.key === 'Escape') {
+                          if (countryDropdownOpen) {
+                            event.preventDefault();
+                            setCountryDropdownOpen(false);
+                          }
+                        }
+                      }}
+                    >
+                      <span className="flex items-center">
+                        <span
+                          className={`fi fi-${country.code.toLowerCase()} mr-2 align-middle`}
+                          aria-hidden="true"
+                        />
+                        <span className="mr-2 uppercase opacity-70">{country.code}</span>
+                        <span className="tabular-nums">{country.dialCode}</span>
+                      </span>
+                      <span className="ml-2 hidden truncate text-xs opacity-50 sm:block">
+                        {country.name}
+                      </span>
+                    </button>
+                    {countryDropdownOpen && (
+                      <div
+                        role="listbox"
+                        tabIndex={-1}
+                        className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-2xl border border-slate-200 bg-white shadow-lg focus:outline-none"
+                        onKeyDown={(event) => {
+                          if (event.key === 'ArrowDown') {
+                            event.preventDefault();
+                            setCountryActiveIndex((index) =>
+                              index + 1 < sortedCountries.length ? index + 1 : 0,
+                            );
+                          } else if (event.key === 'ArrowUp') {
+                            event.preventDefault();
+                            setCountryActiveIndex((index) =>
+                              index - 1 >= 0 ? index - 1 : sortedCountries.length - 1,
+                            );
+                          } else if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            const next = sortedCountries[countryActiveIndex];
+                            if (next) {
+                              field.onChange({
+                                country: next.code,
+                                dialCode: next.dialCode,
+                                national: current.national ?? '',
+                              });
+                              setCountryDropdownOpen(false);
+                              setCountryActiveIndex(sortedCountries.indexOf(next));
+                              countryTriggerRef.current?.focus();
+                              field.onBlur();
+                            }
+                          } else if (event.key === 'Escape') {
+                            event.preventDefault();
+                            setCountryDropdownOpen(false);
+                            countryTriggerRef.current?.focus();
+                          }
+                        }}
+                      >
+                        {sortedCountries.map((option, index) => {
+                          const isSelected = option.code === country.code;
+                          const isActive = index === countryActiveIndex;
+                          return (
+                            <button
+                              key={option.code}
+                              type="button"
+                              ref={(element) => {
+                                countryOptionRefs.current[index] = element;
+                              }}
+                              role="option"
+                              aria-selected={isSelected}
+                              className={`flex w-full items-center justify-between px-3 py-2 text-left text-sm focus:outline-none ${
+                                isActive ? 'bg-slate-100' : ''
+                              } ${isSelected ? 'font-medium text-brand-600' : 'text-slate-700'}`}
+                              onMouseEnter={() => setCountryActiveIndex(index)}
+                              onClick={() => {
+                                field.onChange({
+                                  country: option.code,
+                                  dialCode: option.dialCode,
+                                  national: current.national ?? '',
+                                });
+                                setCountryDropdownOpen(false);
+                                setCountryActiveIndex(index);
+                                countryTriggerRef.current?.focus();
+                                field.onBlur();
+                              }}
+                            >
+                              <span className="flex items-center">
+                                <span
+                                  className={`fi fi-${option.code.toLowerCase()} mr-2 align-middle`}
+                                  aria-hidden="true"
+                                />
+                                <span className="mr-2 uppercase opacity-70">
+                                  {option.code}
+                                </span>
+                                <span className="tabular-nums">{option.dialCode}</span>
+                              </span>
+                              <span className="ml-2 truncate text-xs opacity-50">
+                                {option.name}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
                   <input
                     type="tel"
                     inputMode="numeric"
@@ -457,7 +642,7 @@ export default function ContactForm({
               </div>
               <div className="flex gap-2">
                 <select
-                  className="w-32 rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                  className="w-20 min-w-[84px] rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 md:w-24"
                   value={budgetCurrency}
                   onChange={(event) => {
                     const next = event.target.value as CurrencyCode;
