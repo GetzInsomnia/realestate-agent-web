@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import 'flag-icons/css/flag-icons.min.css';
 
+import { CheckIcon, ChevronDownIcon } from './icons';
 import type { Country } from './countries';
 
 type CountrySelectProps = {
@@ -97,7 +98,7 @@ export default function CountrySelect({
   return (
     <div
       ref={containerRef}
-      className="relative w-32 min-w-[8rem] sm:w-36 sm:min-w-[9rem]"
+      className="relative w-[86px] min-w-[86px]"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node)) {
           setOpen(false);
@@ -112,7 +113,7 @@ export default function CountrySelect({
         aria-expanded={open}
         aria-labelledby={labelRelationship}
         aria-label={triggerLabel}
-        className="flex w-full items-center rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+        className="flex w-full items-center gap-1.5 rounded-2xl border border-slate-200 bg-white px-2.5 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
         onClick={() => {
           const index = countries.findIndex((country) => country.code === selected.code);
           setActiveIndex(index >= 0 ? index : 0);
@@ -146,31 +147,15 @@ export default function CountrySelect({
           }
         }}
       >
-        <div className="grid w-full grid-cols-[1.5rem_auto_1rem] items-center gap-1.5 text-left">
-          <span
-            className={`fi fi-${selected.code.toLowerCase()} block h-4 w-5 rounded-sm`}
-            aria-hidden="true"
-          />
-          <span className="min-w-0 font-mono tabular-nums text-slate-700">
-            {selected.dialCode}
-          </span>
-          <svg
-            aria-hidden="true"
-            className="h-4 w-4 text-slate-400"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5 7.5L10 12.5L15 7.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <span className="sr-only">{selected.name}</span>
-        </div>
+        <span
+          className={`fi fi-${selected.code.toLowerCase()} block h-4 w-5 rounded-sm`}
+          aria-hidden="true"
+        />
+        <span className="flex-1 truncate font-mono tabular-nums text-slate-700">
+          {selected.dialCode}
+        </span>
+        <ChevronDownIcon aria-hidden="true" className="h-4 w-4 text-slate-400" />
+        <span className="sr-only">{selected.name}</span>
       </button>
       {open && (
         <div
@@ -178,7 +163,7 @@ export default function CountrySelect({
           id={`${baseId}-listbox`}
           tabIndex={-1}
           aria-activedescendant={activeOptionId}
-          className="absolute left-0 right-0 z-20 mt-1 max-h-64 w-full max-w-full overflow-y-auto overflow-x-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-lg [scrollbar-gutter:stable]"
+          className="absolute left-0 z-20 mt-1 max-h-64 w-max min-w-[240px] overflow-y-auto overflow-x-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-lg [scrollbar-gutter:stable]"
           onKeyDown={(event) => {
             if (event.key === 'ArrowDown') {
               event.preventDefault();
@@ -228,9 +213,13 @@ export default function CountrySelect({
                 }}
                 role="option"
                 aria-selected={isSelected}
-                className={`w-full rounded-xl px-3 py-2 text-left text-sm transition-colors hover:bg-slate-50 focus:outline-none ${
-                  isActive ? 'bg-slate-100' : ''
-                } ${isSelected ? 'text-brand-600' : 'text-slate-700'}`}
+                className={`w-full rounded-xl px-2.5 py-2 text-left text-sm transition-colors hover:bg-slate-50 focus:outline-none ${
+                  isActive && !isSelected ? 'bg-slate-100' : ''
+                } ${
+                  isSelected
+                    ? 'bg-brand-50 text-brand-600 ring-1 ring-inset ring-brand-200'
+                    : 'text-slate-700'
+                }`}
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => {
                   onChange(country);
@@ -246,10 +235,19 @@ export default function CountrySelect({
                     className={`fi fi-${country.code.toLowerCase()} block h-4 w-5 rounded-sm`}
                     aria-hidden="true"
                   />
-                  <span className="min-w-0 font-mono tabular-nums text-slate-700">
+                  <span
+                    className={`min-w-0 font-mono tabular-nums ${
+                      isSelected ? '' : 'text-slate-700'
+                    }`}
+                  >
                     {country.dialCode}
                   </span>
-                  <span aria-hidden="true" className="h-4 w-4" />
+                  {isSelected && (
+                    <CheckIcon
+                      aria-hidden="true"
+                      className="h-4 w-4 justify-self-end text-brand-600"
+                    />
+                  )}
                   <span className="sr-only">{country.name}</span>
                 </div>
               </button>
