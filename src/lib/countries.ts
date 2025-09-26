@@ -376,7 +376,9 @@ const BASE_COUNTRY_MAP = {
 
 const seen = new Set<string>();
 export const COUNTRIES: Country[] = [];
-for (const code of Object.keys(BASE_COUNTRY_MAP)) {
+for (const code of Object.keys(BASE_COUNTRY_MAP) as Array<
+  keyof typeof BASE_COUNTRY_MAP
+>) {
   const upper = code.toUpperCase();
   if (seen.has(upper)) continue;
   seen.add(upper);
@@ -387,7 +389,8 @@ for (const code of Object.keys(BASE_COUNTRY_MAP)) {
 for (const iso of PRIORITY_ISO2) {
   const upper = iso.toUpperCase();
   if (seen.has(upper)) continue;
-  const base = BASE_COUNTRY_MAP[upper] ?? BASE_COUNTRY_MAP.TH;
+  const base =
+    BASE_COUNTRY_MAP[upper as keyof typeof BASE_COUNTRY_MAP] ?? BASE_COUNTRY_MAP.TH;
   if (!base) continue;
   COUNTRIES.push({ code: upper, ...base });
   seen.add(upper);
