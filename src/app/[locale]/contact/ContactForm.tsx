@@ -50,6 +50,20 @@ const CountrySelect = dynamic(() => import('./CountrySelect'), {
   ssr: false,
 });
 
+type CurrencySelectProps = React.PropsWithChildren<
+  React.SelectHTMLAttributes<HTMLSelectElement> & {
+    labelledBy: string;
+  }
+>;
+
+function CurrencySelect({ labelledBy, children, ...props }: CurrencySelectProps) {
+  return (
+    <select aria-labelledby={labelledBy} {...props}>
+      {children}
+    </select>
+  );
+}
+
 const PaperclipIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
     <path
@@ -497,13 +511,14 @@ export default function ContactForm({
           render={({ field, fieldState }) => (
             <label className="flex flex-col gap-1 text-sm">
               <div className="flex items-center justify-between gap-4">
-                <span>{copy.fields.budget}</span>
+                <span id="budget-label">{copy.fields.budget}</span>
                 {approxThbDisplay && budgetAmount !== null && (
                   <span className="text-xs text-slate-500">{approxThbDisplay}</span>
                 )}
               </div>
               <div className="flex gap-2">
-                <select
+                <CurrencySelect
+                  labelledBy="budget-label"
                   className="w-20 min-w-[84px] rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 md:w-24"
                   value={budgetCurrency}
                   onChange={(event) => {
@@ -521,7 +536,7 @@ export default function ContactForm({
                       {code}
                     </option>
                   ))}
-                </select>
+                </CurrencySelect>
                 <input
                   type="text"
                   inputMode="decimal"
