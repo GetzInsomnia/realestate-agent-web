@@ -1,12 +1,24 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import { getTranslations } from 'next-intl/server';
-import Breadcrumbs from '../components/Breadcrumbs';
-import ListingsSearchClient from './ListingsSearchClient';
+import Skeleton from '@/components/ui/Skeleton';
 import { loadListings } from '@/lib/data/loaders';
 import { buildListingJsonLd, createPageMetadata } from '@/lib/seo';
 import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
+
+const Breadcrumbs = dynamic(() => import('../components/Breadcrumbs'), {
+  loading: () => <Skeleton className="h-4 w-40" />,
+});
+
+const ListingsSearchClient = dynamic(() => import('./ListingsSearchClient'), {
+  loading: () => (
+    <div className="mt-8 space-y-6">
+      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-[420px] w-full" />
+    </div>
+  ),
+});
 
 export const dynamicParams = false;
 
@@ -61,29 +73,25 @@ export default async function ListingsPage({ params }: { params: { locale?: stri
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-      <Suspense fallback={null}>
-        <Breadcrumbs />
-      </Suspense>
+      <Breadcrumbs />
       <div className="mt-8 space-y-4">
         <h1 className="text-3xl font-semibold text-slate-900">
           {tListings('sectionTitle')}
         </h1>
         <p className="text-sm text-slate-600">{tListings('directorySubtitle')}</p>
       </div>
-      <Suspense fallback={null}>
-        <ListingsSearchClient
-          locale={locale as AppLocale}
-          initial={listings.items}
-          sectionTitle={tListings('sectionTitle')}
-          sectionSubtitle={tListings('directorySubtitle')}
-          tagLabels={tagLabels}
-          metrics={{
-            bedrooms: tListings('metrics.bedrooms'),
-            bathrooms: tListings('metrics.bathrooms'),
-            area: tListings('metrics.area'),
-          }}
-        />
-      </Suspense>
+      <ListingsSearchClient
+        locale={locale as AppLocale}
+        initial={listings.items}
+        sectionTitle={tListings('sectionTitle')}
+        sectionSubtitle={tListings('directorySubtitle')}
+        tagLabels={tagLabels}
+        metrics={{
+          bedrooms: tListings('metrics.bedrooms'),
+          bathrooms: tListings('metrics.bathrooms'),
+          area: tListings('metrics.area'),
+        }}
+      />
       <Script id="listings-directory-jsonld" type="application/ld+json">
         {JSON.stringify(listingJsonLd)}
       </Script>

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Providers from './providers';
-import LayoutShell from './components/LayoutShell';
+import Skeleton from '@/components/ui/Skeleton';
 import { buildOrganizationJsonLd, generatePageMetadata } from '@/lib/seo';
 import {
   getLocaleDirection,
@@ -16,6 +17,17 @@ import {
 import { loadArticles, loadListings } from '@/lib/data/loaders';
 import { createStaticKey } from '@/lib/swr-config';
 import ClientPageTransition from '@/components/ClientPageTransition';
+
+const LayoutShell = dynamic(() => import('./components/LayoutShell'), {
+  loading: () => (
+    <div className="flex min-h-screen flex-col bg-slate-50">
+      <Skeleton className="h-16 w-full" />
+      <div className="flex-1 px-4 py-10 sm:px-6 lg:px-8">
+        <Skeleton className="h-full w-full" />
+      </div>
+    </div>
+  ),
+});
 
 export async function generateStaticParams() {
   return ['th', 'en', 'zh-CN', 'zh-TW', 'my', 'ru'].map((locale) => ({ locale }));

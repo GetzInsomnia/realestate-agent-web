@@ -1,10 +1,7 @@
 import Script from 'next/script';
+import dynamic from 'next/dynamic';
 import { getTranslations } from 'next-intl/server';
-import Hero from './components/Hero';
-import ListingsGrid from './components/ListingsGrid';
-import ArticlesCarousel from './components/ArticlesCarousel';
-import Testimonials from './components/Testimonials';
-import FaqAccordion from './components/FaqAccordion';
+import Skeleton from '@/components/ui/Skeleton';
 import { JsonLd, buildListingJsonLd, ldOrganization, ldWebsite } from '@/lib/seo';
 import {
   loadArticles,
@@ -14,6 +11,56 @@ import {
   loadTestimonials,
 } from '@/lib/data/loaders';
 import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
+
+const Hero = dynamic(() => import('./components/Hero'), {
+  loading: () => (
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100">
+      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <Skeleton className="h-64 w-full" />
+      </div>
+    </section>
+  ),
+});
+
+const ListingsGrid = dynamic(() => import('./components/ListingsGrid'), {
+  loading: () => (
+    <section id="listings" className="section-gradient scroll-mt-24 py-16">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <Skeleton className="h-80 w-full" />
+      </div>
+    </section>
+  ),
+});
+
+const ArticlesCarousel = dynamic(() => import('./components/ArticlesCarousel'), {
+  loading: () => (
+    <section id="articles" className="scroll-mt-24 py-16">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <Skeleton className="h-72 w-full" />
+      </div>
+    </section>
+  ),
+});
+
+const Testimonials = dynamic(() => import('./components/Testimonials'), {
+  loading: () => (
+    <section className="py-16">
+      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
+        <Skeleton className="h-72 w-full" />
+      </div>
+    </section>
+  ),
+});
+
+const FaqAccordion = dynamic(() => import('./components/FaqAccordion'), {
+  loading: () => (
+    <section className="py-16">
+      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+        <Skeleton className="h-72 w-full" />
+      </div>
+    </section>
+  ),
+});
 
 export const dynamicParams = false;
 
@@ -49,7 +96,7 @@ export default async function LocaleHome({ params }: { params: { locale?: string
     label: tHome(
       item.labelKey.startsWith('home.')
         ? item.labelKey.slice('home.'.length)
-        : item.labelKey
+        : item.labelKey,
     ),
   }));
 

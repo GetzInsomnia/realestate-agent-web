@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
+import dynamic from 'next/dynamic';
 import { getTranslations } from 'next-intl/server';
-import { Suspense } from 'react';
-import Breadcrumbs from '../../components/Breadcrumbs';
+import Skeleton from '@/components/ui/Skeleton';
 import { loadArticles } from '@/lib/data/loaders';
 import { formatDate } from '@/lib/utils';
 import { createPageMetadata, getAbsoluteUrl } from '@/lib/seo';
 import { fallbackLocale, isValidLocale, locales, type AppLocale } from '@/lib/i18n';
+
+const Breadcrumbs = dynamic(() => import('../../components/Breadcrumbs'), {
+  loading: () => <Skeleton className="h-4 w-40" />,
+});
 
 const stripArticlesNs = (key: string) =>
   key.startsWith('articles.') ? key.replace(/^articles\./, '') : key;
@@ -76,9 +80,7 @@ export default async function ArticleDetail({
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <Suspense fallback={null}>
-        <Breadcrumbs />
-      </Suspense>
+      <Breadcrumbs />
       <article className="mt-8 space-y-6">
         <header className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-brand-500">
