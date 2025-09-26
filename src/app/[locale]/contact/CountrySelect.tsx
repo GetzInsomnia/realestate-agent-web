@@ -97,7 +97,7 @@ export default function CountrySelect({
   return (
     <div
       ref={containerRef}
-      className="relative w-32 min-w-[7.5rem]"
+      className="relative w-28 min-w-[6.5rem] sm:w-32 sm:min-w-[7.5rem]"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node)) {
           setOpen(false);
