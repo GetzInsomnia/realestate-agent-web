@@ -1,32 +1,20 @@
 'use client';
 
-import './CountrySelect';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useTransition,
-} from 'react';
+import React, { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import dynamic from 'next/dynamic';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { Controller } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import {
-  COUNTRIES,
-  COUNTRY_BY_CODE,
-  defaultCurrencyForCountry,
-  getDefaultCountryForLocale,
-  type Country,
-} from '@/lib/countries';
+import { defaultCurrencyForCountry, getDefaultCountryForLocale } from '@/lib/countries';
 import { SUPPORTED_CURRENCIES, tryToTHB, type CurrencyCode } from '@/lib/forex';
 import {
   ContactFormSchema,
   type ContactApiBody,
   type ContactFormInput,
 } from '@/lib/schemas/contact';
+import { COUNTRIES } from './countries';
 
 export type ContactCopy = {
   intro: string;
@@ -47,6 +35,20 @@ export type ContactCopy = {
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_TOTAL_SIZE = 10 * 1024 * 1024;
+
+const CountrySelect = dynamic(() => import('./CountrySelect'), {
+  loading: () => (
+    <div className="flex w-32 min-w-[7.5rem] items-center rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
+      <div className="grid w-full animate-pulse grid-cols-[1.5rem_2.5rem_1fr] items-center gap-2">
+        <span className="h-4 w-6 rounded-sm bg-slate-200" aria-hidden="true" />
+        <span className="h-3 w-8 rounded bg-slate-200" aria-hidden="true" />
+        <span className="h-3 w-12 rounded bg-slate-200" aria-hidden="true" />
+      </div>
+      <span className="sr-only">Loading countries…</span>
+    </div>
+  ),
+  ssr: false,
+});
 
 const PaperclipIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
@@ -137,16 +139,6 @@ export default function ContactForm({
   const [budgetInput, setBudgetInput] = useState('');
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const countryDropdownRef = useRef<HTMLDivElement>(null);
-  const countryTriggerRef = useRef<HTMLButtonElement>(null);
-  const countryOptionRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
-  const [countryActiveIndex, setCountryActiveIndex] = useState(() => {
-    const index = sortedCountries.findIndex((c) => c.code === defaultCountry.code);
-    return index >= 0 ? index : 0;
-  });
-  const countryActiveIndexRef = useRef(countryActiveIndex);
-
   const numberFormatter = useMemo(
     () =>
       new Intl.NumberFormat(locale ?? 'en-US', {
@@ -163,13 +155,6 @@ export default function ContactForm({
     const parts = numberFormatter.formatToParts(1000);
     return parts.filter((part) => part.type === 'group').map((part) => part.value);
   }, [numberFormatter]);
-
-  useEffect(() => {
-    const index = sortedCountries.findIndex((c) => c.code === defaultCountry.code);
-    if (index >= 0) {
-      setCountryActiveIndex(index);
-    }
-  }, [defaultCountry, sortedCountries]);
 
   const {
     control,
@@ -229,45 +214,6 @@ export default function ContactForm({
       setValue('phone.dialCode', defaultCountry.dialCode);
     }
   }, [defaultCountry, getValues, setValue]);
-
-  const focusOption = useCallback(
-    (index: number, { scroll }: { scroll?: boolean } = {}) => {
-      const node = countryOptionRefs.current[index];
-      if (!node) return;
-      if (scroll) {
-        node.focus();
-        node.scrollIntoView({ block: 'nearest' });
-      } else {
-        node.focus({ preventScroll: true });
-      }
-    },
-    [],
-  );
-
-  useEffect(() => {
-    countryActiveIndexRef.current = countryActiveIndex;
-  }, [countryActiveIndex]);
-
-  useEffect(() => {
-    function onDocPointerDown(event: PointerEvent) {
-      if (!countryDropdownOpen) return;
-      const container = countryDropdownRef.current;
-      if (container && !container.contains(event.target as Node)) {
-        setCountryDropdownOpen(false);
-      }
-    }
-
-    document.addEventListener('pointerdown', onDocPointerDown, true);
-    return () => document.removeEventListener('pointerdown', onDocPointerDown, true);
-  }, [countryDropdownOpen]);
-
-  useEffect(() => {
-    if (!countryDropdownOpen) return;
-    const frame = requestAnimationFrame(() =>
-      focusOption(countryActiveIndexRef.current, { scroll: true }),
-    );
-    return () => cancelAnimationFrame(frame);
-  }, [countryDropdownOpen, focusOption]);
 
   const namePlaceholder = t('placeholders.name');
   const phonePlaceholder = t('placeholders.phone');
@@ -486,8 +432,11 @@ export default function ContactForm({
               dialCode: defaultCountry.dialCode,
               national: '',
             };
-            const country: Country = COUNTRY_BY_CODE[current.country] ?? defaultCountry;
-            countryOptionRefs.current = new Array(sortedCountries.length);
+            const selectedOption =
+              sortedCountries.find((option) => option.code === current.country) ??
+              sortedCountries[0];
+            const selectedCode = selectedOption?.code ?? defaultCountry.code;
+            const selectedDialCode = selectedOption?.dialCode ?? defaultCountry.dialCode;
             return (
               <div
                 className="flex flex-col gap-1 text-sm"
@@ -498,183 +447,20 @@ export default function ContactForm({
                   {copy.fields.phone}
                 </label>
                 <div className="flex gap-2">
-                  <div
-                    ref={countryDropdownRef}
-                    className="relative w-48 min-w-[8rem]"
-                    onBlur={(event) => {
-                      if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-                        setCountryDropdownOpen(false);
-                      }
+                  <CountrySelect
+                    countries={sortedCountries}
+                    value={selectedCode}
+                    onChange={(next) => {
+                      field.onChange({
+                        country: next.code,
+                        dialCode: next.dialCode,
+                        national: current.national ?? '',
+                      });
+                      field.onBlur();
                     }}
-                  >
-                    <button
-                      id="phone-country"
-                      type="button"
-                      ref={countryTriggerRef}
-                      className="flex w-full items-center rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-                      aria-haspopup="listbox"
-                      aria-expanded={countryDropdownOpen}
-                      aria-labelledby="phone-label phone-country"
-                      onClick={() => {
-                        const index = sortedCountries.findIndex(
-                          (c) => c.code === country.code,
-                        );
-                        const nextIndex = index >= 0 ? index : 0;
-                        setCountryActiveIndex(nextIndex);
-                        setCountryDropdownOpen((open) => !open);
-                      }}
-                      onKeyDown={(event) => {
-                        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-                          event.preventDefault();
-                          const index = sortedCountries.findIndex(
-                            (c) => c.code === country.code,
-                          );
-                          const nextIndex = index >= 0 ? index : 0;
-                          setCountryActiveIndex(nextIndex);
-                          setCountryDropdownOpen(true);
-                        } else if (event.key === 'Enter' || event.key === ' ') {
-                          event.preventDefault();
-                          const index = sortedCountries.findIndex(
-                            (c) => c.code === country.code,
-                          );
-                          const nextIndex = index >= 0 ? index : 0;
-                          if (countryDropdownOpen) {
-                            setCountryDropdownOpen(false);
-                          } else {
-                            setCountryActiveIndex(nextIndex);
-                            setCountryDropdownOpen(true);
-                          }
-                        } else if (event.key === 'Escape') {
-                          if (countryDropdownOpen) {
-                            event.preventDefault();
-                            setCountryDropdownOpen(false);
-                          }
-                        }
-                      }}
-                    >
-                      <div className="grid w-full grid-cols-[1.75rem_2.5rem_3.5rem_1fr] items-center gap-2 text-left">
-                        <span
-                          className={`fi fi-${country.code.toLowerCase()} block h-4 w-6 rounded-sm`}
-                          aria-hidden="true"
-                        />
-                        <span className="w-10 text-xs uppercase text-slate-500">
-                          {country.code}
-                        </span>
-                        <span className="w-14 font-mono tabular-nums text-slate-700">
-                          {country.dialCode}
-                        </span>
-                        <span className="truncate text-slate-700">{country.name}</span>
-                      </div>
-                    </button>
-                    {countryDropdownOpen && (
-                      <div
-                        role="listbox"
-                        tabIndex={-1}
-                        className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-2xl border border-slate-200 bg-white shadow-lg focus:outline-none"
-                        onKeyDown={(event) => {
-                          if (event.key === 'ArrowDown') {
-                            event.preventDefault();
-                            setCountryActiveIndex((index) => {
-                              const nextIndex =
-                                index + 1 < sortedCountries.length ? index + 1 : 0;
-                              requestAnimationFrame(() =>
-                                focusOption(nextIndex, { scroll: true }),
-                              );
-                              return nextIndex;
-                            });
-                          } else if (event.key === 'ArrowUp') {
-                            event.preventDefault();
-                            setCountryActiveIndex((index) => {
-                              const nextIndex =
-                                index - 1 >= 0 ? index - 1 : sortedCountries.length - 1;
-                              requestAnimationFrame(() =>
-                                focusOption(nextIndex, { scroll: true }),
-                              );
-                              return nextIndex;
-                            });
-                          } else if (event.key === 'Enter' || event.key === ' ') {
-                            event.preventDefault();
-                            const next = sortedCountries[countryActiveIndex];
-                            if (next) {
-                              field.onChange({
-                                country: next.code,
-                                dialCode: next.dialCode,
-                                national: current.national ?? '',
-                              });
-                              setCountryDropdownOpen(false);
-                              setCountryActiveIndex(sortedCountries.indexOf(next));
-                              requestAnimationFrame(() => {
-                                countryTriggerRef.current?.focus();
-                              });
-                              field.onBlur();
-                            }
-                          } else if (event.key === 'Escape') {
-                            event.preventDefault();
-                            setCountryDropdownOpen(false);
-                            countryTriggerRef.current?.focus();
-                          }
-                        }}
-                      >
-                        {sortedCountries.map((option, index) => {
-                          const isSelected = option.code === country.code;
-                          const isActive = index === countryActiveIndex;
-                          return (
-                            <button
-                              key={option.code}
-                              type="button"
-                              ref={(element) => {
-                                countryOptionRefs.current[index] = element;
-                              }}
-                              role="option"
-                              aria-selected={isSelected}
-                              className={`w-full px-3 py-2 text-left text-sm focus:outline-none ${
-                                isActive ? 'bg-slate-100' : ''
-                              } ${isSelected ? 'text-brand-600' : 'text-slate-700'}`}
-                              onMouseEnter={() => setCountryActiveIndex(index)}
-                              onClick={() => {
-                                field.onChange({
-                                  country: option.code,
-                                  dialCode: option.dialCode,
-                                  national: current.national ?? '',
-                                });
-                                setCountryDropdownOpen(false);
-                                field.onBlur();
-                                countryTriggerRef.current?.focus();
-                              }}
-                            >
-                              <div className="grid grid-cols-[1.75rem_2.5rem_3.5rem_1fr] items-center gap-2">
-                                <span
-                                  className={`fi fi-${option.code.toLowerCase()} block h-4 w-6 rounded-sm`}
-                                  aria-hidden="true"
-                                />
-                                <span
-                                  className={`w-10 text-xs uppercase ${
-                                    isSelected ? 'text-brand-600' : 'text-slate-500'
-                                  }`}
-                                >
-                                  {option.code}
-                                </span>
-                                <span
-                                  className={`w-14 font-mono tabular-nums ${
-                                    isSelected ? 'text-brand-600' : 'text-slate-700'
-                                  }`}
-                                >
-                                  {option.dialCode}
-                                </span>
-                                <span
-                                  className={`truncate ${
-                                    isSelected ? 'text-brand-600' : 'text-slate-700'
-                                  }`}
-                                >
-                                  {option.name}
-                                </span>
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
+                    labelledBy="phone-label"
+                    id="phone-country"
+                  />
                   <div className="flex-1">
                     <input
                       id="phone-national"
@@ -687,8 +473,8 @@ export default function ContactForm({
                       onChange={(event) => {
                         const digits = event.target.value.replace(/[^\d]/g, '');
                         field.onChange({
-                          country: country.code,
-                          dialCode: country.dialCode,
+                          country: selectedCode,
+                          dialCode: selectedDialCode,
                           national: digits,
                         });
                       }}
