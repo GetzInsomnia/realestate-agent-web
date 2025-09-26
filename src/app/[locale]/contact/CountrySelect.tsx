@@ -163,7 +163,7 @@ export default function CountrySelect({
           id={`${baseId}-listbox`}
           tabIndex={-1}
           aria-activedescendant={activeOptionId}
-          className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-2xl border border-slate-200 bg-white shadow-lg focus:outline-none"
+          className="absolute left-0 right-0 z-20 mt-1 max-h-64 w-full max-w-full overflow-y-auto overflow-x-hidden rounded-md border border-slate-200 bg-white p-1 shadow-lg [scrollbar-gutter:stable]"
           onKeyDown={(event) => {
             if (event.key === 'ArrowDown') {
               event.preventDefault();
