@@ -1,6 +1,13 @@
 'use client';
 
-import React, { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -38,6 +45,17 @@ export type ContactCopy = {
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_TOTAL_SIZE = 10 * 1024 * 1024;
+
+const PaperclipIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+    <path
+      d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66L10 16a2 2 0 11-2.83-2.83l7.07-7.07"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 async function composeClientPhone(phone: NonNullable<ContactFormInput['phone']>) {
   const national = phone.national?.replace(/[^\d]/g, '') ?? '';
@@ -94,11 +112,8 @@ export default function ContactForm({
   turnstileSiteKey: string;
 }) {
   const t = useTranslations('contact');
-  const sortedCountries = React.useMemo(
-    () =>
-      [...COUNTRIES].sort(
-        (a, b) => parseInt(a.dialCode.slice(1), 10) - parseInt(b.dialCode.slice(1), 10),
-      ),
+  const sortedCountries = useMemo(
+    () => [...COUNTRIES].sort((a, b) => a.name.localeCompare(b.name, 'en')),
     [],
   );
   const defaultCountry = React.useMemo(
@@ -128,6 +143,7 @@ export default function ContactForm({
     const index = sortedCountries.findIndex((c) => c.code === defaultCountry.code);
     return index >= 0 ? index : 0;
   });
+  const countryActiveIndexRef = useRef(countryActiveIndex);
 
   const numberFormatter = useMemo(
     () =>
@@ -212,26 +228,44 @@ export default function ContactForm({
     }
   }, [defaultCountry, getValues, setValue]);
 
-  useEffect(() => {
-    if (!countryDropdownOpen) return;
+  const focusOption = useCallback(
+    (index: number, { scroll }: { scroll?: boolean } = {}) => {
+      const node = countryOptionRefs.current[index];
+      if (!node) return;
+      if (scroll) {
+        node.focus();
+        node.scrollIntoView({ block: 'nearest' });
+      } else {
+        node.focus({ preventScroll: true });
+      }
+    },
+    [],
+  );
 
-    function handleClick(event: MouseEvent) {
-      if (!countryDropdownRef.current?.contains(event.target as Node)) {
+  useEffect(() => {
+    countryActiveIndexRef.current = countryActiveIndex;
+  }, [countryActiveIndex]);
+
+  useEffect(() => {
+    function onDocPointerDown(event: PointerEvent) {
+      if (!countryDropdownOpen) return;
+      const container = countryDropdownRef.current;
+      if (container && !container.contains(event.target as Node)) {
         setCountryDropdownOpen(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener('pointerdown', onDocPointerDown, true);
+    return () => document.removeEventListener('pointerdown', onDocPointerDown, true);
   }, [countryDropdownOpen]);
 
   useEffect(() => {
     if (!countryDropdownOpen) return;
-    requestAnimationFrame(() => {
-      const node = countryOptionRefs.current[countryActiveIndex];
-      node?.focus();
-    });
-  }, [countryActiveIndex, countryDropdownOpen]);
+    const frame = requestAnimationFrame(() =>
+      focusOption(countryActiveIndexRef.current, { scroll: true }),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [countryDropdownOpen, focusOption]);
 
   const namePlaceholder = t('placeholders.name');
   const phonePlaceholder = t('placeholders.phone');
@@ -468,14 +502,15 @@ export default function ContactForm({
                     <button
                       type="button"
                       ref={countryTriggerRef}
-                      className="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                      className="flex w-full items-center rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
                       aria-haspopup="listbox"
                       aria-expanded={countryDropdownOpen}
                       onClick={() => {
                         const index = sortedCountries.findIndex(
                           (c) => c.code === country.code,
                         );
-                        setCountryActiveIndex(index >= 0 ? index : 0);
+                        const nextIndex = index >= 0 ? index : 0;
+                        setCountryActiveIndex(nextIndex);
                         setCountryDropdownOpen((open) => !open);
                       }}
                       onKeyDown={(event) => {
@@ -484,7 +519,8 @@ export default function ContactForm({
                           const index = sortedCountries.findIndex(
                             (c) => c.code === country.code,
                           );
-                          setCountryActiveIndex(index >= 0 ? index : 0);
+                          const nextIndex = index >= 0 ? index : 0;
+                          setCountryActiveIndex(nextIndex);
                           setCountryDropdownOpen(true);
                         } else if (event.key === 'Enter' || event.key === ' ') {
                           event.preventDefault();
@@ -506,17 +542,19 @@ export default function ContactForm({
                         }
                       }}
                     >
-                      <span className="flex items-center">
+                      <div className="grid w-full grid-cols-[1.75rem_2.5rem_3.5rem_1fr] items-center gap-2 text-left">
                         <span
-                          className={`fi fi-${country.code.toLowerCase()} mr-2 align-middle`}
+                          className={`fi fi-${country.code.toLowerCase()} block h-4 w-6 rounded-sm`}
                           aria-hidden="true"
                         />
-                        <span className="mr-2 uppercase opacity-70">{country.code}</span>
-                        <span className="tabular-nums">{country.dialCode}</span>
-                      </span>
-                      <span className="ml-2 hidden truncate text-xs opacity-50 sm:block">
-                        {country.name}
-                      </span>
+                        <span className="w-10 text-xs uppercase text-slate-500">
+                          {country.code}
+                        </span>
+                        <span className="w-14 font-mono tabular-nums text-slate-700">
+                          {country.dialCode}
+                        </span>
+                        <span className="truncate text-slate-700">{country.name}</span>
+                      </div>
                     </button>
                     {countryDropdownOpen && (
                       <div
@@ -526,14 +564,24 @@ export default function ContactForm({
                         onKeyDown={(event) => {
                           if (event.key === 'ArrowDown') {
                             event.preventDefault();
-                            setCountryActiveIndex((index) =>
-                              index + 1 < sortedCountries.length ? index + 1 : 0,
-                            );
+                            setCountryActiveIndex((index) => {
+                              const nextIndex =
+                                index + 1 < sortedCountries.length ? index + 1 : 0;
+                              requestAnimationFrame(() =>
+                                focusOption(nextIndex, { scroll: true }),
+                              );
+                              return nextIndex;
+                            });
                           } else if (event.key === 'ArrowUp') {
                             event.preventDefault();
-                            setCountryActiveIndex((index) =>
-                              index - 1 >= 0 ? index - 1 : sortedCountries.length - 1,
-                            );
+                            setCountryActiveIndex((index) => {
+                              const nextIndex =
+                                index - 1 >= 0 ? index - 1 : sortedCountries.length - 1;
+                              requestAnimationFrame(() =>
+                                focusOption(nextIndex, { scroll: true }),
+                              );
+                              return nextIndex;
+                            });
                           } else if (event.key === 'Enter' || event.key === ' ') {
                             event.preventDefault();
                             const next = sortedCountries[countryActiveIndex];
@@ -545,7 +593,9 @@ export default function ContactForm({
                               });
                               setCountryDropdownOpen(false);
                               setCountryActiveIndex(sortedCountries.indexOf(next));
-                              countryTriggerRef.current?.focus();
+                              requestAnimationFrame(() => {
+                                countryTriggerRef.current?.focus();
+                              });
                               field.onBlur();
                             }
                           } else if (event.key === 'Escape') {
@@ -567,9 +617,9 @@ export default function ContactForm({
                               }}
                               role="option"
                               aria-selected={isSelected}
-                              className={`flex w-full items-center justify-between px-3 py-2 text-left text-sm focus:outline-none ${
+                              className={`w-full px-3 py-2 text-left text-sm focus:outline-none ${
                                 isActive ? 'bg-slate-100' : ''
-                              } ${isSelected ? 'font-medium text-brand-600' : 'text-slate-700'}`}
+                              } ${isSelected ? 'text-brand-600' : 'text-slate-700'}`}
                               onMouseEnter={() => setCountryActiveIndex(index)}
                               onClick={() => {
                                 field.onChange({
@@ -579,23 +629,36 @@ export default function ContactForm({
                                 });
                                 setCountryDropdownOpen(false);
                                 setCountryActiveIndex(index);
-                                countryTriggerRef.current?.focus();
                                 field.onBlur();
                               }}
                             >
-                              <span className="flex items-center">
+                              <div className="grid grid-cols-[1.75rem_2.5rem_3.5rem_1fr] items-center gap-2">
                                 <span
-                                  className={`fi fi-${option.code.toLowerCase()} mr-2 align-middle`}
+                                  className={`fi fi-${option.code.toLowerCase()} block h-4 w-6 rounded-sm`}
                                   aria-hidden="true"
                                 />
-                                <span className="mr-2 uppercase opacity-70">
+                                <span
+                                  className={`w-10 text-xs uppercase ${
+                                    isSelected ? 'text-brand-600' : 'text-slate-500'
+                                  }`}
+                                >
                                   {option.code}
                                 </span>
-                                <span className="tabular-nums">{option.dialCode}</span>
-                              </span>
-                              <span className="ml-2 truncate text-xs opacity-50">
-                                {option.name}
-                              </span>
+                                <span
+                                  className={`w-14 font-mono tabular-nums ${
+                                    isSelected ? 'text-brand-600' : 'text-slate-700'
+                                  }`}
+                                >
+                                  {option.dialCode}
+                                </span>
+                                <span
+                                  className={`truncate ${
+                                    isSelected ? 'text-brand-600' : 'text-slate-700'
+                                  }`}
+                                >
+                                  {option.name}
+                                </span>
+                              </div>
                             </button>
                           );
                         })}
@@ -723,10 +786,10 @@ export default function ContactForm({
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-lg text-slate-500 shadow-sm transition hover:bg-slate-100"
+            className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-slate-100"
             aria-label="Attach files"
           >
-            📎
+            <PaperclipIcon className="h-4 w-4" aria-hidden="true" />
           </button>
           <input
             ref={fileInputRef}
@@ -741,24 +804,35 @@ export default function ContactForm({
           <span className="text-xs text-rose-600">{errors.message.message}</span>
         )}
         {files.length > 0 && (
-          <ul className="mt-2 space-y-2">
+          <div className="mt-2 flex flex-wrap items-center gap-2">
             {files.map((file, index) => (
-              <li
+              <div
                 key={`${file.name}-${index}`}
-                className="flex items-center justify-between rounded-xl bg-slate-100 px-3 py-2 text-xs text-slate-600"
+                className="inline-flex max-w-full items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 text-xs text-slate-700 shadow-sm"
               >
-                <span className="flex-1 truncate">📎 {file.name}</span>
+                <span className="flex items-center gap-1 truncate">
+                  <PaperclipIcon className="h-3 w-3" aria-hidden="true" />
+                  <span className="truncate">{file.name}</span>
+                </span>
                 <button
                   type="button"
                   onClick={() => removeFile(index)}
-                  className="ml-3 rounded-full border border-slate-300 px-2 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200"
+                  className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 text-xs text-slate-500 transition hover:bg-slate-100"
                   aria-label={`Remove ${file.name}`}
                 >
                   ×
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="inline-flex items-center gap-1 rounded-full border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 hover:bg-slate-50"
+              aria-label="Add more attachments"
+            >
+              <span className="text-base leading-none">+</span>
+            </button>
+          </div>
         )}
       </label>
       <label className="sr-only">
