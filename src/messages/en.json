@@ -181,11 +181,19 @@
     "subtitle": "Tell us about your relocation or investment goals and we’ll respond with tailored next steps.",
     "intro": "We reply within one business day with a curated plan in your chosen language.",
     "fields": {
-      "name": "Full name",
+      "name": "Full name or nickname",
       "email": "Email",
       "phone": "Phone (optional)",
       "budget": "Budget (optional)",
       "message": "How can we help?"
+    },
+    "placeholders": {
+      "name": "john doe",
+      "phone": "616236242",
+      "budget": "1,000,000.00"
+    },
+    "hints": {
+      "budgetThb": "≈ {amount} บาท"
     },
     "submit": "Send message",
     "sending": "Sending...",

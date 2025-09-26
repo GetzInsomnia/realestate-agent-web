@@ -204,6 +204,14 @@
       "emailFailed": "Не получилось отправить письмо. Напишите напрямую на hello@zomzomproperty.com.",
       "cooldown": "Сообщение уже отправлено. Подождите немного.",
       "success": "Мы получили ваше сообщение и скоро ответим."
+    },
+    "placeholders": {
+      "name": "john doe",
+      "phone": "616236242",
+      "budget": "1,000,000.00"
+    },
+    "hints": {
+      "budgetThb": "≈ {amount} บาท"
     }
   },
   "errors": {

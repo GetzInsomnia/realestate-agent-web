@@ -204,6 +204,14 @@
       "emailFailed": "暂时无法发送邮件，请直接写信至 hello@zomzomproperty.com。",
       "cooldown": "您刚刚提交过信息，请稍候再试。",
       "success": "我们已收到信息，顾问将尽快回复。"
+    },
+    "placeholders": {
+      "name": "john doe",
+      "phone": "616236242",
+      "budget": "1,000,000.00"
+    },
+    "hints": {
+      "budgetThb": "≈ {amount} บาท"
     }
   },
   "errors": {
