@@ -23,7 +23,7 @@
     "build:log": "powershell -NoProfile -Command \"npm run build *>&1 | Tee-Object build.log\""
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
+    "@hookform/resolvers": "3.10.0",
     "@marsidev/react-turnstile": "^0.5.0",
     "@vercel/analytics": "^1.5.0",
     "clsx": "^2.1.1",
@@ -36,7 +36,7 @@
     "nodemailer": "^6.9.16",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.63.0",
+    "react-hook-form": "7.63.0",
     "swr": "^2.3.0",
     "tailwind-merge": "^2.5.3",
     "zod": "^3.23.8"
