@@ -488,8 +488,14 @@ export default function ContactForm({
             const country: Country = COUNTRY_BY_CODE[current.country] ?? defaultCountry;
             countryOptionRefs.current = new Array(sortedCountries.length);
             return (
-              <label className="flex flex-col gap-1 text-sm">
-                <span>{copy.fields.phone}</span>
+              <div
+                className="flex flex-col gap-1 text-sm"
+                role="group"
+                aria-labelledby="phone-label"
+              >
+                <label id="phone-label" htmlFor="phone-national" className="text-sm">
+                  {copy.fields.phone}
+                </label>
                 <div className="flex gap-2">
                   <div
                     ref={countryDropdownRef}
@@ -501,11 +507,13 @@ export default function ContactForm({
                     }}
                   >
                     <button
+                      id="phone-country"
                       type="button"
                       ref={countryTriggerRef}
                       className="flex w-full items-center rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
                       aria-haspopup="listbox"
                       aria-expanded={countryDropdownOpen}
+                      aria-labelledby="phone-label phone-country"
                       onClick={() => {
                         const index = sortedCountries.findIndex(
                           (c) => c.code === country.code,
@@ -629,8 +637,8 @@ export default function ContactForm({
                                   national: current.national ?? '',
                                 });
                                 setCountryDropdownOpen(false);
-                                setCountryActiveIndex(index);
                                 field.onBlur();
+                                countryTriggerRef.current?.focus();
                               }}
                             >
                               <div className="grid grid-cols-[1.75rem_2.5rem_3.5rem_1fr] items-center gap-2">
@@ -666,30 +674,33 @@ export default function ContactForm({
                       </div>
                     )}
                   </div>
-                  <input
-                    type="tel"
-                    inputMode="numeric"
-                    aria-invalid={fieldState.error ? 'true' : 'false'}
-                    className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-                    placeholder={phonePlaceholder}
-                    value={current.national ?? ''}
-                    onChange={(event) => {
-                      const digits = event.target.value.replace(/[^\d]/g, '');
-                      field.onChange({
-                        country: country.code,
-                        dialCode: country.dialCode,
-                        national: digits,
-                      });
-                    }}
-                    onBlur={field.onBlur}
-                  />
+                  <div className="flex-1">
+                    <input
+                      id="phone-national"
+                      type="tel"
+                      inputMode="numeric"
+                      aria-invalid={fieldState.error ? 'true' : 'false'}
+                      className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                      placeholder={phonePlaceholder}
+                      value={current.national ?? ''}
+                      onChange={(event) => {
+                        const digits = event.target.value.replace(/[^\d]/g, '');
+                        field.onChange({
+                          country: country.code,
+                          dialCode: country.dialCode,
+                          national: digits,
+                        });
+                      }}
+                      onBlur={field.onBlur}
+                    />
+                  </div>
                 </div>
                 {fieldState.error && (
                   <span className="text-xs text-rose-600">
                     {fieldState.error.message}
                   </span>
                 )}
-              </label>
+              </div>
             );
           }}
         />
