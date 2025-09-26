@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { AnimatePresence, motion } from 'framer-motion';
 import Providers from './providers';
 import LayoutShell from './components/LayoutShell';
 import { buildOrganizationJsonLd, generatePageMetadata } from '@/lib/seo';
@@ -95,7 +96,18 @@ export default async function LocaleLayout({
               <Script id="org-jsonld" type="application/ld+json">
                 {jsonLd}
               </Script>
-              {children}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={locale}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -2 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
+                  className="min-h-full"
+                >
+                  {children}
+                </motion.div>
+              </AnimatePresence>
             </LayoutShell>
           </Suspense>
         </Providers>
