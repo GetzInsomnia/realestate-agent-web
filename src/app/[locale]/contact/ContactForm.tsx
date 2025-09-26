@@ -118,7 +118,19 @@ export default function ContactForm({
 }) {
   const t = useTranslations('contact');
   const sortedCountries = useMemo(
-    () => [...COUNTRIES].sort((a, b) => a.name.localeCompare(b.name, 'en')),
+    () =>
+      [...COUNTRIES].sort((a, b) => {
+        const dialA = Number.parseInt(a.dialCode?.replace(/[^\d]/g, '') ?? '', 10);
+        const dialB = Number.parseInt(b.dialCode?.replace(/[^\d]/g, '') ?? '', 10);
+        const valueA = Number.isNaN(dialA) ? Number.POSITIVE_INFINITY : dialA;
+        const valueB = Number.isNaN(dialB) ? Number.POSITIVE_INFINITY : dialB;
+
+        if (valueA !== valueB) {
+          return valueA - valueB;
+        }
+
+        return a.code.localeCompare(b.code, 'en');
+      }),
     [],
   );
   const defaultCountry = React.useMemo(
