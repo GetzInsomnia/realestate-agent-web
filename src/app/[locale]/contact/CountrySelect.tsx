@@ -97,7 +97,7 @@ export default function CountrySelect({
   return (
     <div
       ref={containerRef}
-      className="relative w-28 min-w-[6.5rem] sm:w-32 sm:min-w-[7.5rem]"
+      className="relative w-32 min-w-[8rem] sm:w-36 sm:min-w-[9rem]"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node)) {
           setOpen(false);
@@ -146,7 +146,7 @@ export default function CountrySelect({
           }
         }}
       >
-        <div className="grid w-full grid-cols-[1.5rem_auto] items-center gap-1 text-left">
+        <div className="grid w-full grid-cols-[1.5rem_auto_1rem] items-center gap-1.5 text-left">
           <span
             className={`fi fi-${selected.code.toLowerCase()} block h-4 w-5 rounded-sm`}
             aria-hidden="true"
@@ -154,6 +154,21 @@ export default function CountrySelect({
           <span className="min-w-0 font-mono tabular-nums text-slate-700">
             {selected.dialCode}
           </span>
+          <svg
+            aria-hidden="true"
+            className="h-4 w-4 text-slate-400"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5 7.5L10 12.5L15 7.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
           <span className="sr-only">{selected.name}</span>
         </div>
       </button>
@@ -163,7 +178,7 @@ export default function CountrySelect({
           id={`${baseId}-listbox`}
           tabIndex={-1}
           aria-activedescendant={activeOptionId}
-          className="absolute left-0 right-0 z-20 mt-1 max-h-64 w-full max-w-full overflow-y-auto overflow-x-hidden rounded-md border border-slate-200 bg-white p-1 shadow-lg [scrollbar-gutter:stable]"
+          className="absolute left-0 right-0 z-20 mt-1 max-h-64 w-full max-w-full overflow-y-auto overflow-x-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-lg [scrollbar-gutter:stable]"
           onKeyDown={(event) => {
             if (event.key === 'ArrowDown') {
               event.preventDefault();
@@ -213,7 +228,7 @@ export default function CountrySelect({
                 }}
                 role="option"
                 aria-selected={isSelected}
-                className={`w-full rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-50 focus:outline-none ${
+                className={`w-full rounded-xl px-3 py-2 text-left text-sm transition-colors hover:bg-slate-50 focus:outline-none ${
                   isActive ? 'bg-slate-100' : ''
                 } ${isSelected ? 'text-brand-600' : 'text-slate-700'}`}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -226,7 +241,7 @@ export default function CountrySelect({
                   });
                 }}
               >
-                <div className="grid w-full grid-cols-[1.5rem_auto] items-center gap-1 text-left">
+                <div className="grid w-full grid-cols-[1.5rem_auto_1rem] items-center gap-1.5 text-left">
                   <span
                     className={`fi fi-${country.code.toLowerCase()} block h-4 w-5 rounded-sm`}
                     aria-hidden="true"
@@ -234,6 +249,7 @@ export default function CountrySelect({
                   <span className="min-w-0 font-mono tabular-nums text-slate-700">
                     {country.dialCode}
                   </span>
+                  <span aria-hidden="true" className="h-4 w-4" />
                   <span className="sr-only">{country.name}</span>
                 </div>
               </button>
