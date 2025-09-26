@@ -508,7 +508,7 @@ export default function ContactForm({
               <div className="flex gap-2">
                 <CurrencySelect
                   labelledBy="budget-label"
-                  className="w-20 min-w-[84px] md:w-24"
+                  className="w-16 min-w-[72px] md:w-20"
                   value={budgetCurrency}
                   onChange={(next) => {
                     setBudgetCurrency(next);
