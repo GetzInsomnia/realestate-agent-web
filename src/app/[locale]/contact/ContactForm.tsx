@@ -1,7 +1,23 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 import { Turnstile } from '@marsidev/react-turnstile';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import {
+  COUNTRIES,
+  COUNTRY_BY_CODE,
+  defaultCurrencyForCountry,
+  getDefaultCountryForLocale,
+  type Country,
+} from '@/lib/countries';
+import { SUPPORTED_CURRENCIES, tryToTHB, type CurrencyCode } from '@/lib/forex';
+import {
+  ContactFormSchema,
+  type ContactApiBody,
+  type ContactFormInput,
+} from '@/lib/schemas/contact';
 
 export type ContactCopy = {
   intro: string;
@@ -20,6 +36,54 @@ export type ContactCopy = {
   honeypot: string;
 };
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_TOTAL_SIZE = 10 * 1024 * 1024;
+
+async function composeClientPhone(phone: NonNullable<ContactFormInput['phone']>) {
+  const national = phone.national?.replace(/[^\d]/g, '') ?? '';
+  if (!national) return undefined;
+  try {
+    const lib = await import('libphonenumber-js');
+    const parsed = lib.parsePhoneNumberFromString(national, phone.country as never);
+    if (parsed?.isValid()) {
+      return parsed.number;
+    }
+  } catch (error) {
+    console.warn('[contact] libphonenumber-js unavailable on client', error);
+  }
+  const fallback = `${phone.dialCode ?? ''}${national}`.replace(/[^\d+]/g, '');
+  return /^\+\d{7,15}$/.test(fallback) ? fallback : undefined;
+}
+
+function parseBudgetInput(
+  value: string,
+  decimalSymbol: string,
+  groupSymbols: string[],
+): number | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  let normalized = trimmed;
+  for (const group of groupSymbols) {
+    if (group) {
+      normalized = normalized.split(group).join('');
+    }
+  }
+  if (decimalSymbol && decimalSymbol !== '.') {
+    const regex = new RegExp(`\\${decimalSymbol}`, 'g');
+    normalized = normalized.replace(regex, '.');
+  }
+  normalized = normalized.replace(/[^0-9.]/g, '');
+  const segments = normalized.split('.');
+  if (segments.length > 2) return null;
+  if (segments[1]?.length > 10) {
+    segments[1] = segments[1].slice(0, 10);
+    normalized = segments.join('.');
+  }
+  const amount = Number(normalized);
+  if (!Number.isFinite(amount)) return null;
+  return amount;
+}
+
 export default function ContactForm({
   locale,
   copy,
@@ -29,116 +93,516 @@ export default function ContactForm({
   copy: ContactCopy;
   turnstileSiteKey: string;
 }) {
+  const t = useTranslations('contact');
+  const defaultCountry = useMemo(() => getDefaultCountryForLocale(locale), [locale]);
+  const defaultCurrency = defaultCurrencyForCountry(defaultCountry.code);
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState<string | null>(null);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [message, setMessage] = useState<string>('');
+  const [feedback, setFeedback] = useState<string>('');
   const [token, setToken] = useState<string>('');
+  const [turnstileNonce, setTurnstileNonce] = useState(0);
+  const [budgetCurrency, setBudgetCurrency] = useState<CurrencyCode>(defaultCurrency);
+  const [budgetAmount, setBudgetAmount] = useState<number | null>(null);
+  const [budgetInput, setBudgetInput] = useState('');
   const [isPending, startTransition] = useTransition();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  async function handleSubmit(formData: FormData) {
-    setStatus('idle');
-    setMessage('');
+  const numberFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat(locale ?? 'en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }),
+    [locale],
+  );
+  const decimalSymbol = useMemo(() => {
+    const parts = numberFormatter.formatToParts(1.1);
+    return parts.find((part) => part.type === 'decimal')?.value ?? '.';
+  }, [numberFormatter]);
+  const groupSymbols = useMemo(() => {
+    const parts = numberFormatter.formatToParts(1000);
+    return parts.filter((part) => part.type === 'group').map((part) => part.value);
+  }, [numberFormatter]);
 
-    const payload = {
-      name: formData.get('name')?.toString() ?? '',
-      email: formData.get('email')?.toString() ?? '',
-      phone: formData.get('phone')?.toString() ?? '',
-      budget: formData.get('budget')?.toString() ?? '',
-      message: formData.get('message')?.toString() ?? '',
+  const {
+    control,
+    handleSubmit,
+    register,
+    reset,
+    setError,
+    clearErrors,
+    setValue,
+    formState: { errors },
+  } = useForm<ContactFormInput>({
+    resolver: zodResolver(ContactFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: {
+        country: defaultCountry.code,
+        dialCode: defaultCountry.dialCode,
+        national: '',
+      },
+      budget: undefined,
+      message: '',
       locale,
-      turnstileToken: token,
-      honeypot: formData.get('website')?.toString() ?? '',
-    };
+      turnstileToken: '',
+      honeypot: '',
+    },
+  });
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const result = await response.json();
-      if (!response.ok) {
-        setStatus('error');
-        setMessage(result.message ?? copy.error);
-        return;
+  useEffect(() => {
+    register('turnstileToken');
+    register('locale');
+  }, [register]);
+
+  useEffect(() => {
+    setValue('locale', locale);
+  }, [locale, setValue]);
+
+  useEffect(() => {
+    setValue('turnstileToken', token, { shouldValidate: true });
+  }, [token, setValue]);
+
+  useEffect(() => {
+    setBudgetCurrency(defaultCurrency);
+  }, [defaultCurrency]);
+
+  useEffect(() => {
+    setValue('phone', {
+      country: defaultCountry.code,
+      dialCode: defaultCountry.dialCode,
+      national: '',
+    });
+  }, [defaultCountry, setValue]);
+
+  const namePlaceholder = t('placeholders.name');
+  const phonePlaceholder = t('placeholders.phone');
+  const budgetPlaceholder = t('placeholders.budget');
+
+  const approxThbNumber =
+    budgetAmount !== null ? tryToTHB(budgetCurrency, budgetAmount) : null;
+  const approxThbDisplay =
+    approxThbNumber !== null
+      ? t('hints.budgetThb', {
+          amount: numberFormatter.format(approxThbNumber),
+        })
+      : null;
+
+  function handleFiles(selected: FileList | null) {
+    if (!selected) return;
+    const incoming = Array.from(selected);
+    const nextFiles = [...files];
+    let totalSize = nextFiles.reduce((sum, file) => sum + file.size, 0);
+    let error: string | null = null;
+
+    for (const file of incoming) {
+      if (file.size > MAX_FILE_SIZE) {
+        error = 'Each file must be 5MB or smaller.';
+        continue;
       }
-      setStatus('success');
-      setMessage(result.message ?? copy.success);
-    } catch {
-      setStatus('error');
-      setMessage(copy.error);
+      if (totalSize + file.size > MAX_TOTAL_SIZE) {
+        error = 'Attachments exceed the 10MB total limit.';
+        continue;
+      }
+      const exists = nextFiles.some(
+        (existing) => existing.name === file.name && existing.size === file.size,
+      );
+      if (!exists) {
+        nextFiles.push(file);
+        totalSize += file.size;
+      }
+    }
+
+    setFiles(nextFiles);
+    setFileError(error);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   }
 
-  return (
-    <form
-      action={(formData) =>
-        startTransition(async () => {
-          await handleSubmit(formData);
-        })
+  function removeFile(index: number) {
+    setFiles((prev) => prev.filter((_, idx) => idx !== index));
+  }
+
+  async function submitForm(values: ContactFormInput) {
+    setStatus('idle');
+    setFeedback('');
+    setFileError(null);
+
+    const nationalDigits = values.phone?.national?.replace(/[^\d]/g, '') ?? '';
+    let phoneE164: string | undefined;
+    if (values.phone && nationalDigits) {
+      const composed = await composeClientPhone({
+        country: values.phone.country,
+        dialCode: values.phone.dialCode,
+        national: nationalDigits,
+      });
+      if (!composed) {
+        setError('phone', {
+          type: 'manual',
+          message: 'Please enter a valid phone number.',
+        });
+        return;
       }
-      className="space-y-4"
-    >
+      clearErrors('phone');
+      phoneE164 = composed;
+    }
+
+    const budgetPayload: ContactApiBody['budget'] =
+      values.budget && Number.isFinite(values.budget.amount)
+        ? { currency: values.budget.currency, amount: values.budget.amount }
+        : undefined;
+
+    const turnstileValue = values.turnstileToken || token;
+
+    const basePayload: ContactApiBody = {
+      name: values.name,
+      email: values.email,
+      message: values.message,
+      locale: values.locale ?? locale,
+      turnstileToken: turnstileValue,
+      honeypot: values.honeypot || undefined,
+      phoneE164,
+      budget: budgetPayload,
+    };
+
+    try {
+      let response: Response;
+      if (files.length > 0) {
+        const formData = new FormData();
+        formData.append('name', basePayload.name);
+        formData.append('email', basePayload.email);
+        formData.append('message', basePayload.message);
+        if (basePayload.locale) formData.append('locale', basePayload.locale);
+        formData.append('turnstileToken', basePayload.turnstileToken);
+        if (basePayload.honeypot) formData.append('honeypot', basePayload.honeypot);
+        if (values.phone) {
+          formData.append('phone.country', values.phone.country);
+          formData.append('phone.dialCode', values.phone.dialCode);
+          if (nationalDigits) {
+            formData.append('phone.national', nationalDigits);
+          }
+        }
+        if (basePayload.budget) {
+          formData.append('budget.currency', basePayload.budget.currency);
+          formData.append('budget.amount', String(basePayload.budget.amount));
+        }
+        for (const file of files) {
+          formData.append('files[]', file, file.name);
+        }
+        response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+        });
+      } else {
+        const wirePayload: ContactApiBody = basePayload;
+        response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(wirePayload),
+        });
+      }
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setStatus('error');
+        if (result?.error === 'cooldown') {
+          setFeedback(copy.cooldown);
+        } else if (result?.message) {
+          setFeedback(result.message);
+        } else {
+          setFeedback(copy.error);
+        }
+        return;
+      }
+
+      setStatus('success');
+      setFeedback(result?.message ?? copy.success);
+      reset({
+        name: '',
+        email: '',
+        phone: {
+          country: defaultCountry.code,
+          dialCode: defaultCountry.dialCode,
+          national: '',
+        },
+        budget: undefined,
+        message: '',
+        locale,
+        turnstileToken: '',
+        honeypot: '',
+      });
+      setFiles([]);
+      setBudgetCurrency(defaultCurrency);
+      setBudgetAmount(null);
+      setBudgetInput('');
+      setToken('');
+      setTurnstileNonce((nonce) => nonce + 1);
+    } catch (error) {
+      console.error('Failed to submit contact form', error);
+      setStatus('error');
+      setFeedback(copy.error);
+    }
+  }
+
+  const onSubmit = handleSubmit((values) => {
+    startTransition(() => {
+      void submitForm(values);
+    });
+  });
+
+  return (
+    <form onSubmit={onSubmit} className="space-y-6">
       <p className="text-sm text-slate-600">{copy.intro}</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1 text-sm">
-          {copy.fields.name}
+          <span>{copy.fields.name}</span>
           <input
-            name="name"
+            {...register('name')}
             required
+            maxLength={100}
+            aria-invalid={errors.name ? 'true' : 'false'}
             className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-            placeholder={copy.fields.name}
+            placeholder={namePlaceholder}
           />
+          {errors.name && (
+            <span className="text-xs text-rose-600">{errors.name.message}</span>
+          )}
         </label>
         <label className="flex flex-col gap-1 text-sm">
-          {copy.fields.email}
+          <span>{copy.fields.email}</span>
           <input
             type="email"
-            name="email"
+            {...register('email')}
             required
+            aria-invalid={errors.email ? 'true' : 'false'}
             className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
             placeholder="name@example.com"
           />
+          {errors.email && (
+            <span className="text-xs text-rose-600">{errors.email.message}</span>
+          )}
         </label>
-        <label className="flex flex-col gap-1 text-sm">
-          {copy.fields.phone}
-          <input
-            name="phone"
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-            placeholder="+66"
-          />
-        </label>
-        <label className="flex flex-col gap-1 text-sm">
-          {copy.fields.budget}
-          <input
-            name="budget"
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-            placeholder="USD 1,000,000"
-          />
-        </label>
+        <Controller
+          control={control}
+          name="phone"
+          render={({ field, fieldState }) => {
+            const current: NonNullable<ContactFormInput['phone']> = field.value ?? {
+              country: defaultCountry.code,
+              dialCode: defaultCountry.dialCode,
+              national: '',
+            };
+            const country: Country = COUNTRY_BY_CODE[current.country] ?? defaultCountry;
+            return (
+              <label className="flex flex-col gap-1 text-sm">
+                <span>{copy.fields.phone}</span>
+                <div className="flex gap-2">
+                  <select
+                    className="w-48 min-w-[8rem] rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                    value={country.code}
+                    onChange={(event) => {
+                      const next = COUNTRY_BY_CODE[event.target.value] ?? defaultCountry;
+                      field.onChange({
+                        country: next.code,
+                        dialCode: next.dialCode,
+                        national: current.national ?? '',
+                      });
+                    }}
+                  >
+                    {COUNTRIES.map((option) => (
+                      <option key={option.code} value={option.code}>
+                        {option.flag} {option.name} ({option.dialCode})
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    aria-invalid={fieldState.error ? 'true' : 'false'}
+                    className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                    placeholder={phonePlaceholder}
+                    value={current.national ?? ''}
+                    onChange={(event) => {
+                      const digits = event.target.value.replace(/[^\d]/g, '');
+                      field.onChange({
+                        country: country.code,
+                        dialCode: country.dialCode,
+                        national: digits,
+                      });
+                    }}
+                    onBlur={field.onBlur}
+                  />
+                </div>
+                {fieldState.error && (
+                  <span className="text-xs text-rose-600">
+                    {fieldState.error.message}
+                  </span>
+                )}
+              </label>
+            );
+          }}
+        />
+        <Controller
+          control={control}
+          name="budget"
+          render={({ field, fieldState }) => (
+            <label className="flex flex-col gap-1 text-sm">
+              <div className="flex items-center justify-between gap-4">
+                <span>{copy.fields.budget}</span>
+                {approxThbDisplay && budgetAmount !== null && (
+                  <span className="text-xs text-slate-500">{approxThbDisplay}</span>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <select
+                  className="w-32 rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                  value={budgetCurrency}
+                  onChange={(event) => {
+                    const next = event.target.value as CurrencyCode;
+                    setBudgetCurrency(next);
+                    if (budgetAmount !== null) {
+                      field.onChange({ currency: next, amount: budgetAmount });
+                    } else {
+                      field.onChange(undefined);
+                    }
+                  }}
+                >
+                  {SUPPORTED_CURRENCIES.map((code) => (
+                    <option key={code} value={code}>
+                      {code}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  aria-invalid={fieldState.error ? 'true' : 'false'}
+                  className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                  placeholder={budgetPlaceholder}
+                  value={budgetInput}
+                  onChange={(event) => {
+                    const raw = event.target.value;
+                    setBudgetInput(raw);
+                    if (!raw.trim()) {
+                      setBudgetAmount(null);
+                      field.onChange(undefined);
+                      return;
+                    }
+                    const parsed = parseBudgetInput(raw, decimalSymbol, groupSymbols);
+                    if (parsed === null) {
+                      setBudgetAmount(null);
+                      field.onChange(undefined);
+                      return;
+                    }
+                    setBudgetAmount(parsed);
+                    field.onChange({ currency: budgetCurrency, amount: parsed });
+                  }}
+                  onFocus={() => {
+                    if (budgetAmount !== null) {
+                      setBudgetInput(budgetAmount.toString());
+                    }
+                  }}
+                  onBlur={(event) => {
+                    if (!event.target.value.trim()) {
+                      setBudgetAmount(null);
+                      field.onChange(undefined);
+                      return;
+                    }
+                    if (budgetAmount !== null) {
+                      setBudgetInput(numberFormatter.format(budgetAmount));
+                    }
+                    field.onBlur();
+                  }}
+                />
+              </div>
+              {fieldState.error && (
+                <span className="text-xs text-rose-600">{fieldState.error.message}</span>
+              )}
+            </label>
+          )}
+        />
       </div>
       <label className="flex flex-col gap-1 text-sm">
-        {copy.fields.message}
-        <textarea
-          name="message"
-          required
-          rows={4}
-          className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-        />
+        <span>{copy.fields.message}</span>
+        <div className="relative">
+          <textarea
+            {...register('message')}
+            required
+            maxLength={1000}
+            aria-invalid={errors.message ? 'true' : 'false'}
+            rows={5}
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+          />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-lg text-slate-500 shadow-sm transition hover:bg-slate-100"
+            aria-label="Attach files"
+          >
+            📎
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            hidden
+            onChange={(event) => handleFiles(event.target.files)}
+          />
+        </div>
+        {fileError && <span className="text-xs text-rose-600">{fileError}</span>}
+        {errors.message && (
+          <span className="text-xs text-rose-600">{errors.message.message}</span>
+        )}
+        {files.length > 0 && (
+          <ul className="mt-2 space-y-2">
+            {files.map((file, index) => (
+              <li
+                key={`${file.name}-${index}`}
+                className="flex items-center justify-between rounded-xl bg-slate-100 px-3 py-2 text-xs text-slate-600"
+              >
+                <span className="flex-1 truncate">📎 {file.name}</span>
+                <button
+                  type="button"
+                  onClick={() => removeFile(index)}
+                  className="ml-3 rounded-full border border-slate-300 px-2 py-0.5 text-xs text-slate-500 transition hover:bg-slate-200"
+                  aria-label={`Remove ${file.name}`}
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </label>
       <label className="sr-only">
         {copy.honeypot}
-        <input name="website" tabIndex={-1} autoComplete="off" className="hidden" />
-      </label>
-      <div className="flex flex-col gap-3">
-        <Turnstile
-          siteKey={turnstileSiteKey}
-          options={{ theme: 'light' }}
-          onSuccess={(value) => setToken(value ?? '')}
-          onExpire={() => setToken('')}
+        <input
+          {...register('honeypot')}
+          tabIndex={-1}
+          autoComplete="off"
+          className="hidden"
         />
+      </label>
+      <div className="flex flex-col gap-4">
+        <div className="flex justify-center">
+          <Turnstile
+            key={turnstileNonce}
+            siteKey={turnstileSiteKey}
+            options={{ theme: 'light' }}
+            onSuccess={(value) => {
+              const nextValue = value ?? '';
+              setToken(nextValue);
+            }}
+            onExpire={() => {
+              setToken('');
+            }}
+          />
+        </div>
         <button
           type="submit"
-          className="inline-flex items-center justify-center rounded-full bg-brand-600 px-6 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+          className="mx-auto w-full rounded-full bg-brand-600 px-6 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 md:w-auto"
           disabled={isPending}
         >
           {isPending ? copy.sending : copy.submit}
@@ -148,7 +612,7 @@ export default function ContactForm({
         <p
           className={`text-sm ${status === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}
         >
-          {message}
+          {feedback}
         </p>
       )}
     </form>
