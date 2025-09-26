@@ -1,4 +1,3 @@
-import 'flag-icons/css/flag-icons.min.css';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { createRootMetadata } from '@/lib/seo';
