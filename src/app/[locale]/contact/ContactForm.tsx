@@ -8,12 +8,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { defaultCurrencyForCountry, getDefaultCountryForLocale } from '@/lib/countries';
-import { SUPPORTED_CURRENCIES, tryToTHB, type CurrencyCode } from '@/lib/forex';
+import { tryToTHB, type CurrencyCode } from '@/lib/forex';
 import {
   ContactFormSchema,
   type ContactApiBody,
   type ContactFormInput,
 } from '@/lib/schemas/contact';
+import CurrencySelect from './CurrencySelect';
 import { COUNTRIES } from './countries';
 
 export type ContactCopy = {
@@ -49,20 +50,6 @@ const CountrySelect = dynamic(() => import('./CountrySelect'), {
   ),
   ssr: false,
 });
-
-type CurrencySelectProps = React.PropsWithChildren<
-  React.SelectHTMLAttributes<HTMLSelectElement> & {
-    labelledBy: string;
-  }
->;
-
-function CurrencySelect({ labelledBy, children, ...props }: CurrencySelectProps) {
-  return (
-    <select aria-labelledby={labelledBy} {...props}>
-      {children}
-    </select>
-  );
-}
 
 const PaperclipIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
@@ -519,10 +506,9 @@ export default function ContactForm({
               <div className="flex gap-2">
                 <CurrencySelect
                   labelledBy="budget-label"
-                  className="w-20 min-w-[84px] rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 md:w-24"
+                  className="w-20 min-w-[84px] md:w-24"
                   value={budgetCurrency}
-                  onChange={(event) => {
-                    const next = event.target.value as CurrencyCode;
+                  onChange={(next) => {
                     setBudgetCurrency(next);
                     if (budgetAmount !== null) {
                       field.onChange({ currency: next, amount: budgetAmount });
@@ -530,13 +516,7 @@ export default function ContactForm({
                       field.onChange(undefined);
                     }
                   }}
-                >
-                  {SUPPORTED_CURRENCIES.map((code) => (
-                    <option key={code} value={code}>
-                      {code}
-                    </option>
-                  ))}
-                </CurrencySelect>
+                />
                 <input
                   type="text"
                   inputMode="decimal"
