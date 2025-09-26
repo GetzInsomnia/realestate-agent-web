@@ -146,15 +146,17 @@ export default function CountrySelect({
           }
         }}
       >
-        <div className="grid w-full grid-cols-[1.5rem_2.5rem_1fr] items-center gap-2 text-left">
+        <div className="grid h-9 grid-cols-[1.5rem_auto] items-center gap-1 text-left">
           <span
-            className={`fi fi-${selected.code.toLowerCase()} h-4 w-6 rounded-sm`}
+            className={`fi fi-${selected.code.toLowerCase()} block h-4 w-5 rounded-sm`}
             aria-hidden="true"
           />
-          <span className="w-8 text-xs uppercase text-slate-500">{selected.code}</span>
-          <span className="w-12 font-mono tabular-nums text-slate-700">
-            {selected.dialCode}
-          </span>
+          <div className="flex min-w-0 items-center justify-between gap-2 text-xs">
+            <span className="shrink-0 uppercase text-slate-500">{selected.code}</span>
+            <span className="min-w-0 font-mono tabular-nums text-slate-700">
+              {selected.dialCode}
+            </span>
+          </div>
           <span className="sr-only">{selected.name}</span>
         </div>
       </button>
@@ -214,7 +216,7 @@ export default function CountrySelect({
                 }}
                 role="option"
                 aria-selected={isSelected}
-                className={`w-full px-3 py-2 text-left text-sm focus:outline-none ${
+                className={`w-full rounded-md px-2 py-1.5 text-left text-sm hover:bg-slate-50 focus:outline-none ${
                   isActive ? 'bg-slate-100' : ''
                 } ${isSelected ? 'text-brand-600' : 'text-slate-700'}`}
                 onMouseEnter={() => setActiveIndex(index)}
@@ -227,25 +229,27 @@ export default function CountrySelect({
                   });
                 }}
               >
-                <div className="grid grid-cols-[1.5rem_2.5rem_1fr] items-center gap-2">
+                <div className="grid h-9 grid-cols-[1.5rem_auto] items-center gap-1">
                   <span
-                    className={`fi fi-${country.code.toLowerCase()} h-4 w-6 rounded-sm`}
+                    className={`fi fi-${country.code.toLowerCase()} block h-4 w-5 rounded-sm`}
                     aria-hidden="true"
                   />
-                  <span
-                    className={`w-8 text-xs uppercase ${
-                      isSelected ? 'text-brand-600' : 'text-slate-500'
-                    }`}
-                  >
-                    {country.code}
-                  </span>
-                  <span
-                    className={`w-12 font-mono tabular-nums ${
-                      isSelected ? 'text-brand-600' : 'text-slate-700'
-                    }`}
-                  >
-                    {country.dialCode}
-                  </span>
+                  <div className="flex min-w-0 items-center justify-between gap-2 text-xs">
+                    <span
+                      className={`shrink-0 uppercase ${
+                        isSelected ? 'text-brand-600' : 'text-slate-500'
+                      }`}
+                    >
+                      {country.code}
+                    </span>
+                    <span
+                      className={`min-w-0 font-mono tabular-nums ${
+                        isSelected ? 'text-brand-600' : 'text-slate-700'
+                      }`}
+                    >
+                      {country.dialCode}
+                    </span>
+                  </div>
                   <span className="sr-only">{country.name}</span>
                 </div>
               </button>
