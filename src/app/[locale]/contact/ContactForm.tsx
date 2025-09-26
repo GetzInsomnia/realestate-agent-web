@@ -9,7 +9,8 @@ import React, {
   useTransition,
 } from 'react';
 import { Turnstile } from '@marsidev/react-turnstile';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import {
