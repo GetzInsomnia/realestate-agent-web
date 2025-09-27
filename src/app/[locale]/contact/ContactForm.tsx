@@ -509,7 +509,7 @@ export default function ContactForm({
                 {/* CurrencySelect */}
                 <CurrencySelect
                   labelledBy="budget-label"
-                  className="w-16 min-w-[72px] md:w-20"
+                  className="shrink-0"
                   value={budgetCurrency}
                   onChange={(next) => {
                     setBudgetCurrency(next);
@@ -525,7 +525,7 @@ export default function ContactForm({
                   type="text"
                   inputMode="decimal"
                   aria-invalid={fieldState.error ? 'true' : 'false'}
-                  className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                  className="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
                   placeholder={budgetPlaceholder}
                   value={budgetInput}
                   onChange={(event) => {
