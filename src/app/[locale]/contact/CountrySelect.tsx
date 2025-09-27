@@ -1,10 +1,20 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import * as React from 'react';
+import clsx from 'clsx';
 import 'flag-icons/css/flag-icons.min.css';
 
-import { CheckIcon, ChevronDownIcon } from './icons';
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectViewport,
+  SelectItem,
+  SelectItemIndicator,
+} from '@/components/ui/select';
+
 import type { Country } from './countries';
+import { CheckIcon, ChevronDownIcon } from './icons';
 
 type CountrySelectProps = {
   countries: Country[];
@@ -21,240 +31,97 @@ export default function CountrySelect({
   labelledBy,
   id,
 }: CountrySelectProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(() => {
-    const index = countries.findIndex((country) => country.code === value);
-    return index >= 0 ? index : 0;
-  });
-  const activeIndexRef = useRef(activeIndex);
+  const [open, setOpen] = React.useState(false);
 
-  const selected = useMemo(() => {
-    return countries.find((country) => country.code === value) ?? countries[0];
-  }, [countries, value]);
-
-  useEffect(() => {
-    const nextIndex = countries.findIndex((country) => country.code === value);
-    setActiveIndex(nextIndex >= 0 ? nextIndex : 0);
-  }, [countries, value]);
-
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
-
-  const focusOption = useCallback(
-    (index: number, { scroll = false }: { scroll?: boolean } = {}) => {
-      const node = optionRefs.current[index];
-      if (!node) return;
-      if (scroll) {
-        node.focus();
-        node.scrollIntoView({ block: 'nearest' });
-      } else {
-        node.focus({ preventScroll: true });
+  const options = React.useMemo(() => {
+    return [...countries].sort((a, b) => {
+      const aDial = Number(String(a.dialCode).replace(/[^\d]/g, ''));
+      const bDial = Number(String(b.dialCode).replace(/[^\d]/g, ''));
+      if (!Number.isNaN(aDial) && !Number.isNaN(bDial) && aDial !== bDial) {
+        return aDial - bDial;
       }
-    },
-    [],
-  );
-
-  useEffect(() => {
-    if (!open) return;
-    const frame = requestAnimationFrame(() => {
-      focusOption(activeIndexRef.current, { scroll: true });
+      if (!Number.isNaN(aDial) && Number.isNaN(bDial)) return -1;
+      if (Number.isNaN(aDial) && !Number.isNaN(bDial)) return 1;
+      const dialCompare = a.dialCode.localeCompare(b.dialCode);
+      if (dialCompare !== 0) return dialCompare;
+      return a.code.localeCompare(b.code);
     });
-    return () => cancelAnimationFrame(frame);
-  }, [focusOption, open]);
+  }, [countries]);
 
-  useEffect(() => {
-    function onDocumentPointerDown(event: PointerEvent) {
-      if (!open) return;
-      const container = containerRef.current;
-      if (container && !container.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
+  const selected = React.useMemo(() => {
+    return options.find((country) => country.code === value) ?? options[0];
+  }, [options, value]);
 
-    document.addEventListener('pointerdown', onDocumentPointerDown, true);
-    return () => document.removeEventListener('pointerdown', onDocumentPointerDown, true);
-  }, [open]);
-
-  useEffect(() => {
-    optionRefs.current = new Array(countries.length);
-  }, [countries.length]);
-
-  if (!countries.length || !selected) {
+  if (!options.length || !selected) {
     return null;
   }
 
-  const triggerLabel = `${selected.name} (${selected.dialCode})`;
   const labelRelationship = id ? `${labelledBy} ${id}` : labelledBy;
-  const baseId = id ?? 'country-select';
-  const activeOptionId =
-    open && countries[activeIndex]
-      ? `${baseId}-option-${countries[activeIndex].code.toLowerCase()}`
-      : undefined;
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-[86px] min-w-[86px]"
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+    <Select
+      open={open}
+      onOpenChange={setOpen}
+      value={selected.code}
+      onValueChange={(code) => {
+        const next = options.find((country) => country.code === code);
+        if (next) {
+          onChange(next);
           setOpen(false);
         }
       }}
     >
-      <button
-        type="button"
+      <SelectTrigger
         id={id}
-        ref={triggerRef}
-        aria-haspopup="listbox"
-        aria-expanded={open}
+        aria-label={selected ? `${selected.name} (${selected.dialCode})` : 'Country code'}
         aria-labelledby={labelRelationship}
-        aria-label={triggerLabel}
-        className="flex w-full items-center gap-1.5 rounded-2xl border border-slate-200 bg-white px-2.5 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-        onClick={() => {
-          const index = countries.findIndex((country) => country.code === selected.code);
-          setActiveIndex(index >= 0 ? index : 0);
-          setOpen((prev) => !prev);
-        }}
-        onKeyDown={(event) => {
-          if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-            event.preventDefault();
-            const index = countries.findIndex(
-              (country) => country.code === selected.code,
-            );
-            setActiveIndex(index >= 0 ? index : 0);
-            setOpen(true);
-          } else if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            const index = countries.findIndex(
-              (country) => country.code === selected.code,
-            );
-            const nextIndex = index >= 0 ? index : 0;
-            if (open) {
-              setOpen(false);
-            } else {
-              setActiveIndex(nextIndex);
-              setOpen(true);
-            }
-          } else if (event.key === 'Escape') {
-            if (open) {
-              event.preventDefault();
-              setOpen(false);
-            }
-          }
-        }}
+        className="flex h-10 min-w-[100px] items-center justify-between gap-1 rounded-2xl border border-slate-200 bg-white px-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
       >
-        <span
-          className={`fi fi-${selected.code.toLowerCase()} block h-4 w-5 rounded-sm`}
-          aria-hidden="true"
-        />
-        <span className="flex-1 truncate font-mono tabular-nums text-slate-700">
-          {selected.dialCode}
-        </span>
-        <ChevronDownIcon aria-hidden="true" className="h-4 w-4 text-slate-400" />
-        <span className="sr-only">{selected.name}</span>
-      </button>
-      {open && (
-        <div
-          role="listbox"
-          id={`${baseId}-listbox`}
-          tabIndex={-1}
-          aria-activedescendant={activeOptionId}
-          className="absolute left-0 z-20 mt-1 max-h-64 w-max min-w-[240px] overflow-y-auto overflow-x-hidden rounded-2xl border border-slate-200 bg-white p-1.5 shadow-lg [scrollbar-gutter:stable]"
-          onKeyDown={(event) => {
-            if (event.key === 'ArrowDown') {
-              event.preventDefault();
-              setActiveIndex((index) => {
-                const nextIndex = index + 1 < countries.length ? index + 1 : 0;
-                requestAnimationFrame(() => focusOption(nextIndex, { scroll: true }));
-                return nextIndex;
-              });
-            } else if (event.key === 'ArrowUp') {
-              event.preventDefault();
-              setActiveIndex((index) => {
-                const nextIndex = index - 1 >= 0 ? index - 1 : countries.length - 1;
-                requestAnimationFrame(() => focusOption(nextIndex, { scroll: true }));
-                return nextIndex;
-              });
-            } else if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault();
-              const next = countries[activeIndexRef.current];
-              if (next) {
-                onChange(next);
-                setOpen(false);
-                setActiveIndex(
-                  countries.findIndex((country) => country.code === next.code),
-                );
-                requestAnimationFrame(() => {
-                  triggerRef.current?.focus();
-                });
-              }
-            } else if (event.key === 'Escape') {
-              event.preventDefault();
-              setOpen(false);
-              triggerRef.current?.focus();
-            }
-          }}
-        >
-          {countries.map((country, index) => {
-            const isSelected = country.code === selected.code;
-            const isActive = index === activeIndex;
-            const optionId = `${baseId}-option-${country.code.toLowerCase()}`;
-            return (
-              <button
-                key={country.code}
-                id={optionId}
-                type="button"
-                ref={(element) => {
-                  optionRefs.current[index] = element;
-                }}
-                role="option"
-                aria-selected={isSelected}
-                className={`w-full rounded-xl px-2.5 py-2 text-left text-sm transition-colors hover:bg-slate-50 focus:outline-none ${
-                  isActive && !isSelected ? 'bg-slate-100' : ''
-                } ${
-                  isSelected
-                    ? 'bg-brand-50 text-brand-600 ring-1 ring-inset ring-brand-200'
-                    : 'text-slate-700'
-                }`}
-                onMouseEnter={() => setActiveIndex(index)}
-                onClick={() => {
-                  onChange(country);
-                  setOpen(false);
-                  setActiveIndex(index);
-                  requestAnimationFrame(() => {
-                    triggerRef.current?.focus();
-                  });
-                }}
-              >
-                <div className="grid w-full grid-cols-[1.5rem_auto_1rem] items-center gap-1.5 text-left">
-                  <span
-                    className={`fi fi-${country.code.toLowerCase()} block h-4 w-5 rounded-sm`}
-                    aria-hidden="true"
-                  />
-                  <span
-                    className={`min-w-0 font-mono tabular-nums ${
-                      isSelected ? '' : 'text-slate-700'
-                    }`}
-                  >
-                    {country.dialCode}
-                  </span>
-                  {isSelected && (
-                    <CheckIcon
-                      aria-hidden="true"
-                      className="h-4 w-4 justify-self-end text-brand-600"
-                    />
-                  )}
-                  <span className="sr-only">{country.name}</span>
-                </div>
-              </button>
-            );
-          })}
+        <div className="flex min-w-0 items-center gap-2">
+          <span aria-hidden className="shrink-0">
+            <span
+              className={clsx(
+                `fi fi-${selected.code.toLowerCase()}`,
+                'block h-4 w-5 rounded-sm',
+              )}
+            />
+          </span>
+          <span className="text-sm font-medium tabular-nums">{selected.dialCode}</span>
         </div>
-      )}
-    </div>
+        <ChevronDownIcon aria-hidden className="h-4 w-4 opacity-60" />
+      </SelectTrigger>
+
+      <SelectContent
+        side="bottom"
+        align="start"
+        sideOffset={6}
+        className="min-w-[220px] max-w-[260px] overflow-x-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
+      >
+        <SelectViewport className="max-h-72 overflow-y-auto py-1 [scrollbar-gutter:stable]">
+          {options.map((country) => (
+            <SelectItem
+              key={country.code}
+              value={country.code}
+              textValue={country.dialCode}
+              className="relative flex cursor-pointer items-center gap-2 rounded-xl py-2 pl-2 pr-8 text-left text-sm text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+            >
+              <span aria-hidden className="shrink-0">
+                <span
+                  className={clsx(
+                    `fi fi-${country.code.toLowerCase()}`,
+                    'block h-4 w-5 rounded-sm',
+                  )}
+                />
+              </span>
+              <span className="text-sm tabular-nums">{country.dialCode}</span>
+              <SelectItemIndicator className="absolute right-2 text-brand-600">
+                <CheckIcon aria-hidden className="h-4 w-4" />
+              </SelectItemIndicator>
+              <span className="sr-only">{country.name}</span>
+            </SelectItem>
+          ))}
+        </SelectViewport>
+      </SelectContent>
+    </Select>
   );
 }
