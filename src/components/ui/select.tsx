@@ -182,10 +182,15 @@ SelectTrigger.displayName = 'SelectTrigger';
 
 type SelectContentProps = React.HTMLAttributes<HTMLDivElement> & {
   sideOffset?: number;
+  position?: 'item' | 'popper';
+  align?: 'start' | 'center' | 'end';
 };
 
 export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
-  ({ children, className, sideOffset = 4, ...props }, forwardedRef) => {
+  (
+    { children, className, sideOffset = 4, position: _position, align: _align, ...props },
+    forwardedRef,
+  ) => {
     const { open, setOpen, triggerRef, contentRef } = useSelectContext('SelectContent');
     const localRef = React.useRef<HTMLDivElement>(null);
     const mergedRef = React.useMemo(
@@ -233,6 +238,8 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
           'absolute left-0 top-full z-50 mt-[var(--select-offset,0px)] w-max origin-top',
           className,
         )}
+        data-position={_position}
+        data-align={_align}
         style={{
           ...(props.style ?? {}),
           // allow Tailwind classes to control width while keeping offset configurable
@@ -304,7 +311,7 @@ export const SelectItem = React.forwardRef<HTMLButtonElement, SelectItemProps>(
           data-state={isSelected ? 'checked' : 'unchecked'}
           {...props}
           ref={forwardedRef}
-          className={className}
+          className={clsx('relative pr-5', className)}
           onClick={(event) => {
             onClick?.(event);
             if (event.defaultPrevented) return;
@@ -340,7 +347,15 @@ export const SelectItemIndicator = React.forwardRef<
     return null;
   }
   return (
-    <span {...props} ref={ref} className={className} data-state="checked">
+    <span
+      {...props}
+      ref={ref}
+      className={clsx(
+        'pointer-events-none absolute right-1 flex h-3.5 w-3.5 items-center justify-center',
+        className,
+      )}
+      data-state="checked"
+    >
       {children}
     </span>
   );

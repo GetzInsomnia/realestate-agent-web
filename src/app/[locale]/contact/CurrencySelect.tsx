@@ -58,20 +58,22 @@ export default function CurrencySelect({
       </SelectTrigger>
 
       <SelectContent
+        position="popper"
+        align="start"
         sideOffset={6}
-        className="min-w-[220px] max-w-[260px] overflow-x-hidden overflow-y-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
+        className="w-auto min-w-[8rem] max-w-[90vw] p-0"
       >
-        <SelectViewport className="max-h-72 overflow-y-auto py-1 [scrollbar-gutter:stable]">
+        <SelectViewport className="max-h-72 overflow-y-auto rounded-2xl border border-slate-200 bg-white py-1 shadow-lg [scrollbar-gutter:stable]">
           {SUPPORTED_CURRENCIES.map((code) => (
             <SelectItem
               key={code}
               value={code}
               textValue={code}
-              className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2 pr-2 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-xl py-2 pl-3 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
             >
               <div className="flex items-center font-mono tabular-nums">
-                <span>{code}</span>
-                <SelectItemIndicator className="ml-1 inline-flex text-brand-600">
+                <span className="tabular-nums">{code}</span>
+                <SelectItemIndicator className="text-brand-600">
                   <CheckIcon aria-hidden className="h-4 w-4" />
                 </SelectItemIndicator>
               </div>
