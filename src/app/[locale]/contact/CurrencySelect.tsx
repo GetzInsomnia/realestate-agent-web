@@ -59,8 +59,6 @@ export default function CurrencySelect({
       </SelectTrigger>
 
       <SelectContent
-        side="bottom"
-        align="start"
         sideOffset={6}
         className="min-w-[220px] max-w-[260px] overflow-x-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
       >
