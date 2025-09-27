@@ -101,7 +101,7 @@ export default function CountrySelect({
               key={country.code}
               value={country.code}
               textValue={country.dialCode}
-              className="grid w-full cursor-pointer grid-cols-[1.25rem_auto_1rem] items-center gap-1.5 rounded-xl py-2 pl-2 pr-2 text-left text-sm text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-xl py-2 pl-2 pr-2 text-left text-sm text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
             >
               <span aria-hidden className="shrink-0">
                 <span
@@ -111,10 +111,13 @@ export default function CountrySelect({
                   )}
                 />
               </span>
-              <span className="text-sm tabular-nums">{country.dialCode}</span>
-              <SelectItemIndicator className="justify-self-end text-brand-600">
-                <CheckIcon aria-hidden className="h-4 w-4" />
-              </SelectItemIndicator>
+              <div className="flex items-center text-sm tabular-nums">
+                <span>{country.dialCode}</span>
+                {/* Make the checkmark sit right after the dial code (no huge gap) */}
+                <SelectItemIndicator className="ml-1 inline-flex text-brand-600">
+                  <CheckIcon aria-hidden className="h-4 w-4" />
+                </SelectItemIndicator>
+              </div>
               <span className="sr-only">{country.name}</span>
             </SelectItem>
           ))}
