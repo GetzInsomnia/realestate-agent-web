@@ -92,16 +92,18 @@ export default function CountrySelect({
       </SelectTrigger>
 
       <SelectContent
+        position="popper"
+        align="start"
         sideOffset={6}
-        className="min-w-[220px] max-w-[260px] overflow-x-hidden overflow-y-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
+        className="w-auto min-w-[10rem] max-w-[90vw] p-0"
       >
-        <SelectViewport className="max-h-72 overflow-y-auto py-1 [scrollbar-gutter:stable]">
+        <SelectViewport className="max-h-72 overflow-y-auto rounded-2xl border border-slate-200 bg-white py-1 shadow-lg [scrollbar-gutter:stable]">
           {options.map((country) => (
             <SelectItem
               key={country.code}
               value={country.code}
               textValue={country.dialCode}
-              className="flex cursor-pointer items-center gap-2 rounded-xl py-2 pl-2 pr-2 text-left text-sm text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+              className="flex cursor-pointer items-center gap-2 rounded-xl py-2 pl-2 text-left text-sm text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
             >
               <span aria-hidden className="shrink-0">
                 <span
@@ -114,7 +116,7 @@ export default function CountrySelect({
               {/* dial code + tight checkmark */}
               <span className="inline-flex items-center">
                 <span className="text-sm tabular-nums">{country.dialCode}</span>
-                <SelectItemIndicator className="ml-1 inline-flex text-brand-600">
+                <SelectItemIndicator className="text-brand-600">
                   <CheckIcon aria-hidden className="h-4 w-4" />
                 </SelectItemIndicator>
               </span>
