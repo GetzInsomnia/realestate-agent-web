@@ -59,7 +59,7 @@ export default function CurrencySelect({
 
       <SelectContent
         sideOffset={6}
-        className="min-w-[220px] max-w-[260px] overflow-x-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
+        className="min-w-[220px] max-w-[260px] overflow-x-hidden overflow-y-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
       >
         <SelectViewport className="max-h-72 overflow-y-auto py-1 [scrollbar-gutter:stable]">
           {SUPPORTED_CURRENCIES.map((code) => (
@@ -67,11 +67,10 @@ export default function CurrencySelect({
               key={code}
               value={code}
               textValue={code}
-              className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2 pr-2 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
             >
               <div className="flex items-center font-mono tabular-nums">
                 <span>{code}</span>
-                {/* Keep checkmark tight to the currency code and align consistently */}
                 <SelectItemIndicator className="ml-1 inline-flex text-brand-600">
                   <CheckIcon aria-hidden className="h-4 w-4" />
                 </SelectItemIndicator>
