@@ -505,7 +505,8 @@ export default function ContactForm({
                   <span className="text-xs text-slate-500">{approxThbDisplay}</span>
                 )}
               </div>
-              <div className="flex gap-2">
+              {/* Tighter space between currency selector and amount for visual balance */}
+              <div className="flex gap-1.5 md:gap-2">
                 <CurrencySelect
                   labelledBy="budget-label"
                   className="w-16 min-w-[72px] md:w-20"

@@ -67,12 +67,15 @@ export default function CurrencySelect({
               key={code}
               value={code}
               textValue={code}
-              className="grid w-full cursor-pointer grid-cols-[auto_1rem] items-center gap-1.5 rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
             >
-              <span className="font-mono tabular-nums">{code}</span>
-              <SelectItemIndicator className="justify-self-end text-brand-600">
-                <CheckIcon aria-hidden className="h-4 w-4" />
-              </SelectItemIndicator>
+              <div className="flex items-center font-mono tabular-nums">
+                <span>{code}</span>
+                {/* Keep checkmark tight to the currency code and align consistently */}
+                <SelectItemIndicator className="ml-1 inline-flex text-brand-600">
+                  <CheckIcon aria-hidden className="h-4 w-4" />
+                </SelectItemIndicator>
+              </div>
             </SelectItem>
           ))}
         </SelectViewport>
