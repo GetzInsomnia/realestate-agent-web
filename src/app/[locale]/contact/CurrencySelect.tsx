@@ -10,7 +10,6 @@ import {
   SelectViewport,
   SelectItem,
   SelectItemIndicator,
-  SelectValue,
 } from '@/components/ui/select';
 import { SUPPORTED_CURRENCIES, type CurrencyCode } from '@/lib/forex';
 
@@ -54,7 +53,7 @@ export default function CurrencySelect({
           className,
         )}
       >
-        <SelectValue className="font-mono tabular-nums" />
+        <span className="font-mono tabular-nums">{value}</span>
         <ChevronDownIcon aria-hidden className="h-4 w-4 opacity-60" />
       </SelectTrigger>
 
@@ -68,10 +67,10 @@ export default function CurrencySelect({
               key={code}
               value={code}
               textValue={code}
-              className="relative flex w-full cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+              className="grid w-full cursor-pointer grid-cols-[auto_1rem] items-center gap-1.5 rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
             >
               <span className="font-mono tabular-nums">{code}</span>
-              <SelectItemIndicator className="absolute right-2 text-brand-600">
+              <SelectItemIndicator className="justify-self-end text-brand-600">
                 <CheckIcon aria-hidden className="h-4 w-4" />
               </SelectItemIndicator>
             </SelectItem>
