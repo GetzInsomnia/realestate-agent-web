@@ -505,7 +505,7 @@ export default function ContactForm({
                   <span className="text-xs text-slate-500">{approxThbDisplay}</span>
                 )}
               </div>
-              <div className="flex w-full items-center gap-2 md:gap-3">
+              <div className="flex w-full items-center gap-1 md:gap-1.5">
                 {/* CurrencySelect */}
                 <CurrencySelect
                   labelledBy="budget-label"
