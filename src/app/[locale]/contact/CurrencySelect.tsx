@@ -61,7 +61,7 @@ export default function CurrencySelect({
         position="popper"
         align="start"
         sideOffset={6}
-        className="w-auto min-w-[8rem] max-w-[90vw] p-0"
+        className="w-auto min-w-[5rem] max-w-[90vw] p-0"
       >
         <SelectViewport className="max-h-72 overflow-y-auto rounded-2xl border border-slate-200 bg-white py-1 shadow-lg [scrollbar-gutter:stable]">
           {SUPPORTED_CURRENCIES.map((code) => (
