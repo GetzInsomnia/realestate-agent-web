@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 
 import {
@@ -30,7 +30,7 @@ export default function CurrencySelect({
   id,
   className,
 }: CurrencySelectProps) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const labelRelationship = id ? `${labelledBy} ${id}` : labelledBy;
 
   return (
@@ -41,6 +41,7 @@ export default function CurrencySelect({
       onValueChange={(next) => {
         onChange(next as CurrencyCode);
         setOpen(false);
+        requestAnimationFrame(() => setOpen(false));
       }}
       className="w-full"
     >
