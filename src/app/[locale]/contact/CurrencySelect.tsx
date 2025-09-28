@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 import clsx from 'clsx';
 
 import {
@@ -10,6 +10,7 @@ import {
   SelectViewport,
   SelectItem,
   SelectItemIndicator,
+  SelectValue,
 } from '@/components/ui/select';
 import { SUPPORTED_CURRENCIES, type CurrencyCode } from '@/lib/forex';
 
@@ -30,18 +31,22 @@ export default function CurrencySelect({
   id,
   className,
 }: CurrencySelectProps) {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const labelRelationship = id ? `${labelledBy} ${id}` : labelledBy;
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!open) return;
 
     const handlePointerDown = (event: PointerEvent) => {
-      const element = containerRef.current;
-      if (!element) return;
+      const target = event.target as Node | null;
+      const inTrigger = !!triggerRef.current?.contains(target as Node);
+      const portalEl = document.querySelector(
+        '[data-currency-portal]',
+      ) as HTMLElement | null;
+      const inPortal = !!portalEl?.contains(target as Node);
 
-      if (!element.contains(event.target as Node)) {
+      if (!inTrigger && !inPortal) {
         setOpen(false);
       }
     };
@@ -53,56 +58,59 @@ export default function CurrencySelect({
     };
   }, [open]);
 
-  return (
-    <div ref={containerRef}>
-      <Select
-        open={open}
-        onOpenChange={setOpen}
-        value={value}
-        onValueChange={(next) => {
-          onChange(next as CurrencyCode);
-          setOpen(false);
-        }}
-        className="w-full"
-      >
-        <SelectTrigger
-          id={id}
-          aria-label="Currency"
-          aria-labelledby={labelRelationship}
-          className={clsx(
-            'flex h-10 w-full items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
-            className,
-          )}
-        >
-          <span className="font-mono tabular-nums">{value}</span>
-          <ChevronDownIcon aria-hidden className="h-4 w-4 opacity-60" />
-        </SelectTrigger>
+  const handleValueChange = (next: string) => {
+    onChange(next as CurrencyCode);
+    setOpen(false);
+  };
 
-        <SelectContent
-          position="popper"
-          align="start"
-          sideOffset={6}
-          className="w-auto min-w-[5rem] max-w-[90vw] p-0"
-        >
-          <SelectViewport className="max-h-72 overflow-y-auto rounded-2xl border border-slate-200 bg-white py-1 shadow-lg [scrollbar-gutter:stable]">
-            {SUPPORTED_CURRENCIES.map((code) => (
-              <SelectItem
-                key={code}
-                value={code}
-                textValue={code}
-                className="flex w-full cursor-pointer items-center gap-2 rounded-xl py-2 pl-3 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
-              >
-                <div className="flex items-center font-mono tabular-nums">
-                  <span className="tabular-nums">{code}</span>
-                  <SelectItemIndicator className="text-brand-600">
-                    <CheckIcon aria-hidden className="h-4 w-4" />
-                  </SelectItemIndicator>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectViewport>
-        </SelectContent>
-      </Select>
-    </div>
+  return (
+    <Select
+      open={open}
+      onOpenChange={setOpen}
+      value={value}
+      onValueChange={handleValueChange}
+      className="w-full"
+    >
+      <SelectTrigger
+        ref={triggerRef}
+        id={id}
+        aria-label="Currency"
+        aria-labelledby={labelRelationship}
+        data-radix-select-trigger
+        className={clsx(
+          'flex h-10 w-full items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
+          className,
+        )}
+      >
+        <SelectValue className="font-mono tabular-nums" placeholder={value} />
+        <ChevronDownIcon aria-hidden className="h-4 w-4 opacity-60" />
+      </SelectTrigger>
+
+      <SelectContent
+        position="popper"
+        align="start"
+        sideOffset={6}
+        className="w-auto min-w-[5rem] max-w-[90vw] p-0"
+        data-currency-portal
+      >
+        <SelectViewport className="max-h-72 overflow-y-auto rounded-2xl border border-slate-200 bg-white py-1 shadow-lg [scrollbar-gutter:stable]">
+          {SUPPORTED_CURRENCIES.map((code) => (
+            <SelectItem
+              key={code}
+              value={code}
+              textValue={code}
+              className="flex w-full cursor-pointer items-center gap-2 rounded-xl py-2 pl-3 text-left text-sm font-medium text-slate-700 transition-colors data-[state=checked]:bg-brand-50 data-[state=checked]:text-brand-700"
+            >
+              <div className="flex items-center font-mono tabular-nums">
+                <span className="tabular-nums">{code}</span>
+                <SelectItemIndicator className="text-brand-600">
+                  <CheckIcon aria-hidden className="h-4 w-4" />
+                </SelectItemIndicator>
+              </div>
+            </SelectItem>
+          ))}
+        </SelectViewport>
+      </SelectContent>
+    </Select>
   );
 }
