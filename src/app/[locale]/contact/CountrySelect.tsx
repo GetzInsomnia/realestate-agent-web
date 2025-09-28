@@ -22,6 +22,7 @@ type CountrySelectProps = {
   onChange: (country: Country) => void;
   labelledBy: string;
   id?: string;
+  className?: string;
 };
 
 export default function CountrySelect({
@@ -30,6 +31,7 @@ export default function CountrySelect({
   onChange,
   labelledBy,
   id,
+  className,
 }: CountrySelectProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -75,7 +77,10 @@ export default function CountrySelect({
         id={id}
         aria-label={selected ? `${selected.name} (${selected.dialCode})` : 'Country code'}
         aria-labelledby={labelRelationship}
-        className="flex h-10 min-w-[100px] items-center justify-between gap-1 rounded-2xl border border-slate-200 bg-white px-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+        className={clsx(
+          'flex h-10 min-w-[100px] items-center justify-between gap-1 rounded-2xl border border-slate-200 bg-white px-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
+          className,
+        )}
       >
         <div className="flex min-w-0 items-center gap-2">
           <span aria-hidden className="shrink-0">
