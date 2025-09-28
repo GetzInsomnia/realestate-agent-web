@@ -78,7 +78,7 @@ export default function CurrencySelect({
         aria-labelledby={labelRelationship}
         data-radix-select-trigger
         className={clsx(
-          'flex h-10 w-full items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
+          'inline-flex h-10 w-auto min-w-[5.5rem] items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
           className,
         )}
       >
