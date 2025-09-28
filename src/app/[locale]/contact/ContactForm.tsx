@@ -498,9 +498,15 @@ export default function ContactForm({
           control={control}
           name="budget"
           render={({ field, fieldState }) => (
-            <label className="flex flex-col gap-1 text-sm">
+            <div className="flex flex-col gap-1 text-sm">
               <div className="flex items-center justify-between gap-4">
-                <span id="budget-label">{copy.fields.budget}</span>
+                <label
+                  htmlFor="budget-amount"
+                  id="budget-label"
+                  className="cursor-pointer"
+                >
+                  {copy.fields.budget}
+                </label>
                 {approxThbDisplay && budgetAmount !== null && (
                   <span className="text-xs text-slate-500">{approxThbDisplay}</span>
                 )}
@@ -522,6 +528,7 @@ export default function ContactForm({
                 />
                 {/* Amount input */}
                 <input
+                  id="budget-amount"
                   type="text"
                   inputMode="decimal"
                   aria-invalid={fieldState.error ? 'true' : 'false'}
@@ -566,7 +573,7 @@ export default function ContactForm({
               {fieldState.error && (
                 <span className="text-xs text-rose-600">{fieldState.error.message}</span>
               )}
-            </label>
+            </div>
           )}
         />
       </div>
