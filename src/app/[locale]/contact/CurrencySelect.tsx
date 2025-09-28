@@ -69,7 +69,7 @@ export default function CurrencySelect({
       onOpenChange={setOpen}
       value={value}
       onValueChange={handleValueChange}
-      className="w-full"
+      className="inline-block w-auto"
     >
       <SelectTrigger
         ref={triggerRef}
