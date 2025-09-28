@@ -63,10 +63,12 @@ export default async function ContactPage({ params }: { params: { locale?: strin
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8 2xl:max-w-5xl">
       <Breadcrumbs />
       <div className="mt-8 space-y-4">
-        <h1 className="text-3xl font-semibold text-slate-900">{tContact('title')}</h1>
+        <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl md:text-5xl">
+          {tContact('title')}
+        </h1>
         <p className="text-sm text-slate-600">{tContact('subtitle')}</p>
       </div>
       <div className="mt-10 rounded-3xl border border-slate-200/60 bg-white/80 p-8 shadow-soft">

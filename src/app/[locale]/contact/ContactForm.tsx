@@ -397,8 +397,8 @@ export default function ContactForm({
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <p className="text-sm text-slate-600">{copy.intro}</p>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="flex flex-col gap-1 text-sm">
+      <div className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:gap-6">
+        <label className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
           <span>{copy.fields.name}</span>
           <input
             {...register('name')}
@@ -412,7 +412,7 @@ export default function ContactForm({
             <span className="text-xs text-rose-600">{errors.name.message}</span>
           )}
         </label>
-        <label className="flex flex-col gap-1 text-sm">
+        <label className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
           <span>{copy.fields.email}</span>
           <input
             type="email"
@@ -442,15 +442,20 @@ export default function ContactForm({
             const selectedDialCode = selectedOption?.dialCode ?? defaultCountry.dialCode;
             return (
               <div
-                className="flex flex-col gap-1 text-sm"
+                className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base"
                 role="group"
                 aria-labelledby="phone-label"
               >
-                <label id="phone-label" htmlFor="phone-national" className="text-sm">
+                <label
+                  id="phone-label"
+                  htmlFor="phone-national"
+                  className="text-sm sm:text-[15px] md:text-base"
+                >
                   {copy.fields.phone}
                 </label>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
                   <CountrySelect
+                    className="shrink-0"
                     countries={sortedCountries}
                     value={selectedCode}
                     onChange={(next) => {
@@ -464,26 +469,24 @@ export default function ContactForm({
                     labelledBy="phone-label"
                     id="phone-country"
                   />
-                  <div className="flex-1">
-                    <input
-                      id="phone-national"
-                      type="tel"
-                      inputMode="numeric"
-                      aria-invalid={fieldState.error ? 'true' : 'false'}
-                      className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-                      placeholder={phonePlaceholder}
-                      value={current.national ?? ''}
-                      onChange={(event) => {
-                        const digits = event.target.value.replace(/[^\d]/g, '');
-                        field.onChange({
-                          country: selectedCode,
-                          dialCode: selectedDialCode,
-                          national: digits,
-                        });
-                      }}
-                      onBlur={field.onBlur}
-                    />
-                  </div>
+                  <input
+                    id="phone-national"
+                    type="tel"
+                    inputMode="numeric"
+                    aria-invalid={fieldState.error ? 'true' : 'false'}
+                    className="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                    placeholder={phonePlaceholder}
+                    value={current.national ?? ''}
+                    onChange={(event) => {
+                      const digits = event.target.value.replace(/[^\d]/g, '');
+                      field.onChange({
+                        country: selectedCode,
+                        dialCode: selectedDialCode,
+                        national: digits,
+                      });
+                    }}
+                    onBlur={field.onBlur}
+                  />
                 </div>
                 {fieldState.error && (
                   <span className="text-xs text-rose-600">
@@ -498,12 +501,12 @@ export default function ContactForm({
           control={control}
           name="budget"
           render={({ field, fieldState }) => (
-            <div className="flex flex-col gap-1 text-sm">
+            <div className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
               <div className="flex items-center justify-between gap-4">
                 <label
                   htmlFor="budget-amount"
                   id="budget-label"
-                  className="cursor-pointer"
+                  className="cursor-pointer text-sm sm:text-[15px] md:text-base"
                 >
                   {copy.fields.budget}
                 </label>
@@ -511,7 +514,7 @@ export default function ContactForm({
                   <span className="text-xs text-slate-500">{approxThbDisplay}</span>
                 )}
               </div>
-              <div className="flex w-full items-center gap-1 md:gap-1.5">
+              <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
                 {/* CurrencySelect */}
                 <CurrencySelect
                   labelledBy="budget-label"
@@ -577,7 +580,7 @@ export default function ContactForm({
           )}
         />
       </div>
-      <label className="flex flex-col gap-1 text-sm">
+      <label className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
         <span>{copy.fields.message}</span>
         <div className="relative">
           <textarea
