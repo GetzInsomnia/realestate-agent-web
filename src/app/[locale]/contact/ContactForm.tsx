@@ -140,6 +140,7 @@ export default function ContactForm({
   const [budgetCurrency, setBudgetCurrency] = useState<CurrencyCode>(defaultCurrency);
   const [budgetAmount, setBudgetAmount] = useState<number | null>(null);
   const [budgetInput, setBudgetInput] = useState('');
+  const [isCompact, setIsCompact] = useState(false);
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const numberFormatter = useMemo(
@@ -199,6 +200,20 @@ export default function ContactForm({
   useEffect(() => {
     setValue('turnstileToken', token, { shouldValidate: true });
   }, [token, setValue]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 360px)');
+    const apply = () => setIsCompact(mq.matches);
+    apply();
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', apply);
+      return () => mq.removeEventListener?.('change', apply);
+    }
+
+    mq.addListener?.(apply);
+    return () => mq.removeListener?.(apply);
+  }, []);
 
   useEffect(() => {
     const currentCurrency = getValues('budget.currency') as CurrencyCode | undefined;
@@ -397,31 +412,35 @@ export default function ContactForm({
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <p className="text-sm text-slate-600">{copy.intro}</p>
-      <div className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:gap-6">
-        <label className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
-          <span>{copy.fields.name}</span>
-          <input
-            {...register('name')}
-            required
-            maxLength={100}
-            aria-invalid={errors.name ? 'true' : 'false'}
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-            placeholder={namePlaceholder}
-          />
+      <div className="grid gap-4 max-[360px]:gap-3 sm:grid-cols-2 md:gap-5 lg:gap-6">
+        <label className="flex min-w-0 flex-col gap-1 break-words text-sm sm:text-[15px] md:text-base">
+          <span className="break-words">{copy.fields.name}</span>
+          <div className="min-w-0 flex-1">
+            <input
+              {...register('name')}
+              required
+              maxLength={100}
+              aria-invalid={errors.name ? 'true' : 'false'}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 max-[360px]:text-xs"
+              placeholder={namePlaceholder}
+            />
+          </div>
           {errors.name && (
             <span className="text-xs text-rose-600">{errors.name.message}</span>
           )}
         </label>
-        <label className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
-          <span>{copy.fields.email}</span>
-          <input
-            type="email"
-            {...register('email')}
-            required
-            aria-invalid={errors.email ? 'true' : 'false'}
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-            placeholder="name@example.com"
-          />
+        <label className="flex min-w-0 flex-col gap-1 break-words text-sm sm:text-[15px] md:text-base">
+          <span className="break-words">{copy.fields.email}</span>
+          <div className="min-w-0 flex-1">
+            <input
+              type="email"
+              {...register('email')}
+              required
+              aria-invalid={errors.email ? 'true' : 'false'}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 max-[360px]:text-xs"
+              placeholder="name@example.com"
+            />
+          </div>
           {errors.email && (
             <span className="text-xs text-rose-600">{errors.email.message}</span>
           )}
@@ -442,18 +461,18 @@ export default function ContactForm({
             const selectedDialCode = selectedOption?.dialCode ?? defaultCountry.dialCode;
             return (
               <div
-                className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base"
+                className="flex min-w-0 flex-col gap-1 break-words text-sm sm:text-[15px] md:text-base"
                 role="group"
                 aria-labelledby="phone-label"
               >
                 <label
                   id="phone-label"
                   htmlFor="phone-national"
-                  className="text-sm sm:text-[15px] md:text-base"
+                  className="break-words text-sm sm:text-[15px] md:text-base"
                 >
                   {copy.fields.phone}
                 </label>
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+                <div className="flex min-w-0 items-center gap-2 max-[360px]:gap-1 sm:gap-3 md:gap-4">
                   <CountrySelect
                     className="shrink-0"
                     countries={sortedCountries}
@@ -474,7 +493,7 @@ export default function ContactForm({
                     type="tel"
                     inputMode="numeric"
                     aria-invalid={fieldState.error ? 'true' : 'false'}
-                    className="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                    className="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 max-[360px]:text-xs"
                     placeholder={phonePlaceholder}
                     value={current.national ?? ''}
                     onChange={(event) => {
@@ -501,20 +520,22 @@ export default function ContactForm({
           control={control}
           name="budget"
           render={({ field, fieldState }) => (
-            <div className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
-              <div className="flex items-center justify-between gap-4">
+            <div className="flex min-w-0 flex-col gap-1 break-words text-sm sm:text-[15px] md:text-base">
+              <div className="flex min-w-0 items-center justify-between gap-4">
                 <label
                   htmlFor="budget-amount"
                   id="budget-label"
-                  className="cursor-pointer text-sm sm:text-[15px] md:text-base"
+                  className="cursor-pointer break-words text-sm sm:text-[15px] md:text-base"
                 >
                   {copy.fields.budget}
                 </label>
                 {approxThbDisplay && budgetAmount !== null && (
-                  <span className="text-xs text-slate-500">{approxThbDisplay}</span>
+                  <span className="text-xs text-slate-500 max-[360px]:truncate max-[360px]:text-xs">
+                    {approxThbDisplay}
+                  </span>
                 )}
               </div>
-              <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+              <div className="flex min-w-0 items-center gap-2 max-[360px]:gap-1 sm:gap-3 md:gap-4">
                 {/* CurrencySelect */}
                 <CurrencySelect
                   labelledBy="budget-label"
@@ -530,48 +551,50 @@ export default function ContactForm({
                   }}
                 />
                 {/* Amount input */}
-                <input
-                  id="budget-amount"
-                  type="text"
-                  inputMode="decimal"
-                  aria-invalid={fieldState.error ? 'true' : 'false'}
-                  className="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-                  placeholder={budgetPlaceholder}
-                  value={budgetInput}
-                  onChange={(event) => {
-                    const raw = event.target.value;
-                    setBudgetInput(raw);
-                    if (!raw.trim()) {
-                      setBudgetAmount(null);
-                      field.onChange(undefined);
-                      return;
-                    }
-                    const parsed = parseBudgetInput(raw, decimalSymbol, groupSymbols);
-                    if (parsed === null) {
-                      setBudgetAmount(null);
-                      field.onChange(undefined);
-                      return;
-                    }
-                    setBudgetAmount(parsed);
-                    field.onChange({ currency: budgetCurrency, amount: parsed });
-                  }}
-                  onFocus={() => {
-                    if (budgetAmount !== null) {
-                      setBudgetInput(budgetAmount.toString());
-                    }
-                  }}
-                  onBlur={(event) => {
-                    if (!event.target.value.trim()) {
-                      setBudgetAmount(null);
-                      field.onChange(undefined);
-                      return;
-                    }
-                    if (budgetAmount !== null) {
-                      setBudgetInput(numberFormatter.format(budgetAmount));
-                    }
-                    field.onBlur();
-                  }}
-                />
+                <div className="min-w-0 flex-1">
+                  <input
+                    id="budget-amount"
+                    type="text"
+                    inputMode="decimal"
+                    aria-invalid={fieldState.error ? 'true' : 'false'}
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 max-[360px]:text-xs"
+                    placeholder={budgetPlaceholder}
+                    value={budgetInput}
+                    onChange={(event) => {
+                      const raw = event.target.value;
+                      setBudgetInput(raw);
+                      if (!raw.trim()) {
+                        setBudgetAmount(null);
+                        field.onChange(undefined);
+                        return;
+                      }
+                      const parsed = parseBudgetInput(raw, decimalSymbol, groupSymbols);
+                      if (parsed === null) {
+                        setBudgetAmount(null);
+                        field.onChange(undefined);
+                        return;
+                      }
+                      setBudgetAmount(parsed);
+                      field.onChange({ currency: budgetCurrency, amount: parsed });
+                    }}
+                    onFocus={() => {
+                      if (budgetAmount !== null) {
+                        setBudgetInput(budgetAmount.toString());
+                      }
+                    }}
+                    onBlur={(event) => {
+                      if (!event.target.value.trim()) {
+                        setBudgetAmount(null);
+                        field.onChange(undefined);
+                        return;
+                      }
+                      if (budgetAmount !== null) {
+                        setBudgetInput(numberFormatter.format(budgetAmount));
+                      }
+                      field.onBlur();
+                    }}
+                  />
+                </div>
               </div>
               {fieldState.error && (
                 <span className="text-xs text-rose-600">{fieldState.error.message}</span>
@@ -580,32 +603,34 @@ export default function ContactForm({
           )}
         />
       </div>
-      <label className="flex flex-col gap-1 text-sm sm:text-[15px] md:text-base">
-        <span>{copy.fields.message}</span>
-        <div className="relative">
-          <textarea
-            {...register('message')}
-            required
-            maxLength={1000}
-            aria-invalid={errors.message ? 'true' : 'false'}
-            rows={5}
-            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-          />
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-slate-100"
-            aria-label="Attach files"
-          >
-            <PaperclipIcon className="h-4 w-4" aria-hidden="true" />
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            multiple
-            hidden
-            onChange={(event) => handleFiles(event.target.files)}
-          />
+      <label className="flex min-w-0 flex-col gap-1 break-words text-sm sm:text-[15px] md:text-base">
+        <span className="break-words">{copy.fields.message}</span>
+        <div className="min-w-0 flex-1">
+          <div className="relative min-w-0">
+            <textarea
+              {...register('message')}
+              required
+              maxLength={1000}
+              aria-invalid={errors.message ? 'true' : 'false'}
+              rows={5}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 max-[360px]:text-sm"
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-slate-100"
+              aria-label="Attach files"
+            >
+              <PaperclipIcon className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              hidden
+              onChange={(event) => handleFiles(event.target.files)}
+            />
+          </div>
         </div>
         {fileError && <span className="text-xs text-rose-600">{fileError}</span>}
         {errors.message && (
@@ -654,18 +679,20 @@ export default function ContactForm({
       </label>
       <div className="flex flex-col gap-4">
         <div className="flex justify-center">
-          <Turnstile
-            key={turnstileNonce}
-            siteKey={turnstileSiteKey}
-            options={{ theme: 'light' }}
-            onSuccess={(value) => {
-              const nextValue = value ?? '';
-              setToken(nextValue);
-            }}
-            onExpire={() => {
-              setToken('');
-            }}
-          />
+          <div className="max-[360px]:origin-top-left max-[360px]:scale-[0.95]">
+            <Turnstile
+              key={turnstileNonce}
+              siteKey={turnstileSiteKey}
+              options={{ theme: 'light', size: isCompact ? 'compact' : 'normal' }}
+              onSuccess={(value) => {
+                const nextValue = value ?? '';
+                setToken(nextValue);
+              }}
+              onExpire={() => {
+                setToken('');
+              }}
+            />
+          </div>
         </div>
         <button
           type="submit"
