@@ -193,7 +193,7 @@
       "budget": "1,000,000.00"
     },
     "hints": {
-      "budgetThb": "≈ {amount} บาท"
+      "budgetThb": "≈ {amount} THB"
     },
     "submit": "Send message",
     "sending": "Sending...",

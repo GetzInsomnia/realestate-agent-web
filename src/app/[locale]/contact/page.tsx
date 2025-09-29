@@ -63,7 +63,7 @@ export default async function ContactPage({ params }: { params: { locale?: strin
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 lg:px-8 2xl:max-w-5xl">
+    <div className="mx-auto w-full max-w-4xl overflow-x-hidden px-3 py-16 sm:px-6 lg:px-8">
       <Breadcrumbs />
       <div className="mt-8 space-y-4">
         <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl md:text-5xl">

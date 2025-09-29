@@ -140,7 +140,6 @@ export default function ContactForm({
   const [budgetCurrency, setBudgetCurrency] = useState<CurrencyCode>(defaultCurrency);
   const [budgetAmount, setBudgetAmount] = useState<number | null>(null);
   const [budgetInput, setBudgetInput] = useState('');
-  const [isCompact, setIsCompact] = useState(false);
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const numberFormatter = useMemo(
@@ -201,18 +200,16 @@ export default function ContactForm({
     setValue('turnstileToken', token, { shouldValidate: true });
   }, [token, setValue]);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const mq = window.matchMedia('(max-width: 360px)');
-    const apply = () => setIsCompact(mq.matches);
-    apply();
-    if (typeof mq.addEventListener === 'function') {
-      mq.addEventListener('change', apply);
-      return () => mq.removeEventListener?.('change', apply);
-    }
-
-    mq.addListener?.(apply);
-    return () => mq.removeListener?.(apply);
+  // prune accidental duplicated turnstile widgets (e.g., dev StrictMode / remounts)
+  React.useEffect(() => {
+    const prune = () => {
+      const nodes = Array.from(document.querySelectorAll('.cf-turnstile'));
+      // keep the last one (the newest), remove the rest
+      if (nodes.length > 1) nodes.slice(0, -1).forEach((n) => n.remove());
+    };
+    prune();
+    // also prune on unmount
+    return prune;
   }, []);
 
   useEffect(() => {
@@ -529,13 +526,15 @@ export default function ContactForm({
                 >
                   {copy.fields.budget}
                 </label>
-                {approxThbDisplay && budgetAmount !== null && (
-                  <span className="text-xs text-slate-500 max-[360px]:truncate max-[360px]:text-xs">
-                    {approxThbDisplay}
-                  </span>
-                )}
+                {approxThbDisplay &&
+                  budgetAmount !== null &&
+                  budgetCurrency !== 'THB' && (
+                    <span className="hidden text-xs text-slate-500 sm:inline">
+                      {approxThbDisplay}
+                    </span>
+                  )}
               </div>
-              <div className="flex min-w-0 items-center gap-2 max-[360px]:gap-1 sm:gap-3 md:gap-4">
+              <div className="flex w-full min-w-0 items-center gap-1 md:gap-1.5">
                 {/* CurrencySelect */}
                 <CurrencySelect
                   labelledBy="budget-label"
@@ -557,7 +556,7 @@ export default function ContactForm({
                     type="text"
                     inputMode="decimal"
                     aria-invalid={fieldState.error ? 'true' : 'false'}
-                    className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200 max-[360px]:text-xs"
+                    className="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
                     placeholder={budgetPlaceholder}
                     value={budgetInput}
                     onChange={(event) => {
@@ -596,6 +595,11 @@ export default function ContactForm({
                   />
                 </div>
               </div>
+              {approxThbDisplay && budgetAmount !== null && budgetCurrency !== 'THB' && (
+                <div className="mt-2 text-xs text-slate-500 sm:hidden">
+                  {approxThbDisplay}
+                </div>
+              )}
               {fieldState.error && (
                 <span className="text-xs text-rose-600">{fieldState.error.message}</span>
               )}
@@ -683,7 +687,7 @@ export default function ContactForm({
             <Turnstile
               key={turnstileNonce}
               siteKey={turnstileSiteKey}
-              options={{ theme: 'light', size: isCompact ? 'compact' : 'normal' }}
+              options={{ theme: 'light', size: 'compact' }}
               onSuccess={(value) => {
                 const nextValue = value ?? '';
                 setToken(nextValue);
