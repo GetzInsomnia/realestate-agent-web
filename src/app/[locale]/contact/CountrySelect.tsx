@@ -78,7 +78,8 @@ export default function CountrySelect({
         aria-label={selected ? `${selected.name} (${selected.dialCode})` : 'Country code'}
         aria-labelledby={labelRelationship}
         className={clsx(
-          'flex h-10 min-w-[100px] items-center justify-between gap-1 rounded-2xl border border-slate-200 bg-white px-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
+          // responsive trigger: allow shrinking/growing with parent
+          'flex h-10 w-auto min-w-0 items-center justify-between gap-1 rounded-2xl border border-slate-200 bg-white px-2 text-sm shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
           className,
         )}
       >
@@ -91,7 +92,10 @@ export default function CountrySelect({
               )}
             />
           </span>
-          <span className="text-sm font-medium tabular-nums">{selected.dialCode}</span>
+          {/* keep full value visible, never ellipsize */}
+          <span className="whitespace-nowrap text-sm font-medium tabular-nums">
+            {selected.dialCode}
+          </span>
         </div>
         <ChevronDownIcon aria-hidden className="h-4 w-4 opacity-60" />
       </SelectTrigger>
