@@ -78,14 +78,20 @@ export default function CurrencySelect({
         aria-labelledby={labelRelationship}
         data-radix-select-trigger
         className={clsx(
-          'inline-flex h-10 w-auto min-w-[3rem] items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
+          // let the trigger flex with its grid/flex parent
+          'inline-flex h-10 w-auto min-w-0 items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-700 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200',
           className,
         )}
       >
-        <SelectValue className="font-mono tabular-nums" placeholder={value} />
+        {/* never wrap or ellipsize the code/symbol */}
+        <SelectValue
+          className="whitespace-nowrap font-mono tabular-nums"
+          placeholder={value}
+        />
         <ChevronDownIcon aria-hidden className="h-4 w-4 opacity-60" />
       </SelectTrigger>
 
+      {/* respect small screens without overflowing */}
       <SelectContent
         position="popper"
         align="start"

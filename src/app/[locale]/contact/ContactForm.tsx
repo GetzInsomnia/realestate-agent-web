@@ -137,6 +137,9 @@ export default function ContactForm({
   const [feedback, setFeedback] = useState<string>('');
   const [token, setToken] = useState<string>('');
   const [turnstileNonce, setTurnstileNonce] = useState(0);
+  const mountedRef = useRef(false);
+  const [turnstileReady, setTurnstileReady] = useState(false);
+  const [isCompact, setIsCompact] = useState(true);
   const [budgetCurrency, setBudgetCurrency] = useState<CurrencyCode>(defaultCurrency);
   const [budgetAmount, setBudgetAmount] = useState<number | null>(null);
   const [budgetInput, setBudgetInput] = useState('');
@@ -191,6 +194,36 @@ export default function ContactForm({
     register('turnstileToken');
     register('locale');
   }, [register]);
+
+  useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      setTurnstileReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const media = window.matchMedia('(max-width: 420px)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsCompact(event.matches);
+    };
+
+    setIsCompact(media.matches);
+
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', handleChange);
+      return () => {
+        media.removeEventListener('change', handleChange);
+      };
+    }
+
+    media.addListener(handleChange);
+    return () => {
+      media.removeListener(handleChange);
+    };
+  }, []);
 
   useEffect(() => {
     setValue('locale', locale);
@@ -683,19 +716,21 @@ export default function ContactForm({
       </label>
       <div className="flex flex-col gap-4">
         <div className="flex justify-center">
-          <div className="max-[360px]:origin-top-left max-[360px]:scale-[0.95]">
-            <Turnstile
-              key={turnstileNonce}
-              siteKey={turnstileSiteKey}
-              options={{ theme: 'light', size: 'compact' }}
-              onSuccess={(value) => {
-                const nextValue = value ?? '';
-                setToken(nextValue);
-              }}
-              onExpire={() => {
-                setToken('');
-              }}
-            />
+          <div className="turnstile-wrapper max-[360px]:origin-top-left max-[360px]:scale-[0.95]">
+            {turnstileReady && (
+              <Turnstile
+                key={turnstileNonce}
+                siteKey={turnstileSiteKey}
+                options={{ theme: 'light', size: isCompact ? 'compact' : 'normal' }}
+                onSuccess={(value) => {
+                  const nextValue = value ?? '';
+                  setToken(nextValue);
+                }}
+                onExpire={() => {
+                  setToken('');
+                }}
+              />
+            )}
           </div>
         </div>
         <button
